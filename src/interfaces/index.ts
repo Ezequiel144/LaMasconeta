@@ -1,1 +1,2 @@
-/* export * from "@/odojfsoi/sdfjsdofj" */
+
+export * from "./listMenu.interface"
