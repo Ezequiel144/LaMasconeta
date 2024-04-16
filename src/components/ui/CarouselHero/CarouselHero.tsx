@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Image from "next/image";
+import ButtonGeneral from "../ButtonGeneral/ButtonGeneral";
 /* import "swiper/swiper.min.css"; */
 
 export default function CarouselHero() {
@@ -16,9 +17,7 @@ export default function CarouselHero() {
             <h1 className=" text-violetGrow-700 font-bold text-5xl">
               Adopcion lorem lorem
             </h1>
-            <button className=" w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700">
-              adoptar ahora
-            </button>
+            <ButtonGeneral> Adoptar Ahora </ButtonGeneral>
           </article>
           <Image
             src={"/image/HeroSlide1.png"}

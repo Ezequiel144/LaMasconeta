@@ -1,5 +1,4 @@
 import CarouselHero from "@/components/ui/CarouselHero/CarouselHero";
-import { Swiper } from "swiper/react";
 
 export default function Home() {
   return (
