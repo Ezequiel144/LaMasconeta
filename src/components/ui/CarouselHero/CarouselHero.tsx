@@ -1,13 +1,23 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import Image from "next/image";
 import ButtonGeneral from "../ButtonGeneral/ButtonGeneral";
 /* import "swiper/swiper.min.css"; */
 
 export default function CarouselHero() {
   return (
-    <Swiper className=" w-full h-[580px] relative">
+    <Swiper
+      className=" w-full h-[580px] relative"
+      pagination
+      modules={[Navigation]}
+      navigation={{
+        nextEl: "#arrowNext",
+        prevEl: "#arrowPrev",
+      }}
+    >
       <SwiperSlide>
         <div className=" flex flex-row items-center justify-between">
           <article className="flex flex-col gap-y-8 pl-20">
@@ -46,11 +56,21 @@ export default function CarouselHero() {
           />
         </div>
       </SwiperSlide>
-      <button className="absolute top-1/2 left-10 z-10">
-        <Image src={"../ArrowLeft.svg"} width={13} height={24} alt="arrowLeft " />
+      <button className="absolute top-1/2 left-10 z-10 cursor-pointer" id="arrowPrev">
+        <Image
+          src={"../ArrowLeft.svg"}
+          width={13}
+          height={24}
+          alt="arrowLeft "
+        />
       </button>
-      <button className="absolute top-1/2 right-10 z-10">
-        <Image src={"../ArrowRight.svg"} width={13} height={24} alt="arrowRight"/>
+      <button className="absolute top-1/2 right-10 z-10 cursor-pointer" id="arrowNext">
+        <Image
+          src={"../ArrowRight.svg"}
+          width={13}
+          height={24}
+          alt="arrowRight"
+        />
       </button>
     </Swiper>
   );
