@@ -10,7 +10,7 @@ import ButtonGeneral from "../ButtonGeneral/ButtonGeneral";
 export default function CarouselHero() {
   return (
     <Swiper
-      className=" w-full h-[580px] relative"
+      className=" w-full h-fit lg:h-[580px] relative"
       pagination
       modules={[Navigation]}
       navigation={{
@@ -19,20 +19,22 @@ export default function CarouselHero() {
       }}
     >
       <SwiperSlide>
-        <div className=" flex flex-row items-center justify-between">
-          <article className="flex flex-col gap-y-8 pl-20">
-            <h4 className=" text-violetGrow-700 font-bold text-xl">
+        <div className=" flex flex-col-reverse lg:flex-row items-center justify-between gap-y-3">
+          <article className="flex flex-col gap-y-8 lg:pl-20">
+            <h4 className=" text-violetGrow-700 font-bold text-base lg:text-xl text-center lg:text-left">
               lorem lorem lorem lorem
             </h4>
-            <h1 className=" text-violetGrow-700 font-bold text-5xl">
+            <h1 className=" text-violetGrow-700 font-bold text-4xl lg:text-5xl text-center lg:text-left">
               Adopcion lorem lorem
             </h1>
-            <ButtonGeneral> Adoptar Ahora </ButtonGeneral>
+            <div className=" w-full flex justify-center lg:justify-start"><ButtonGeneral> Adoptar Ahora </ButtonGeneral></div>
+            
           </article>
           <Image
             src={"/image/HeroSlide1.png"}
             width={588}
             height={588}
+            className=" w-full md:w-[588px] md:h-[588px]"
             alt="slide-1"
           />
         </div>
