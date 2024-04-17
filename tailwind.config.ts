@@ -15,7 +15,8 @@ const config: Config = {
       },
       colors:{
         violetGrow:{
-          600: "#A02EEF"
+          600: "#A02EEF",
+          700: "#8A1ED2"
         }
       }
     },
