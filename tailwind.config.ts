@@ -12,13 +12,14 @@ const config: Config = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "hero-sectionTwo": "url('/image/ImageSection2Numbers.png')",
       },
-      colors:{
-        violetGrow:{
+      colors: {
+        violetGrow: {
           600: "#A02EEF",
-          700: "#8A1ED2"
-        }
-      }
+          700: "#8A1ED2",
+        },
+      },
     },
   },
   plugins: [],

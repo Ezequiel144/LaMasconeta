@@ -1,11 +1,11 @@
 import CarouselHero from "@/components/ui/CarouselHero/CarouselHero";
-import Image from "next/image";
+import HeroSectionTwo from "@/components/ui/HeroSectionTwo/HeroSectionTwo";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col ">
       <CarouselHero />
-      {/* <img src={"/image/ImageSection2Numbers.png"} className="w-full h-fit pt-10" alt="imagenBackgroundAdopcion"/> */}
+      <HeroSectionTwo />
     </main>
   );
 }
