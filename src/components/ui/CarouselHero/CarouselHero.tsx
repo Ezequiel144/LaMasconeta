@@ -10,7 +10,7 @@ import ButtonGeneral from "../ButtonGeneral/ButtonGeneral";
 export default function CarouselHero() {
   return (
     <Swiper
-      className=" w-full h-fit lg:h-[580px] relative"
+      className=" w-full h-fit lg:max-h-[610px] relative"
       pagination
       modules={[Navigation]}
       navigation={{
