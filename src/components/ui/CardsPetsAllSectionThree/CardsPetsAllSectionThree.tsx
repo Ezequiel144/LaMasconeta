@@ -43,7 +43,7 @@ const listCardPets: objectCardPets[] = [
 export default function CardsPetsAllSectionThree() {
   return (
     <section className=" flex flex-col gap-y-5 pt-16 ">
-      <article className="w-full text-right">
+      <article className="w-full text-center lg:text-right">
         <TitleGeneralHome>title lorem lorem</TitleGeneralHome>
       </article>
       <Swiper
