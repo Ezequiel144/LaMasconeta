@@ -16,10 +16,14 @@ const config: Config = {
       },
       colors: {
         violetGrow: {
+          500: "#B451FB",
           600: "#A02EEF",
           700: "#8A1ED2",
         },
       },
+      boxShadow: {
+        'shadowCardPets': '0px 0px 12px 0px rgba(0, 0, 0, 0.3)',
+      }
     },
   },
   plugins: [],
