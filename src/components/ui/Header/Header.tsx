@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import Image from "next/image";
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import ListMenuLink from "../ListMenuLink/ListMenuLink";
