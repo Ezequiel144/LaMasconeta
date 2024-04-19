@@ -13,19 +13,142 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Enum para el género
+enum Gender {
+  male
+  female
+  other
+}
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  // Propiedades sin relación
+  id          String    @id @default(uuid())
+  name        String?
+  lastName    String?
+  email       String    @unique
+  dateOfBirth DateTime?
+  phone       String?
+  gender      Gender?
+  province    String?
+  postalCode  String?
+  password    String //TODO Cifrar contraseña
+
+  // Relaciones
+  // Uno a uno
+  country Country? @relation(fields: [countryId], references: [id])
+  countryId String
+
+  // Uno a muchos
+  Posts     Post[]
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  // Propiedades sin relación
+  id             String    @id @default(uuid())
+  name           String
+  dateOfBirth    DateTime?
+  gender         Gender?
+  age            Int?
+  province       String?
+  transportation Boolean?
+  contactPhone   String?
+  history        String?
+  photos         String[]
+
+  // Relaciones
+  // Uno a uno
+  species      Species       @relation(fields: [speciesId], references: [id])
+  breed        Breed         @relation(fields: [breedId], references: [id])
+  country      Country?      @relation(fields: [countryId], references: [id])
+  adoptionInfo AdoptionInfo?
+
+  // Uno a muchos
+  healthConditions HealthCondition[]
+  behavior         Behavior[]
+
+  // Muchos a uno
+  user User @relation(fields: [userId], references: [id])
+
+  // Campos de relación
+  userId    String
+  speciesId String
+  breedId   String
+  countryId String?
+}
+
+// Modelo de país
+model Country {
+  // Propiedades sin relación
+  id   String @id
+  name String
+
+  // Relaciones
+  // Uno a muchos
+  users User[]
+  Post  Post[]
+}
+
+// Modelo de especie de mascota
+model Species {
+  // Propiedades sin relación
+  id   String @id @default(uuid())
+  name String
+
+  // Relaciones
+  // Uno a muchos
+  Posts Post[]
+}
+
+// Modelo de raza de mascota
+model Breed {
+  // Propiedades sin relación
+  id   String @id @default(uuid())
+  name String
+
+  // Relaciones
+  // Uno a muchos
+  Posts Post[]
+}
+
+// Modelo de condiciones de salud de la mascota
+model HealthCondition {
+  // Propiedades sin relación
+  id        String @id @default(uuid())
+  condition String
+
+  // Relaciones
+  // Muchos a uno
+  Post Post @relation(fields: [postId], references: [id])
+
+  // Campos de relación
+  postId String
+}
+
+// Modelo de comportamiento de la mascota
+model Behavior {
+  // Propiedades sin relación
+  id        String  @id @default(uuid())
+  trait     String
+  isBoolean Boolean
+
+  // Relaciones
+  // Muchos a uno
+  post Post @relation(fields: [postId], references: [id])
+
+  // Campos de relación
+  postId String
+}
+
+// Modelo de información de adopción
+model AdoptionInfo {
+  // Propiedades sin relación
+  id           String @id @default(uuid())
+  adoptionInfo String
+
+  // Relaciones
+  // Uno a uno
+  post Post @relation(fields: [postId], references: [id])
+
+  // Campos de relación
+  postId String @unique
 }
