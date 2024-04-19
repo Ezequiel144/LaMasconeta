@@ -1,7 +1,7 @@
-import { objectInfoNumber } from "@/interfaces";
+import { InfoNumber } from "@/interfaces";
 import CardInfoNumber from "../CardInfoNumber/CardInfoNumber";
 
-const listInfoNumber : objectInfoNumber[]= [
+const listInfoNumber : InfoNumber[]= [
   {
     numberTitle: "1.3K+",
     description: "lorem lorem",

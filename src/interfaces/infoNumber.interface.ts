@@ -1,4 +1,4 @@
-export interface objectInfoNumber{
+export interface InfoNumber{
     numberTitle: string
     description: string
 }
