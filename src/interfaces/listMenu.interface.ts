@@ -1,5 +1,5 @@
 
-export interface objectListMenu {
+export interface ListMenu {
     name: string;
     href: string;
 }

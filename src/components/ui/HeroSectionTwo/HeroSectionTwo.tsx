@@ -1,11 +1,12 @@
 "use client";
-import { objectInfoNumber } from "@/interfaces";
+
 import CardInfoNumber from "../CardInfoNumber/CardInfoNumber";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
+import { objectInfoNumber } from "@/interfaces";
 
 const listInfoNumber: objectInfoNumber[] = [
   {

@@ -5,7 +5,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
 import ButtonGeneral from "../ButtonGeneral/ButtonGeneral";
-/* import "swiper/swiper.min.css"; */
 
 export default function CarouselHero() {
   return (

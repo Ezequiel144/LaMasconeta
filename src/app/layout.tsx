@@ -1,10 +1,10 @@
+import { Providers } from "@/components";
 import { titleFont } from "@/config/fonts";
-import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "La masconeta 🐶",
-  description: "Adopción de mascotas | 😊❤",
+export const metadata = {
+  title: { template: "%s - La Masconeta | Adopta", default: "La Masconeta | Adopta" },
+  description: "La Masconeta | Adopciones de mascotas",
 };
 
 export default function RootLayout({
@@ -14,8 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
-      <body className={titleFont.className}>{children}</body>
+      <body className={titleFont.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

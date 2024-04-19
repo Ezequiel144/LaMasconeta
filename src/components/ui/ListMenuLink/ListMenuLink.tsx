@@ -1,7 +1,7 @@
-import { objectListMenu } from "@/interfaces";
+import { ListMenu } from "@/interfaces";
 import Link from "next/link";
 
-const listMenu: objectListMenu[] = [
+const listMenu: ListMenu[] = [
   {
     name: "Inicio",
     href: "/",
