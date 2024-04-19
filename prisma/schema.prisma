@@ -20,18 +20,26 @@ enum Gender {
   other
 }
 
+enum Role {
+  admin
+  user
+}
+
 model User {
   // Propiedades sin relación
-  id          String    @id @default(uuid())
-  name        String?
-  lastName    String?
-  email       String    @unique
-  dateOfBirth DateTime?
-  phone       String?
-  gender      Gender?
-  province    String?
-  postalCode  String?
-  password    String //TODO Cifrar contraseña
+  id            String    @id @default(uuid())
+  name          String?
+  lastName      String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String //TODO Cifrar contraseña
+  dateOfBirth   DateTime?
+  role          Role      @default(user)
+  image         String?
+  phone         String?
+  gender        Gender?
+  province      String?
+  postalCode    String?
 
   // Relaciones
   // Uno a muchos
