@@ -1,2 +1,3 @@
 export * from "./listMenu.interface"
-export * from "./infoNumber.interface"
+export * from "./listInfoNumber.interface"
+export * from "./listCardPets.interface"
