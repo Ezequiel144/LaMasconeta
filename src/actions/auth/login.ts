@@ -1,14 +1,13 @@
 "use server";
-import { signIn } from "@/auth.config";
+import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-
-// ...
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
+    // await sleep(2);
     await signIn("credentials", {
       ...Object.fromEntries(formData),
       redirect: false,
@@ -24,6 +23,11 @@ export async function authenticate(
           return "Algo salió mal.";
       }
     }
+    /*     if ((error as any).type === "CredentialsSignin") {
+      return "CredentialsSignin";
+    }
+
+    return "Error desconocido"; */
   }
 }
 

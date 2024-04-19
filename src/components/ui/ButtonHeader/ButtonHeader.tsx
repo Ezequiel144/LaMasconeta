@@ -1,15 +1,43 @@
-import Image from "next/image";
+"use client";
 
-export default function ButtonHeader(){
-    return(
-        <button className="flex items-center gap-x-3 px-[10px] py-2 border-2 rounded-lg text-violetGrow-600  border-violetGrow-600">
-          <p className=" text-base font-semibold ">Iniciar Sesion</p>
-          <Image
-            src="../../../../InitialSession.svg"
-            width={32}
-            height={32}
-            alt="InitialSession"
-          />
+import { logout } from "@/actions";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { IoLogInOutline, IoLogOutOutline } from "react-icons/io5";
+
+export default function ButtonHeader() {
+  const { data: session, status } = useSession();
+  const isAuthenticated = !!session?.user;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [status]);
+
+  if (isLoading) {
+    return <div className="w-28 h-10 animate-pulse bg-gray-300" />;
+  }
+
+  return (
+    <div className="flex items-center gap-x-3 border-2 rounded-lg text-violetGrow-600 border-violetGrow-600">
+      {isAuthenticated ? (
+        <button
+          className="flex w-full items-center rounded p-2 transition-all hover:bg-gray-100"
+          onClick={() => logout()}
+        >
+          <IoLogOutOutline size={26} />
+          <span className="ml-3 text-sm">Salir</span>
         </button>
-    )
+      ) : (
+        <Link
+          href={"/auth/login"}
+          className="flex items-center rounded p-2 transition-all hover:bg-gray-100"
+        >
+          <IoLogInOutline size={26} />
+          <span className="ml-3 text-sm">Ingresar</span>
+        </Link>
+      )}
+    </div>
+  );
 }
