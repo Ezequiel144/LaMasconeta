@@ -1,6 +1,7 @@
 import { titleFont } from "@/config/fonts";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "@/components/providers/Providers";
 
 export const metadata: Metadata = {
   title: "La masconeta 🐶",
@@ -14,8 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
-      <body className={titleFont.className}>{children}</body>
+      <Providers>
+        <body className={titleFont.className}>{children}</body>
+      </Providers>
     </html>
   );
 }
