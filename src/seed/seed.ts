@@ -1,3 +1,4 @@
+import { EnumBehavior } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 
 interface SeedUser {
@@ -5,6 +6,7 @@ interface SeedUser {
   password: string;
   name: string;
   gender: "male" | "female" | "other";
+  role: "admin" | "user";
 }
 
 interface SeedSpecies {
@@ -16,12 +18,7 @@ interface SeedHealthCondition {
 }
 
 interface SeedBehavior {
-  trait: string;
-  isBoolean: boolean;
-}
-
-interface SeedAdoptionInfo {
-  adoptionInfo: string;
+  name: EnumBehavior;
 }
 
 interface SeedCountry {
@@ -34,22 +31,23 @@ interface SeedData {
   species: SeedSpecies[];
   healthConditions: SeedHealthCondition[];
   behaviors: SeedBehavior[];
-  adoptionInfo: SeedAdoptionInfo[];
 }
 
 export const initialData: SeedData = {
   users: [
     {
-      email: "usuario1@example.com",
-      name: "Usuario 1",
-      password: bcryptjs.hashSync("password1", 10),
+      email: "admin@example.com",
+      name: "Admin",
+      password: bcryptjs.hashSync("adminpassword", 10),
       gender: "male",
+      role: "admin",
     },
     {
-      email: "usuario2@example.com",
-      name: "Usuario 2",
-      password: bcryptjs.hashSync("password2", 10),
+      email: "user@example.com",
+      name: "User",
+      password: bcryptjs.hashSync("userpassword", 10),
       gender: "female",
+      role: "user",
     },
   ],
   provinces: [
@@ -113,27 +111,21 @@ export const initialData: SeedData = {
     { condition: "Hipotiroidismo" },
   ],
   behaviors: [
-    { trait: "Agresividad", isBoolean: true },
-    { trait: "Ansiedad por separación", isBoolean: true },
-    { trait: "Miedo a los ruidos fuertes", isBoolean: true },
-    { trait: "Ladrido excesivo", isBoolean: true },
-    { trait: "Comportamiento destructivo", isBoolean: true },
-    { trait: "Persiguiendo la cola", isBoolean: true },
-    { trait: "Escalada", isBoolean: true },
-    { trait: "Rascado", isBoolean: true },
-    { trait: "Morder", isBoolean: true },
-    { trait: "Marcaje con orina", isBoolean: true },
-  ],
-  adoptionInfo: [
-    { adoptionInfo: "Requiere espacios abiertos" },
-    { adoptionInfo: "Apto para departamentos" },
-    { adoptionInfo: "Convive bien con otros animales" },
-    { adoptionInfo: "Requiere cuidados especiales" },
-    { adoptionInfo: "Apto para principiantes" },
-    { adoptionInfo: "No apto para familias con niños pequeños" },
-    { adoptionInfo: "Requiere mucho ejercicio" },
-    { adoptionInfo: "Requiere poco mantenimiento" },
-    { adoptionInfo: "Apto para familias con niños pequeños" },
-    { adoptionInfo: "Requiere supervisión veterinaria constante" },
+    { name: "amigable" },
+    { name: "timido" },
+    { name: "curioso" },
+    { name: "tranquilo" },
+    { name: "jugueton" },
+    { name: "leal" },
+    { name: "docil" },
+    { name: "inteligente" },
+    { name: "afectuoso" },
+    { name: "obediente" },
+    { name: "feliz" },
+    { name: "energetico" },
+    { name: "paciente" },
+    { name: "adaptable" },
+    { name: "alerta" },
+    { name: "sensible" },
   ],
 };

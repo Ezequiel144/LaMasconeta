@@ -3,58 +3,54 @@ import { initialData } from "./seed";
 
 async function seedDatabase() {
   try {
-    // Eliminar registros existentes
+    console.log("Eliminando registros existentes...");
+    await prisma.country.deleteMany();
     await prisma.user.deleteMany();
-    await prisma.adoptionInfo.deleteMany();
+    await prisma.post.deleteMany();
+    await prisma.species.deleteMany();
     await prisma.behavior.deleteMany();
     await prisma.healthCondition.deleteMany();
-    await prisma.post.deleteMany();
-    await prisma.country.deleteMany();
-    await prisma.species.deleteMany();
 
-    // Crear
-    const {
-      users,
-      provinces,
-      species,
-      healthConditions,
-      adoptionInfo,
-      behaviors,
-    } = initialData;
+    console.log("Creando nuevos registros...");
 
+    // Crear usuarios
     await prisma.user.createMany({
-      data: users,
+      data: initialData.users,
     });
 
+    // Crear países
     await prisma.country.createMany({
-      data: provinces,
+      data: initialData.provinces,
     });
 
+    // Crear especies
     await prisma.species.createMany({
-      data: species,
+      data: initialData.species,
     });
 
+    // Crear condiciones de salud
     await prisma.healthCondition.createMany({
-      data: healthConditions,
+      data: initialData.healthConditions,
     });
 
-    await prisma.adoptionInfo.createMany({
-      data: adoptionInfo,
-    });
-
+    // Crear comportamientos
     await prisma.behavior.createMany({
-      data: behaviors,
+      data: initialData.behaviors,
     });
 
-    console.log("Seed cargado exitosamente");
+    console.log("Semilla cargada exitosamente");
   } catch (error) {
-    console.error("Seed no se pudo cargar:", error);
+    console.error("Error al cargar la semilla:", error);
   } finally {
     await prisma.$disconnect();
+    console.log("Cliente de Prisma desconectado");
   }
 }
 
-(() => {
-  if (process.env.NODE_ENV === "production") return;
-  seedDatabase();
+(async () => {
+  if (process.env.NODE_ENV !== "production") {
+    await seedDatabase();
+  } else {
+    console.log("El proceso de siembra no se ejecuta en producción.");
+  }
 })();

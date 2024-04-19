@@ -20,117 +20,138 @@ enum Gender {
   other
 }
 
+// Enum para el rol del usuario
 enum Role {
   admin
   user
 }
 
+// Enum para el como se entrega
+enum HowDelivered {
+  vacunado
+  certificado_de_salud
+  desparasitado
+  esterilizado
+  otro
+}
+
+// Enum para el comportamiento
+enum EnumBehavior {
+  amigable
+  timido
+  curioso
+  tranquilo
+  jugueton
+  leal
+  docil
+  inteligente
+  afectuoso
+  obediente
+  feliz
+  energetico
+  paciente
+  adaptable
+  alerta
+  sensible
+}
+
+// Modelo para el país (provincia)
+model Country {
+  id    String @id @default(uuid())
+  name  String
+  // Relación uno a muchos con Post
+  posts Post[]
+  User  User[]
+}
+
+// Modelo para el usuario
 model User {
-  // Propiedades sin relación
   id            String    @id @default(uuid())
   name          String?
   lastName      String?
   email         String    @unique
   emailVerified DateTime?
-  password      String //TODO Cifrar contraseña
+  password      String // TODO: Cifrar contraseña
   dateOfBirth   DateTime?
   role          Role      @default(user)
   image         String?
   phone         String?
   gender        Gender?
-  province      String?
+  province      Country?  @relation(fields: [countryId], references: [id]) // Relación muchos a uno con Country
   postalCode    String?
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
+  // Relación uno a muchos con Post
+  posts         Post[]
+  countryId     String?
 }
 
+// Modelo para el publicación
 model Post {
-  // Propiedades sin relación
-  id             String    @id @default(uuid())
-  name           String
-  dateOfBirth    DateTime?
-  gender         Gender?
-  age            Int?
-  province       String?
-  transportation Boolean?
-  contactPhone   String?
-  history        String?
-  photos         String[]
-
-  // Relaciones
-  // Uno a uno
-  species          Species           @relation(fields: [speciesId], references: [id])
-  breed            Breed             @relation(fields: [breedId], references: [id])
-  country          Country?          @relation(fields: [countryId], references: [id])
-  // Uno a muchos
-  healthConditions HealthCondition[]
-
-  // Muchos a uno
-  user User @relation(fields: [userId], references: [id])
-
-  // Campos de relación
-  userId    String
-  speciesId String
-  breedId   String
-  countryId String?
+  id                   String                @id @default(uuid())
+  name                 String
+  date                 DateTime
+  gender               Gender
+  age                  Int
+  vaccinated           Boolean
+  phone                String
+  history              String
+  photos               String[]
+  weight               Float
+  height               Float
+  // Relación muchos a muchos con HealthCondition
+  postHealthConditions PostHealthCondition[]
+  // Relación uno a muchos con BehaviorPost
+  behaviors            BehaviorPost[]
+  // Relación uno a muchos con DeliveryOption
+  delivery             Boolean
+  // Relación muchos a uno con Usuario
+  user                 User                  @relation(fields: [userId], references: [id])
+  userId               String
+  // Relación muchos a uno con Country
+  country              Country               @relation(fields: [countryId], references: [id])
+  countryId            String
+  // Relación muchos a uno con Species
+  species              Species               @relation(fields: [speciesId], references: [id])
+  speciesId            String
 }
 
-// Modelo de país
-model Country {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Post Post[]
-}
-
-// Modelo de especie de mascota
+// Modelo para el especie
 model Species {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
+  id    String @id @default(uuid())
+  name  String
+  // Relación uno a muchos con Post
+  posts Post[]
 }
 
-// Modelo de raza de mascota
-model Breed {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
-}
-
-// Modelo de condiciones de salud de la mascota
-model HealthCondition {
-  // Propiedades sin relación
-  id        String @id @default(uuid())
-  condition String
-
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
-}
-
-// Modelo de comportamiento de la mascota
+// Modelo para el comportamiento
 model Behavior {
-  // Propiedades sin relación
-  id        String  @id @default(uuid())
-  trait     String
-  isBoolean Boolean
+  id    String         @id @default(uuid())
+  name  EnumBehavior
+  // Relación uno a muchos con BehaviorPost
+  posts BehaviorPost[]
 }
 
-// Modelo de información de adopción
-model AdoptionInfo {
-  // Propiedades sin relación
-  id           String @id @default(uuid())
-  adoptionInfo String
+// Modelo para el tabla de unión entre Post y Behavior
+model BehaviorPost {
+  id         String   @id @default(uuid())
+  behavior   Behavior @relation(fields: [behaviorId], references: [id])
+  behaviorId String
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+}
+
+// Modelo para el condition de salud
+model HealthCondition {
+  id                   String                @id @default(uuid())
+  condition            String
+  // Relación muchos a muchos con Post
+  postHealthConditions PostHealthCondition[]
+}
+
+// Modelo para el tabla de unión entre Post y HealthCondition
+model PostHealthCondition {
+  id                String          @id @default(uuid())
+  post              Post            @relation(fields: [postId], references: [id])
+  postId            String
+  healthCondition   HealthCondition @relation(fields: [healthConditionId], references: [id])
+  healthConditionId String
 }
