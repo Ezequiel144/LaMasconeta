@@ -1,54 +1,51 @@
 "use server";
 
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { Gender, Post } from "@prisma/client";
+import { Gender } from "@prisma/client";
 import { z } from "zod";
 
+// Definimos el esquema para validar los datos del formulario
 const postSchema = z.object({
-  id: z.string().uuid().optional().nullable(),
-  name: z.string().min(2).max(16),
-  dateOfBirth: z.date(),
+  name: z.string().min(1).max(20), // Modificado el mínimo de caracteres a 1
+  description: z.string().min(1).max(200), // Modificado el mínimo de caracteres a 1
   gender: z.nativeEnum(Gender),
-  age: z
-    .number()
-    .min(0)
-    .transform((val) => Number(val)),
-  province: z.string(),
-  transportation: z.boolean(),
-  contactPhone: z.string(),
-  history: z.string().min(30).max(255),
-  healthConditions: z.array(z.string()),
-  userId: z.string().uuid(),
-  speciesId: z.string().uuid(),
-  breedId: z.string().uuid(),
-  countryId: z.string().uuid(),
+  age: z.string().min(0).max(10),
+  // age: z
+  //   .number()
+  //   .min(0)
+  //   .transform((val) => Number(val)),
+  phone: z.string().min(1).max(15), // Modificado el mínimo de caracteres a 1
+  history: z.string().min(1).max(255), // Modificado el mínimo de caracteres a 1
+  weight: z.string().min(0).max(20), // Cambiado a number
+  height: z.string().min(0).max(20), // Cambiado a number
+  userId: z.string().optional(), // No es opcional, asumimos que siempre se recibe
 });
 
 export const createPost = async (formData: FormData) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);
 
+  const session = await auth();
+  const user = session?.user?.id;
+
+  if (!user) {
+    return { ok: false, message: "No estás autenticado" };
+  }
+
   if (!postParsed.success) {
     console.log(postParsed.error);
-    return { ok: false };
+    return { ok: false, message: "Datos del formulario no válidos" };
   }
 
   const postData = postParsed.data;
-  postData.name = postData.name.trim().toLowerCase();
-
-  const { id, healthConditions, ...rest } = postData;
+  const { userId, ...rest } = postData;
 
   try {
-    let post: Post;
-
-    post = await prisma.post.create({
+    const post = await prisma.post.create({
       data: {
         ...rest,
-        healthConditions: {
-          createMany: {
-            data: healthConditions.map((condition) => ({ condition })),
-          },
-        },
+        user: { connect: { id: user } },
       },
     });
 

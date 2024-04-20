@@ -1,0 +1,157 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum para el género
+enum Gender {
+  male
+  female
+  other
+}
+
+// Enum para el rol del usuario
+enum Role {
+  admin
+  user
+}
+
+// Enum para el como se entrega
+enum HowDelivered {
+  vacunado
+  certificado_de_salud
+  desparasitado
+  esterilizado
+  otro
+}
+
+// Enum para el comportamiento
+enum EnumBehavior {
+  amigable
+  timido
+  curioso
+  tranquilo
+  jugueton
+  leal
+  docil
+  inteligente
+  afectuoso
+  obediente
+  feliz
+  energetico
+  paciente
+  adaptable
+  alerta
+  sensible
+}
+
+// Modelo para el país (provincia)
+model Country {
+  id    String @id @default(uuid())
+  name  String
+  // Relación uno a muchos con Post
+  posts Post[]
+  User  User[]
+}
+
+// Modelo para el usuario
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  lastName      String?
+  email         String    @unique
+  emailVerified DateTime?
+  password      String // TODO: Cifrar contraseña
+  dateOfBirth   DateTime?
+  role          Role      @default(user)
+  image         String?
+  phone         String?
+  gender        Gender?
+  province      Country?  @relation(fields: [countryId], references: [id]) // Relación muchos a uno con Country
+  postalCode    String?
+  // Relación uno a muchos con Post
+  posts         Post[]
+  countryId     String?
+}
+
+// Modelo para el publicación
+model Post {
+  id                   String                @id @default(uuid())
+  name                 String
+  date                 DateTime              @default(now())
+  description          String
+  gender               Gender
+  age                  Int
+  phone                String
+  history              String
+  photos               String?
+  weight               Float
+  height               Float
+  // Relación muchos a muchos con HealthCondition
+  postHealthConditions PostHealthCondition[]
+  // Relación uno a muchos con BehaviorPost
+  behaviors            BehaviorPost[]
+  // Relación uno a muchos con DeliveryOption
+  delivery             Boolean
+  // Relación muchos a uno con Usuario
+  user                 User                  @relation(fields: [userId], references: [id])
+  userId               String
+  // Relación muchos a uno con Country
+  country              Country               @relation(fields: [countryId], references: [id])
+  countryId            String
+  // Relación muchos a uno con Species
+  species              Species               @relation(fields: [speciesId], references: [id])
+  speciesId            String
+}
+
+// Modelo para el especie
+model Species {
+  id    String @id @default(uuid())
+  name  String
+  // Relación uno a muchos con Post
+  posts Post[]
+}
+
+// Modelo para el comportamiento
+model Behavior {
+  id    String         @id @default(uuid())
+  name  EnumBehavior
+  // Relación uno a muchos con BehaviorPost
+  posts BehaviorPost[]
+}
+
+// Modelo para el tabla de unión entre Post y Behavior
+model BehaviorPost {
+  id         String   @id @default(uuid())
+  behavior   Behavior @relation(fields: [behaviorId], references: [id])
+  behaviorId String
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+}
+
+// Modelo para el condition de salud
+model HealthCondition {
+  id                   String                @id @default(uuid())
+  condition            String
+  // Relación muchos a muchos con Post
+  postHealthConditions PostHealthCondition[]
+}
+
+// Modelo para el tabla de unión entre Post y HealthCondition
+model PostHealthCondition {
+  id                String          @id @default(uuid())
+  post              Post            @relation(fields: [postId], references: [id])
+  postId            String
+  healthCondition   HealthCondition @relation(fields: [healthConditionId], references: [id])
+  healthConditionId String
+}
