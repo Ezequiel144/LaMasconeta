@@ -1,6 +1,11 @@
 "use client";
+import { createPost } from "@/actions";
+import { Province } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { createPost } from "../../../actions/post/create-update-post";
+
+interface Props {
+  provinces: Province[];
+}
 
 interface FormInputs {
   name: string;
@@ -11,9 +16,10 @@ interface FormInputs {
   history: string;
   weight: string;
   height: string;
+  provinceId: string;
 }
 
-export const MascotaForm = () => {
+export const MascotaForm = ({ provinces }: Props) => {
   const {
     handleSubmit,
     register,
@@ -33,15 +39,14 @@ export const MascotaForm = () => {
     formData.append("history", data.history);
     formData.append("weight", data.weight.toString());
     formData.append("height", data.height.toString());
-
+    formData.append("provinceId", data.provinceId);
+    
     const { ok } = await createPost(formData);
 
     if (!ok) {
-      alert("Producto no se pudo actualizar");
+      alert("Producto no se pudo crear");
       return;
     }
-
-    /*     router.replace(`/admin/product/${updatedProduct?.slug}`); */
   };
 
   return (
@@ -101,6 +106,20 @@ export const MascotaForm = () => {
           </label>
         </div>
 
+        <div className="mb-2 flex flex-col">
+          <span>[Provincias]</span>
+          <select
+            className="rounded-md border bg-gray-200 p-2"
+            {...register("provinceId", { required: true })}
+          >
+            <option value="">[Seleccione]</option>
+            {provinces.map((province) => (
+              <option key={province.id} value={province.id}>
+                {province.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <button>Crear Mascota</button>
       </form>
     </div>

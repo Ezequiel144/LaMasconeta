@@ -20,6 +20,7 @@ const postSchema = z.object({
   weight: z.string().min(0).max(20), // Cambiado a number
   height: z.string().min(0).max(20), // Cambiado a number
   userId: z.string().optional(), // No es opcional, asumimos que siempre se recibe
+  provinceId: z.string(),
 });
 
 export const createPost = async (formData: FormData) => {
@@ -39,13 +40,14 @@ export const createPost = async (formData: FormData) => {
   }
 
   const postData = postParsed.data;
-  const { userId, ...rest } = postData;
+  const { userId, provinceId, ...rest } = postData;
 
   try {
     const post = await prisma.post.create({
       data: {
         ...rest,
         user: { connect: { id: user } },
+        province: { connect: { id: provinceId } },
       },
     });
 

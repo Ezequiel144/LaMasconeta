@@ -1,9 +1,12 @@
-import { MascotaForm } from "./ui/FormMascota";
+import { getProvinces } from "@/actions";
+import { MascotaForm } from "./post/ui/FormMascota";
 
 export default async function Profile() {
+  const provinces = await getProvinces();
+
   return (
     <div>
-      <MascotaForm />
+      <MascotaForm provinces={provinces}/>
     </div>
   );
 }
