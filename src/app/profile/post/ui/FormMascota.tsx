@@ -1,10 +1,12 @@
 "use client";
 import { createPost } from "@/actions";
-import { Province } from "@prisma/client";
+import { Behavior, Province } from "@prisma/client";
 import { useForm } from "react-hook-form";
+import { getBehaviors } from '../../../../actions/behavior/get-behavior';
 
 interface Props {
   provinces: Province[];
+  behaviors: Behavior[];
 }
 
 interface FormInputs {
@@ -17,9 +19,10 @@ interface FormInputs {
   weight: string;
   height: string;
   provinceId: string;
+  behaviors: string[];
 }
 
-export const MascotaForm = ({ provinces }: Props) => {
+export const MascotaForm = ({ provinces, behaviors }: Props) => {
   const {
     handleSubmit,
     register,
@@ -27,7 +30,24 @@ export const MascotaForm = ({ provinces }: Props) => {
     getValues,
     setValue,
     watch,
-  } = useForm<FormInputs>();
+  } = useForm<FormInputs>({
+    defaultValues: {
+      behaviors: [],
+    },
+  });
+
+  watch("behaviors");
+
+  const onBehaviorChanged = (behaviorId: string) => {
+    const selectedBehaviors = new Set(getValues("behaviors"));
+    if (selectedBehaviors.has(behaviorId)) {
+      selectedBehaviors.delete(behaviorId);
+    } else {
+      selectedBehaviors.add(behaviorId);
+    }
+    setValue("behaviors", Array.from(selectedBehaviors));
+  };
+
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
 
@@ -40,8 +60,15 @@ export const MascotaForm = ({ provinces }: Props) => {
     formData.append("weight", data.weight.toString());
     formData.append("height", data.height.toString());
     formData.append("provinceId", data.provinceId);
-    
-    const { ok } = await createPost(formData);
+
+    // Verificar que selectedBehaviors no sea undefined
+    if (data.behaviors) {
+      data.behaviors.forEach((behavior) => {
+        formData.append("behaviors", behavior);
+      });
+    }
+
+    const { ok } = await createPost(formData , data.behaviors );
 
     if (!ok) {
       alert("Producto no se pudo crear");
@@ -120,6 +147,25 @@ export const MascotaForm = ({ provinces }: Props) => {
             ))}
           </select>
         </div>
+        <div className="mb-2 flex flex-col">
+          <span>Comportamientos</span>
+          <div className="flex flex-wrap">
+            {behaviors.map((behavior) => (
+              <div
+                key={behavior.id}
+                onClick={() => onBehaviorChanged(behavior.id)}
+                className={`mb-2 mr-2 w-40 cursor-pointer rounded-md border p-2 text-center transition-all capitalize ${
+                  getValues("behaviors").includes(behavior.id)
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
+                }`}
+              >
+                <span>{behavior.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <button>Crear Mascota</button>
       </form>
     </div>

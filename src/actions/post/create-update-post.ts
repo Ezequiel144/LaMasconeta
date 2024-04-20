@@ -5,25 +5,24 @@ import { prisma } from "@/lib/prisma";
 import { Gender } from "@prisma/client";
 import { z } from "zod";
 
-// Definimos el esquema para validar los datos del formulario
 const postSchema = z.object({
-  name: z.string().min(1).max(20), // Modificado el mínimo de caracteres a 1
-  description: z.string().min(1).max(200), // Modificado el mínimo de caracteres a 1
+  name: z.string().min(1).max(20),
+  description: z.string().min(1).max(200),
   gender: z.nativeEnum(Gender),
   age: z.string().min(0).max(10),
   // age: z
   //   .number()
   //   .min(0)
   //   .transform((val) => Number(val)),
-  phone: z.string().min(1).max(15), // Modificado el mínimo de caracteres a 1
-  history: z.string().min(1).max(255), // Modificado el mínimo de caracteres a 1
-  weight: z.string().min(0).max(20), // Cambiado a number
-  height: z.string().min(0).max(20), // Cambiado a number
-  userId: z.string().optional(), // No es opcional, asumimos que siempre se recibe
+  phone: z.string().min(1).max(15),
+  history: z.string().min(1).max(255),
+  weight: z.string().min(0).max(20),
+  height: z.string().min(0).max(20),
+  userId: z.string().optional(),
   provinceId: z.string(),
 });
 
-export const createPost = async (formData: FormData) => {
+export const createPost = async (formData: FormData, behaviors: string[]) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);
 
@@ -40,6 +39,7 @@ export const createPost = async (formData: FormData) => {
   }
 
   const postData = postParsed.data;
+
   const { userId, provinceId, ...rest } = postData;
 
   try {
@@ -50,6 +50,19 @@ export const createPost = async (formData: FormData) => {
         province: { connect: { id: provinceId } },
       },
     });
+
+    const postId = post.id;
+
+    await Promise.all(
+      behaviors.map(async (behaviorId: string) => {
+        await prisma.postToEnumBehavior.create({
+          data: {
+            postId,
+            enumBehaviorId: behaviorId,
+          },
+        });
+      })
+    );
 
     return { ok: true, post };
   } catch (error) {
