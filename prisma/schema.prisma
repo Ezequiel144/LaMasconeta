@@ -26,40 +26,6 @@ enum Role {
   user
 }
 
-// Enum para el como se entrega
-enum HowDelivered {
-  vacunado
-  certificado_de_salud
-  desparasitado
-  esterilizado
-  otro
-}
-
-// Enum para el comportamiento
-enum EnumBehavior {
-  amigable
-  timido
-  curioso
-  tranquilo
-  jugueton
-  leal
-  docil
-  inteligente
-  afectuoso
-  obediente
-  feliz
-  energetico
-  paciente
-  adaptable
-  alerta
-  sensible
-}
-
-// Este es tu schema de Prisma existente
-// Aquí están los modelos User y Post
-
-// Este es tu schema de Prisma actualizado
-
 model User {
   id            String    @id @default(uuid())
   name          String?
@@ -92,4 +58,44 @@ model Post {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String
+
+  PostToHowDelivered PostToHowDelivered[]
+  PostToEnumBehavior PostToEnumBehavior[]
+}
+
+model HowDelivered {
+  id    String               @id @default(uuid())
+  name  String
+  posts PostToHowDelivered[]
+}
+
+model PostToHowDelivered {
+  id             String        @id @default(uuid())
+  postId         String
+  HowDelivered   HowDelivered? @relation(fields: [howDeliveredId], references: [id])
+  howDeliveredId String?
+  Post           Post          @relation(fields: [postId], references: [id])
+}
+
+model Behavior {
+  id    String               @id @default(uuid())
+  name  String
+  posts PostToEnumBehavior[]
+}
+
+model PostToEnumBehavior {
+  id             String    @id @default(uuid())
+  postId         String
+  EnumBehavior   Behavior? @relation(fields: [enumBehaviorId], references: [id])
+  enumBehaviorId String?
+  Post           Post      @relation(fields: [postId], references: [id])
+}
+
+model Province {
+  id    String @id
+  name  String
+  // Relación con los posts
+  posts Post[]
 }
