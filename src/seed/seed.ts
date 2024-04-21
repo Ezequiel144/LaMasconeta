@@ -12,15 +12,20 @@ interface HowDeliveredInt {
   description?: string;
 }
 
-interface enumBehaviorInt {
+interface EnumBehaviorInt {
   name: string;
   description?: string;
+}
+
+interface Species {
+  name: string;
 }
 
 interface SeedData {
   users: SeedUser[];
   howDelivered: HowDeliveredInt[];
-  behavior: enumBehaviorInt[];
+  behavior: EnumBehaviorInt[];
+  species: Species[];
 }
 
 export const initialData: SeedData = {
@@ -68,5 +73,22 @@ export const initialData: SeedData = {
     { name: "adaptable" },
     { name: "alerta" },
     { name: "sensible" },
+  ],
+  species: [
+    { name: "perro" },
+    { name: "gato" },
+    { name: "conejo" },
+    { name: "pajaro" },
+    { name: "pez" },
+    { name: "hamster" },
+    { name: "cobayo" },
+    { name: "reptil" },
+    { name: "huron" },
+    { name: "erizo" },
+    { name: "tortuga" },
+    { name: "caballo" },
+    { name: "cerdo" },
+    { name: "cabra" },
+    { name: "otro" },
   ],
 };

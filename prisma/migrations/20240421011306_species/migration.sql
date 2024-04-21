@@ -4,6 +4,9 @@ CREATE TYPE "Gender" AS ENUM ('male', 'female', 'other');
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
 
+-- CreateEnum
+CREATE TYPE "Species" AS ENUM ('perro', 'gato', 'conejo', 'pajaro', 'pez', 'hamster', 'cobayo', 'reptil', 'huron', 'erizo', 'tortuga', 'caballo', 'cerdo', 'cabra', 'otro');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -17,7 +20,6 @@ CREATE TABLE "User" (
     "image" TEXT,
     "phone" TEXT,
     "gender" "Gender",
-    "postalCode" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -35,7 +37,9 @@ CREATE TABLE "Post" (
     "photos" TEXT,
     "weight" TEXT NOT NULL,
     "height" TEXT NOT NULL,
+    "species" "Species" NOT NULL,
     "userId" TEXT NOT NULL,
+    "provinceId" TEXT NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
@@ -44,7 +48,6 @@ CREATE TABLE "Post" (
 CREATE TABLE "HowDelivered" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
 
     CONSTRAINT "HowDelivered_pkey" PRIMARY KEY ("id")
 );
@@ -59,12 +62,11 @@ CREATE TABLE "PostToHowDelivered" (
 );
 
 -- CreateTable
-CREATE TABLE "EnumBehavior" (
+CREATE TABLE "Behavior" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT,
 
-    CONSTRAINT "EnumBehavior_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Behavior_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -76,11 +78,22 @@ CREATE TABLE "PostToEnumBehavior" (
     CONSTRAINT "PostToEnumBehavior_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Province" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Province_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Post" ADD CONSTRAINT "Post_provinceId_fkey" FOREIGN KEY ("provinceId") REFERENCES "Province"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostToHowDelivered" ADD CONSTRAINT "PostToHowDelivered_howDeliveredId_fkey" FOREIGN KEY ("howDeliveredId") REFERENCES "HowDelivered"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -89,7 +102,7 @@ ALTER TABLE "PostToHowDelivered" ADD CONSTRAINT "PostToHowDelivered_howDelivered
 ALTER TABLE "PostToHowDelivered" ADD CONSTRAINT "PostToHowDelivered_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "PostToEnumBehavior" ADD CONSTRAINT "PostToEnumBehavior_enumBehaviorId_fkey" FOREIGN KEY ("enumBehaviorId") REFERENCES "EnumBehavior"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "PostToEnumBehavior" ADD CONSTRAINT "PostToEnumBehavior_enumBehaviorId_fkey" FOREIGN KEY ("enumBehaviorId") REFERENCES "Behavior"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "PostToEnumBehavior" ADD CONSTRAINT "PostToEnumBehavior_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -20,6 +20,7 @@ const postSchema = z.object({
   height: z.string().min(0).max(20),
   userId: z.string().optional(),
   provinceId: z.string(),
+  speciesId: z.string(),
 });
 
 export const createPost = async (formData: FormData, behaviors: string[]) => {
@@ -40,7 +41,7 @@ export const createPost = async (formData: FormData, behaviors: string[]) => {
 
   const postData = postParsed.data;
 
-  const { userId, provinceId, ...rest } = postData;
+  const { userId, provinceId, speciesId, ...rest } = postData;
 
   try {
     const post = await prisma.post.create({
@@ -48,6 +49,7 @@ export const createPost = async (formData: FormData, behaviors: string[]) => {
         ...rest,
         user: { connect: { id: user } },
         province: { connect: { id: provinceId } },
+        species: { connect: { id: speciesId } },
       },
     });
 

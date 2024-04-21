@@ -1,12 +1,12 @@
 "use client";
 import { createPost } from "@/actions";
-import { Behavior, Province } from "@prisma/client";
+import { Behavior, Province, Species } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { getBehaviors } from '../../../../actions/behavior/get-behavior';
 
 interface Props {
   provinces: Province[];
   behaviors: Behavior[];
+  species: Species[];
 }
 
 interface FormInputs {
@@ -20,9 +20,11 @@ interface FormInputs {
   height: string;
   provinceId: string;
   behaviors: string[];
+  species: string;
+  speciesId: string;
 }
 
-export const MascotaForm = ({ provinces, behaviors }: Props) => {
+export const MascotaForm = ({ provinces, behaviors, species }: Props) => {
   const {
     handleSubmit,
     register,
@@ -37,6 +39,8 @@ export const MascotaForm = ({ provinces, behaviors }: Props) => {
   });
 
   watch("behaviors");
+
+  console.log(species);
 
   const onBehaviorChanged = (behaviorId: string) => {
     const selectedBehaviors = new Set(getValues("behaviors"));
@@ -60,6 +64,7 @@ export const MascotaForm = ({ provinces, behaviors }: Props) => {
     formData.append("weight", data.weight.toString());
     formData.append("height", data.height.toString());
     formData.append("provinceId", data.provinceId);
+    formData.append("speciesId", data.speciesId);
 
     // Verificar que selectedBehaviors no sea undefined
     if (data.behaviors) {
@@ -68,7 +73,7 @@ export const MascotaForm = ({ provinces, behaviors }: Props) => {
       });
     }
 
-    const { ok } = await createPost(formData , data.behaviors );
+    const { ok } = await createPost(formData, data.behaviors);
 
     if (!ok) {
       alert("Producto no se pudo crear");
@@ -164,6 +169,21 @@ export const MascotaForm = ({ provinces, behaviors }: Props) => {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="mb-2 flex flex-col">
+          <span>Especie:</span>
+          <select
+            className="rounded-md border bg-gray-200 p-2"
+            {...register("speciesId", { required: true })}
+          >
+            <option value="">Seleccione</option>
+            {species.map((specie) => (
+              <option key={specie.id} value={specie.name}>
+                {specie.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button>Crear Mascota</button>
