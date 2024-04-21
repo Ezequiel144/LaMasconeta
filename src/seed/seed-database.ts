@@ -5,9 +5,14 @@ import { provinces } from "./seed-provinces";
 async function main() {
   try {
     // 1. Borrar registros previos si es necesario
-    await prisma.province.deleteMany();
+      // 1.A -> Borrar registros previos de las tablas que tienen dependencias
+    await prisma.postToHowDelivered.deleteMany();
+    await prisma.postToEnumBehavior.deleteMany();
     await prisma.post.deleteMany();
+
+      // 1.B -> Borrar registros previos de las tablas que no tienen dependencias
     await prisma.user.deleteMany();
+    await prisma.province.deleteMany();
     await prisma.howDelivered.deleteMany();
     await prisma.behavior.deleteMany();
 
@@ -30,7 +35,6 @@ async function main() {
     await prisma.province.createMany({
       data: provinces,
     });
-
 
     console.log("Datos creados correctamente.");
   } catch (error) {

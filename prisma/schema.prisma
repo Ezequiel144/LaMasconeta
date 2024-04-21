@@ -38,7 +38,6 @@ model User {
   image         String?
   phone         String?
   gender        Gender?
-  postalCode    String?
   posts         Post[]
 }
 
@@ -61,8 +60,8 @@ model Post {
   province   Province @relation(fields: [provinceId], references: [id])
   provinceId String
 
-  PostToHowDelivered PostToHowDelivered[]
-  PostToEnumBehavior PostToEnumBehavior[]
+  postToHowDelivered PostToHowDelivered[]
+  postToEnumBehavior PostToEnumBehavior[]
 }
 
 model HowDelivered {
@@ -74,7 +73,7 @@ model HowDelivered {
 model PostToHowDelivered {
   id             String        @id @default(uuid())
   postId         String
-  HowDelivered   HowDelivered? @relation(fields: [howDeliveredId], references: [id])
+  howDelivered   HowDelivered? @relation(fields: [howDeliveredId], references: [id])
   howDeliveredId String?
   Post           Post          @relation(fields: [postId], references: [id])
 }
@@ -88,7 +87,7 @@ model Behavior {
 model PostToEnumBehavior {
   id             String    @id @default(uuid())
   postId         String
-  EnumBehavior   Behavior? @relation(fields: [enumBehaviorId], references: [id])
+  enumBehavior   Behavior? @relation(fields: [enumBehaviorId], references: [id])
   enumBehaviorId String?
   Post           Post      @relation(fields: [postId], references: [id])
 }
