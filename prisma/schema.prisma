@@ -60,6 +60,9 @@ model Post {
   province   Province @relation(fields: [provinceId], references: [id])
   provinceId String
 
+  species   Species @relation(fields: [speciesId], references: [id])
+  speciesId String
+
   postToHowDelivered PostToHowDelivered[]
   postToEnumBehavior PostToEnumBehavior[]
 }
@@ -94,6 +97,13 @@ model PostToEnumBehavior {
 
 model Province {
   id    String @id
+  name  String
+  // Relación con los posts
+  posts Post[]
+}
+
+model Species {
+  id    String @id @default(uuid())
   name  String
   // Relación con los posts
   posts Post[]
