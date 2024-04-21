@@ -18,9 +18,8 @@ interface FormInputs {
   history: string;
   weight: string;
   height: string;
-  provinceId: string;
   behaviors: string[];
-  species: string;
+  provinceId: string;
   speciesId: string;
 }
 
@@ -39,8 +38,6 @@ export const MascotaForm = ({ provinces, behaviors, species }: Props) => {
   });
 
   watch("behaviors");
-
-  console.log(species);
 
   const onBehaviorChanged = (behaviorId: string) => {
     const selectedBehaviors = new Set(getValues("behaviors"));
@@ -174,12 +171,12 @@ export const MascotaForm = ({ provinces, behaviors, species }: Props) => {
         <div className="mb-2 flex flex-col">
           <span>Especie:</span>
           <select
-            className="rounded-md border bg-gray-200 p-2"
+            className="rounded-md border bg-gray-200 p-2 capitalize"
             {...register("speciesId", { required: true })}
           >
             <option value="">Seleccione</option>
             {species.map((specie) => (
-              <option key={specie.id} value={specie.name}>
+              <option key={specie.id} value={specie.id}>
                 {specie.name}
               </option>
             ))}
