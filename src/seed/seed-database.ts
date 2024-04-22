@@ -1,54 +1,50 @@
 import { prisma } from "../lib/prisma";
 import { initialData } from "./seed";
+import { provinces } from "./seed-provinces";
 
-async function seedDatabase() {
+async function main() {
   try {
-    // Eliminar registros existentes
-    await prisma.user.deleteMany();
-    await prisma.adoptionInfo.deleteMany();
-    await prisma.behavior.deleteMany();
-    await prisma.healthCondition.deleteMany();
+    // 1. Borrar registros previos si es necesario
+    // 1.A -> Borrar registros previos de las tablas que tienen dependencias
+    await prisma.postToHowDelivered.deleteMany();
+    await prisma.postToEnumBehavior.deleteMany();
+    await prisma.species.deleteMany();
     await prisma.post.deleteMany();
-    await prisma.country.deleteMany();
+
+    // 1.B -> Borrar registros previos de las tablas que no tienen dependencias
+    await prisma.user.deleteMany();
+    await prisma.province.deleteMany();
+    await prisma.howDelivered.deleteMany();
+    await prisma.behavior.deleteMany();
     await prisma.species.deleteMany();
 
-    // Crear
-    const {
-      users,
-      provinces,
-      species,
-      healthConditions,
-      adoptionInfo,
-      behaviors,
-    } = initialData;
-
+    // 2. Crear usuarios
     await prisma.user.createMany({
-      data: users,
+      data: initialData.users,
     });
 
-    await prisma.country.createMany({
+    // 3. Crear cómo se entrega
+    await prisma.howDelivered.createMany({
+      data: initialData.howDelivered,
+    });
+
+    // 4. Crear comportamientos
+    await prisma.behavior.createMany({
+      data: initialData.behavior,
+    });
+
+    // 5. Crear provincias
+    await prisma.province.createMany({
       data: provinces,
     });
-
+    // 6. Crear especies
     await prisma.species.createMany({
-      data: species,
+      data: initialData.species,
     });
 
-    await prisma.healthCondition.createMany({
-      data: healthConditions,
-    });
-
-    await prisma.adoptionInfo.createMany({
-      data: adoptionInfo,
-    });
-
-    await prisma.behavior.createMany({
-      data: behaviors,
-    });
-
-    console.log("Seed cargado exitosamente");
+    console.log("Datos creados correctamente.");
   } catch (error) {
-    console.error("Seed no se pudo cargar:", error);
+    console.error("Error al crear datos:", error);
   } finally {
     await prisma.$disconnect();
   }
@@ -56,5 +52,5 @@ async function seedDatabase() {
 
 (() => {
   if (process.env.NODE_ENV === "production") return;
-  seedDatabase();
+  main();
 })();

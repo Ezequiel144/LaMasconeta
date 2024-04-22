@@ -1,7 +1,13 @@
-export default function AdminPage() {
+import { getPosts } from "@/actions/post/get-posts";
+
+export default async function AdminPage() {
+  const posts = await getPosts();
+
   return (
     <div>
-      <h1>Admin Page</h1>
+      <pre>
+        <h1>{JSON.stringify(posts, null, 2)}</h1>
+      </pre>
     </div>
   );
 }

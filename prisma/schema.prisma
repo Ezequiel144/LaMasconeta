@@ -20,117 +20,91 @@ enum Gender {
   other
 }
 
+// Enum para el rol del usuario
 enum Role {
   admin
   user
 }
 
 model User {
-  // Propiedades sin relación
   id            String    @id @default(uuid())
   name          String?
   lastName      String?
   email         String    @unique
   emailVerified DateTime?
-  password      String //TODO Cifrar contraseña
+  password      String // TODO: Cifrar contraseña
   dateOfBirth   DateTime?
   role          Role      @default(user)
   image         String?
   phone         String?
   gender        Gender?
-  province      String?
-  postalCode    String?
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
+  posts         Post[]
 }
 
 model Post {
-  // Propiedades sin relación
-  id             String    @id @default(uuid())
-  name           String
-  dateOfBirth    DateTime?
-  gender         Gender?
-  age            Int?
-  province       String?
-  transportation Boolean?
-  contactPhone   String?
-  history        String?
-  photos         String[]
+  id          String   @id @default(uuid())
+  name        String
+  date        DateTime @default(now())
+  description String
+  gender      Gender
+  age         String
+  phone       String
+  history     String
+  photos      String?
+  weight      String
+  height      String
 
-  // Relaciones
-  // Uno a uno
-  species          Species           @relation(fields: [speciesId], references: [id])
-  breed            Breed             @relation(fields: [breedId], references: [id])
-  country          Country?          @relation(fields: [countryId], references: [id])
-  // Uno a muchos
-  healthConditions HealthCondition[]
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
-  // Muchos a uno
-  user User @relation(fields: [userId], references: [id])
+  province   Province @relation(fields: [provinceId], references: [id])
+  provinceId String
 
-  // Campos de relación
-  userId    String
+  species   Species @relation(fields: [speciesId], references: [id])
   speciesId String
-  breedId   String
-  countryId String?
+
+  postToHowDelivered PostToHowDelivered[]
+  postToEnumBehavior PostToEnumBehavior[]
 }
 
-// Modelo de país
-model Country {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Post Post[]
+model HowDelivered {
+  id    String               @id @default(uuid())
+  name  String
+  posts PostToHowDelivered[]
 }
 
-// Modelo de especie de mascota
-model Species {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
+model PostToHowDelivered {
+  id             String        @id @default(uuid())
+  postId         String
+  howDelivered   HowDelivered? @relation(fields: [howDeliveredId], references: [id])
+  howDeliveredId String?
+  Post           Post          @relation(fields: [postId], references: [id])
 }
 
-// Modelo de raza de mascota
-model Breed {
-  // Propiedades sin relación
-  id   String @id @default(uuid())
-  name String
-
-  // Relaciones
-  // Uno a muchos
-  Posts Post[]
-}
-
-// Modelo de condiciones de salud de la mascota
-model HealthCondition {
-  // Propiedades sin relación
-  id        String @id @default(uuid())
-  condition String
-
-  Post   Post?   @relation(fields: [postId], references: [id])
-  postId String?
-}
-
-// Modelo de comportamiento de la mascota
 model Behavior {
-  // Propiedades sin relación
-  id        String  @id @default(uuid())
-  trait     String
-  isBoolean Boolean
+  id    String               @id @default(uuid())
+  name  String
+  posts PostToEnumBehavior[]
 }
 
-// Modelo de información de adopción
-model AdoptionInfo {
-  // Propiedades sin relación
-  id           String @id @default(uuid())
-  adoptionInfo String
+model PostToEnumBehavior {
+  id             String    @id @default(uuid())
+  postId         String
+  enumBehavior   Behavior? @relation(fields: [enumBehaviorId], references: [id])
+  enumBehaviorId String?
+  Post           Post      @relation(fields: [postId], references: [id])
+}
+
+model Province {
+  id    String @id
+  name  String
+  // Relación con los posts
+  posts Post[]
+}
+
+model Species {
+  id    String @id @default(uuid())
+  name  String
+  // Relación con los posts
+  posts Post[]
 }
