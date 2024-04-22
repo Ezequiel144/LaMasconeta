@@ -30,7 +30,7 @@ const listInfoNumber: objectInfoNumber[] = [
 export default function HeroSectionTwo() {
   return (
     <Swiper
-      className=" w-full h-[350px] flex justify-center items-center gap-x-14 bg-hero-sectionTwo bg-no-repeat bg-cover bg-center mt-10"
+      className=" w-full h-[350px] flex justify-center items-center gap-x-14 bg-hero-sectionTwo bg-no-repeat bg-cover bg-center mt-10 "
       spaceBetween={0}
       slidesPerView={4}
       modules={[Autoplay]}
