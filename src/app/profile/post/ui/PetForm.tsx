@@ -1,6 +1,12 @@
 "use client";
 import { createPost } from "@/actions";
-import { Behavior, HowDelivered, Province, Species } from "@prisma/client";
+import {
+  Behavior,
+  Diseases,
+  HowDelivered,
+  Province,
+  Species,
+} from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 interface Props {
@@ -8,28 +14,31 @@ interface Props {
   behaviors: Behavior[];
   species: Species[];
   howDelivered: HowDelivered[];
+  diseases: Diseases[];
 }
 
 interface FormInputs {
   name: string;
-  description: string;
   gender: "male" | "female" | "other";
   age: number;
+  transfer: boolean;
   phone: number;
   history: string;
   weight: number;
-  height: number;
-  behaviors: string[];
+  size: string;
   provinceId: string;
   speciesId: string;
+  behaviors: string[];
   howDelivered: string[];
+  diseases: string[];
 }
 
-export const MascotaForm = ({
+export const PetForm = ({
   provinces,
   behaviors,
   species,
   howDelivered,
+  diseases,
 }: Props) => {
   const {
     handleSubmit,
@@ -42,10 +51,11 @@ export const MascotaForm = ({
     defaultValues: {
       behaviors: [],
       howDelivered: [],
+      diseases: [],
     },
   });
 
-  watch(["behaviors", "howDelivered"]);
+  watch(["behaviors", "howDelivered", "diseases"]);
 
   const onBehaviorChanged = (behaviorId: string) => {
     const selectedBehaviors = new Set(getValues("behaviors"));
@@ -67,37 +77,56 @@ export const MascotaForm = ({
     setValue("howDelivered", Array.from(selectedHowDelivered));
   };
 
+  const onDiseasesChanged = (diseasesId: string) => {
+    const selectedDiseases = new Set(getValues("diseases"));
+    if (selectedDiseases.has(diseasesId)) {
+      selectedDiseases.delete(diseasesId);
+    } else {
+      selectedDiseases.add(diseasesId);
+    }
+    setValue("diseases", Array.from(selectedDiseases));
+  };
+
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
 
     formData.append("name", data.name);
-    formData.append("description", data.description);
     formData.append("gender", data.gender);
     formData.append("age", data.age.toString());
+    formData.append("transfer", data.transfer.toString());
     formData.append("phone", data.phone.toString());
     formData.append("history", data.history);
     formData.append("weight", data.weight.toString());
-    formData.append("height", data.height.toString());
+    formData.append("size", data.size.toString());
     formData.append("provinceId", data.provinceId);
     formData.append("speciesId", data.speciesId);
 
-    // Verificar que selectedBehaviors no sea undefined
+    // Verificar que behaviors no sea undefined
     if (data.behaviors) {
       data.behaviors.forEach((behavior) => {
         formData.append("behaviors", behavior);
       });
     }
-    // Verificar que onHowDeliveredChanged no sea undefined
+
+    // Verificar que howDelivered no sea undefined
     if (data.howDelivered) {
       data.howDelivered.forEach((delivered) => {
         formData.append("howDelivered", delivered);
       });
     }
 
+    // Verificar que onHowDeliveredChanged no sea undefined
+    if (data.diseases) {
+      data.diseases.forEach((disease) => {
+        formData.append("diseases", disease);
+      });
+    }
+
     const { ok } = await createPost(
       formData,
       data.behaviors,
-      data.howDelivered
+      data.howDelivered,
+      data.diseases
     );
 
     if (!ok) {
@@ -118,12 +147,6 @@ export const MascotaForm = ({
         </div>
         <div>
           <label>
-            Descripción:
-            <textarea {...register("description", { required: true })} />
-          </label>
-        </div>
-        <div>
-          <label>
             Género:
             <select {...register("gender", { required: true })}>
               <option value="male">Masculino</option>
@@ -136,6 +159,12 @@ export const MascotaForm = ({
           <label>
             Edad:
             <input type="number" {...register("age", { required: true })} />
+          </label>
+        </div>
+        <div>
+          <label>
+            Edad:
+            <input type="checkbox" {...register("transfer")} />
           </label>
         </div>
         <div>
@@ -159,7 +188,7 @@ export const MascotaForm = ({
         <div>
           <label>
             Altura:
-            <input type="number" {...register("height", { required: true })} />
+            <input type="number" {...register("size", { required: true })} />
           </label>
         </div>
 
@@ -210,6 +239,25 @@ export const MascotaForm = ({
                 }`}
               >
                 <span>{delivered.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-2 flex flex-col">
+          <span>Alguna enfermedad?</span>
+          <div className="flex flex-wrap">
+            {diseases.map((disease) => (
+              <div
+                key={disease.id}
+                onClick={() => onDiseasesChanged(disease.id)}
+                className={`mb-2 mr-2 w-40 cursor-pointer rounded-md border p-2 text-center transition-all capitalize ${
+                  getValues("howDelivered").includes(disease.id)
+                    ? "bg-blue-500 text-white" // Aquí asignamos la clase CSS si el valor está seleccionado
+                    : "bg-gray-200" // Aquí asignamos la clase CSS si el valor no está seleccionado
+                }`}
+              >
+                <span>{disease.name}</span>
               </div>
             ))}
           </div>

@@ -33,26 +33,29 @@ model User {
   email         String    @unique
   emailVerified DateTime?
   password      String // TODO: Cifrar contraseña
-  dateOfBirth   DateTime?
   role          Role      @default(user)
   image         String?
   phone         String?
   gender        Gender?
   posts         Post[]
+  enabled       Boolean   @default(true)
+  complaints    Float     @default(0)
 }
 
 model Post {
-  id          String   @id @default(uuid())
-  name        String
-  date        DateTime @default(now())
-  description String
-  gender      Gender
-  age         Float
-  phone       Float
-  history     String
-  photos      String?
-  weight      Float
-  height      Float
+  id         String   @id @default(uuid())
+  name       String
+  gender     Gender
+  age        Float
+  transfer   Boolean?  @default(false)
+  phone      Float
+  history    String
+  photos     String?
+  weight     Float //Peso
+  size       String //Aca era alto y ahora es tamaño
+  enabled    Boolean  @default(true)
+  complaints Float    @default(0) //Denuncias
+  date       DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
@@ -65,8 +68,10 @@ model Post {
 
   postToHowDelivered PostToHowDelivered[]
   postToEnumBehavior PostToEnumBehavior[]
+  postToDiseases     PostToDiseases[]
 }
 
+// Condición de entrega (vacunas, tec)
 model HowDelivered {
   id    String               @id @default(uuid())
   name  String
@@ -81,6 +86,7 @@ model PostToHowDelivered {
   Post           Post          @relation(fields: [postId], references: [id])
 }
 
+// Comportamientos
 model Behavior {
   id    String               @id @default(uuid())
   name  String
@@ -92,6 +98,21 @@ model PostToEnumBehavior {
   postId         String
   enumBehavior   Behavior? @relation(fields: [enumBehaviorId], references: [id])
   enumBehaviorId String?
+  Post           Post      @relation(fields: [postId], references: [id])
+}
+
+// Enfermedades
+model Diseases {
+  id    String           @id @default(uuid())
+  name  String
+  posts PostToDiseases[]
+}
+
+model PostToDiseases {
+  id             String    @id @default(uuid())
+  postId         String
+  enumDiseases   Diseases? @relation(fields: [enumDiseasesId], references: [id])
+  enumDiseasesId String?
   Post           Post      @relation(fields: [postId], references: [id])
 }
 
