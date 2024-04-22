@@ -8,8 +8,8 @@ async function main() {
     // 1.A -> Borrar registros previos de las tablas que tienen dependencias
     await prisma.postToHowDelivered.deleteMany();
     await prisma.postToEnumBehavior.deleteMany();
-    await prisma.species.deleteMany();
     await prisma.post.deleteMany();
+    await prisma.species.deleteMany();
 
     // 1.B -> Borrar registros previos de las tablas que no tienen dependencias
     await prisma.user.deleteMany();

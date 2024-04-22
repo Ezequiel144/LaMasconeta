@@ -16,8 +16,8 @@ interface FormInputs {
   age: string;
   phone: string;
   history: string;
-  weight: string;
-  height: string;
+  weight: number;
+  height: number;
   behaviors: string[];
   provinceId: string;
   speciesId: string;
@@ -125,13 +125,13 @@ export const MascotaForm = ({ provinces, behaviors, species }: Props) => {
         <div>
           <label>
             Peso:
-            <input type="text" {...register("weight", { required: true })} />
+            <input type="number" {...register("weight", { required: true })} />
           </label>
         </div>
         <div>
           <label>
             Altura:
-            <input type="text" {...register("height", { required: true })} />
+            <input type="number" {...register("height", { required: true })} />
           </label>
         </div>
 

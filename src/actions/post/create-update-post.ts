@@ -11,13 +11,19 @@ const postSchema = z.object({
   gender: z.nativeEnum(Gender),
   age: z.string().min(0).max(10),
   // age: z
-  //   .number()
-  //   .min(0)
-  //   .transform((val) => Number(val)),
+  // .number()
+  // .min(0)
+  // .transform((val) => Number(val)),
   phone: z.string().min(1).max(15),
   history: z.string().min(1).max(255),
-  weight: z.string().min(0).max(20),
-  height: z.string().min(0).max(20),
+  weight: z
+    .number()
+    .min(0)
+    .transform((val) => Number(val)),
+  height: z
+    .number()
+    .min(0)
+    .transform((val) => Number(val)),
   userId: z.string().optional(),
   provinceId: z.string(),
   speciesId: z.string(),

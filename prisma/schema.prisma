@@ -51,8 +51,8 @@ model Post {
   phone       String
   history     String
   photos      String?
-  weight      String
-  height      String
+  weight      Float
+  height      Float
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
