@@ -20,10 +20,25 @@ const config: Config = {
           600: "#A02EEF",
           700: "#8A1ED2",
         },
+        orangeGrow: {
+          300:"#FFD56D"
+        }
       },
       boxShadow: {
-        'shadowCardPets': '0px 0px 12px 0px rgba(0, 0, 0, 0.3)',
-      }
+        shadowCardPets: "0px 0px 12px 0px rgba(0, 0, 0, 0.3)",
+        shadowContainSecFive: "0px 0px 20px 0px rgba(0, 0, 0, 0.3)",
+      },
+      keyframes:{
+        animateBounceTwo:{
+          "0%":{transform: "translateY(20px)"},
+          "33%":{transform: "translateY(10px)"},
+          "66%":{transform: "translateY(0px)"},
+          "100%": {transform: "translateY(20px)"},
+        }
+      },
+      animation:{ 
+        animateBounceTwo:"animateBounceTwo 3s ease-in infinite"
+      },
     },
   },
   plugins: [],
