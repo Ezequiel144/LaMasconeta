@@ -21,11 +21,10 @@ interface FormInputs {
   name: string;
   gender: "male" | "female" | "other";
   age: number;
-  transfer: boolean;
   phone: number;
   history: string;
   weight: number;
-  size: string;
+  size: "little" | "medium" | "big";
   provinceId: string;
   speciesId: string;
   behaviors: string[];
@@ -93,7 +92,6 @@ export const PetForm = ({
     formData.append("name", data.name);
     formData.append("gender", data.gender);
     formData.append("age", data.age.toString());
-    formData.append("transfer", data.transfer.toString());
     formData.append("phone", data.phone.toString());
     formData.append("history", data.history);
     formData.append("weight", data.weight.toString());
@@ -161,12 +159,7 @@ export const PetForm = ({
             <input type="number" {...register("age", { required: true })} />
           </label>
         </div>
-        <div>
-          <label>
-            Edad:
-            <input type="checkbox" {...register("transfer")} />
-          </label>
-        </div>
+
         <div>
           <label>
             Teléfono:
@@ -187,8 +180,12 @@ export const PetForm = ({
         </div>
         <div>
           <label>
-            Altura:
-            <input type="number" {...register("size", { required: true })} />
+            Tamaño:
+            <select {...register("size", { required: true })}>
+              <option value="little">Pequeño</option>
+              <option value="medium">Mediano</option>
+              <option value="big">Grande</option>
+            </select>
           </label>
         </div>
 
@@ -252,9 +249,9 @@ export const PetForm = ({
                 key={disease.id}
                 onClick={() => onDiseasesChanged(disease.id)}
                 className={`mb-2 mr-2 w-40 cursor-pointer rounded-md border p-2 text-center transition-all capitalize ${
-                  getValues("howDelivered").includes(disease.id)
-                    ? "bg-blue-500 text-white" // Aquí asignamos la clase CSS si el valor está seleccionado
-                    : "bg-gray-200" // Aquí asignamos la clase CSS si el valor no está seleccionado
+                  getValues("diseases").includes(disease.id)
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
                 }`}
               >
                 <span>{disease.name}</span>

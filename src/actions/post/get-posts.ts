@@ -9,27 +9,16 @@ export const getPosts = async () => {
         name: "asc",
       },
       include: {
-        province: {
-          select: {
-            name: true,
-          },
-        },
+        province: true,
+        species: true,
         postToEnumBehavior: {
           select: {
-            enumBehavior: {
-              select: {
-                name: true,
-              },
-            },
+            enumBehavior: true,
           },
         },
         postToHowDelivered: {
           select: {
-            howDelivered: {
-              select: {
-                name: true,
-              },
-            },
+            howDelivered: true,
           },
         },
       },
