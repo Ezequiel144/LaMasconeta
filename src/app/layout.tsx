@@ -1,6 +1,5 @@
 import { Providers } from "@/components";
 import { titleFont } from "@/config/fonts";
-import Headers from "@/components/ui/Header/Header";
 import "./globals.css";
 
 export const metadata = {
@@ -20,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={titleFont.className}>
         <Providers>
-          <Headers />
+         
           {children}
         </Providers>
       </body>
