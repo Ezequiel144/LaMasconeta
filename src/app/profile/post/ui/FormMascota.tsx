@@ -7,7 +7,7 @@ interface Props {
   provinces: Province[];
   behaviors: Behavior[];
   species: Species[];
-  howDelived: HowDelivered[];
+  howDelivered: HowDelivered[];
 }
 
 interface FormInputs {
@@ -29,7 +29,7 @@ export const MascotaForm = ({
   provinces,
   behaviors,
   species,
-  howDelived,
+  howDelivered,
 }: Props) => {
   const {
     handleSubmit,
@@ -41,10 +41,11 @@ export const MascotaForm = ({
   } = useForm<FormInputs>({
     defaultValues: {
       behaviors: [],
+      howDelivered: [],
     },
   });
 
-  watch("behaviors");
+  watch(["behaviors", "howDelivered"]);
 
   const onBehaviorChanged = (behaviorId: string) => {
     const selectedBehaviors = new Set(getValues("behaviors"));
@@ -56,14 +57,14 @@ export const MascotaForm = ({
     setValue("behaviors", Array.from(selectedBehaviors));
   };
 
-  const onHowDeliveredChanged = (howDelivered: string) => {
-    const selectedHowDelivered = new Set(getValues("behaviors"));
-    if (selectedHowDelivered.has(howDelivered)) {
-      selectedHowDelivered.delete(howDelivered);
+  const onHowDeliveredChanged = (howDeliveredId: string) => {
+    const selectedHowDelivered = new Set(getValues("howDelivered"));
+    if (selectedHowDelivered.has(howDeliveredId)) {
+      selectedHowDelivered.delete(howDeliveredId);
     } else {
-      selectedHowDelivered.add(howDelivered);
+      selectedHowDelivered.add(howDeliveredId);
     }
-    setValue("behaviors", Array.from(selectedHowDelivered));
+    setValue("howDelivered", Array.from(selectedHowDelivered));
   };
 
   const onSubmit = async (data: FormInputs) => {
@@ -93,7 +94,11 @@ export const MascotaForm = ({
       });
     }
 
-    const { ok } = await createPost(formData, data.behaviors,data.howDelivered);
+    const { ok } = await createPost(
+      formData,
+      data.behaviors,
+      data.howDelivered
+    );
 
     if (!ok) {
       alert("Producto no se pudo crear");
@@ -192,16 +197,16 @@ export const MascotaForm = ({
         </div>
 
         <div className="mb-2 flex flex-col">
-          <span>Comportamientos</span>
+          <span>Forma de entrega</span>
           <div className="flex flex-wrap">
-            {howDelived.map((delivered) => (
+            {howDelivered.map((delivered) => (
               <div
                 key={delivered.id}
                 onClick={() => onHowDeliveredChanged(delivered.id)}
                 className={`mb-2 mr-2 w-40 cursor-pointer rounded-md border p-2 text-center transition-all capitalize ${
                   getValues("howDelivered").includes(delivered.id)
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200"
+                    ? "bg-blue-500 text-white" // Aquí asignamos la clase CSS si el valor está seleccionado
+                    : "bg-gray-200" // Aquí asignamos la clase CSS si el valor no está seleccionado
                 }`}
               >
                 <span>{delivered.name}</span>

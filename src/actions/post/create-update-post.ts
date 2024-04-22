@@ -80,10 +80,10 @@ export const createPost = async (
 
     await Promise.all(
       howDelivered.map(async (howDeliveredId: string) => {
-        await prisma.postToEnumBehavior.create({
+        await prisma.postToHowDelivered.create({
           data: {
             postId,
-            enumBehaviorId: howDeliveredId,
+            howDeliveredId: howDeliveredId,
           },
         });
       })

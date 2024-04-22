@@ -10,7 +10,7 @@ export default async function Profile() {
   const provinces = await getProvinces();
   const behaviors = await getBehaviors();
   const species = await getSpecies();
-  const howDelived = await getHowDelivered();
+  const howDelivered = await getHowDelivered();
 
   return (
     <div>
@@ -18,7 +18,7 @@ export default async function Profile() {
         provinces={provinces}
         behaviors={behaviors}
         species={species}
-        howDelived={howDelived}
+        howDelivered={howDelivered}
       />
     </div>
   );
