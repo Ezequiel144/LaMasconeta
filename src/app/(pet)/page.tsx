@@ -10,6 +10,9 @@ export default function Home() {
       <HeroSectionTwo />
       <CardsPetsAllSectionThree />
       <ConscientiouslyMessageSectionFour />
+      <section className="h-[620px] border pt-16">
+        
+      </section>
     </main>
   );
 }
