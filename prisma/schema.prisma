@@ -47,8 +47,8 @@ model Post {
   date        DateTime @default(now())
   description String
   gender      Gender
-  age         String
-  phone       String
+  age         Float
+  phone       Float
   history     String
   photos      String?
   weight      Float

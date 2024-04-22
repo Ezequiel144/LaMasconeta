@@ -9,19 +9,21 @@ const postSchema = z.object({
   name: z.string().min(1).max(20),
   description: z.string().min(1).max(200),
   gender: z.nativeEnum(Gender),
-  age: z.string().min(0).max(10),
-  // age: z
-  // .number()
-  // .min(0)
-  // .transform((val) => Number(val)),
-  phone: z.string().min(1).max(15),
+  age: z
+    .string()
+    .min(0)
+    .transform((val) => Number(val)),
+  phone: z
+    .string()
+    .min(0)
+    .transform((val) => Number(val)),
   history: z.string().min(1).max(255),
   weight: z
-    .number()
+    .string()
     .min(0)
     .transform((val) => Number(val)),
   height: z
-    .number()
+    .string()
     .min(0)
     .transform((val) => Number(val)),
   userId: z.string().optional(),
@@ -29,7 +31,11 @@ const postSchema = z.object({
   speciesId: z.string(),
 });
 
-export const createPost = async (formData: FormData, behaviors: string[]) => {
+export const createPost = async (
+  formData: FormData,
+  behaviors: string[],
+  howDelivered: string[]
+) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);
 
@@ -67,6 +73,17 @@ export const createPost = async (formData: FormData, behaviors: string[]) => {
           data: {
             postId,
             enumBehaviorId: behaviorId,
+          },
+        });
+      })
+    );
+
+    await Promise.all(
+      howDelivered.map(async (howDeliveredId: string) => {
+        await prisma.postToEnumBehavior.create({
+          data: {
+            postId,
+            enumBehaviorId: howDeliveredId,
           },
         });
       })

@@ -51,7 +51,7 @@ export const initialData: SeedData = {
   ],
   howDelivered: [
     { name: "vacunado" },
-    { name: "certificado_de_salud" },
+    { name: "certificado de salud" },
     { name: "desparasitado" },
     { name: "esterilizado" },
     { name: "otro" },
