@@ -21,11 +21,16 @@ interface Species {
   name: string;
 }
 
+interface Diseases {
+  name: string;
+}
+
 interface SeedData {
   users: SeedUser[];
   howDelivered: HowDeliveredInt[];
   behavior: EnumBehaviorInt[];
   species: Species[];
+  diseases: Diseases[];
 }
 
 export const initialData: SeedData = {
@@ -89,6 +94,14 @@ export const initialData: SeedData = {
     { name: "caballo" },
     { name: "cerdo" },
     { name: "cabra" },
+    { name: "otro" },
+  ],
+  diseases: [
+    { name: "parvovirus canino" },
+    { name: "leptospirosis" },
+    { name: "panleucopenia felina" },
+    { name: "dermatitis alérgica por pulgas" },
+    { name: "mastitis bovina" },
     { name: "otro" },
   ],
 };

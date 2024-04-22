@@ -8,8 +8,10 @@ async function main() {
     // 1.A -> Borrar registros previos de las tablas que tienen dependencias
     await prisma.postToHowDelivered.deleteMany();
     await prisma.postToEnumBehavior.deleteMany();
+    await prisma.postToDiseases.deleteMany();
     await prisma.post.deleteMany();
     await prisma.species.deleteMany();
+    await prisma.diseases.deleteMany();
 
     // 1.B -> Borrar registros previos de las tablas que no tienen dependencias
     await prisma.user.deleteMany();
@@ -37,9 +39,15 @@ async function main() {
     await prisma.province.createMany({
       data: provinces,
     });
+
     // 6. Crear especies
     await prisma.species.createMany({
       data: initialData.species,
+    });
+
+    // 7. Enfermedades
+    await prisma.diseases.createMany({
+      data: initialData.diseases,
     });
 
     console.log("Datos creados correctamente.");

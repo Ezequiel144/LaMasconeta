@@ -34,7 +34,8 @@ const postSchema = z.object({
 export const createPost = async (
   formData: FormData,
   behaviors: string[],
-  howDelivered: string[]
+  howDelivered: string[],
+  diseases: string[]
 ) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);

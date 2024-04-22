@@ -4,9 +4,6 @@ CREATE TYPE "Gender" AS ENUM ('male', 'female', 'other');
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
 
--- CreateEnum
-CREATE TYPE "Species" AS ENUM ('perro', 'gato', 'conejo', 'pajaro', 'pez', 'hamster', 'cobayo', 'reptil', 'huron', 'erizo', 'tortuga', 'caballo', 'cerdo', 'cabra', 'otro');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -15,11 +12,12 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "emailVerified" TIMESTAMP(3),
     "password" TEXT NOT NULL,
-    "dateOfBirth" TIMESTAMP(3),
     "role" "Role" NOT NULL DEFAULT 'user',
     "image" TEXT,
     "phone" TEXT,
     "gender" "Gender",
+    "enabled" BOOLEAN NOT NULL DEFAULT true,
+    "complaints" DOUBLE PRECISION NOT NULL DEFAULT 0,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -28,18 +26,20 @@ CREATE TABLE "User" (
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "description" TEXT NOT NULL,
     "gender" "Gender" NOT NULL,
-    "age" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
+    "age" DOUBLE PRECISION NOT NULL,
+    "transfer" BOOLEAN NOT NULL DEFAULT false,
+    "phone" DOUBLE PRECISION NOT NULL,
     "history" TEXT NOT NULL,
     "photos" TEXT,
-    "weight" TEXT NOT NULL,
-    "height" TEXT NOT NULL,
-    "species" "Species" NOT NULL,
+    "weight" DOUBLE PRECISION NOT NULL,
+    "size" TEXT NOT NULL,
+    "enabled" BOOLEAN NOT NULL,
+    "complaints" DOUBLE PRECISION NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "provinceId" TEXT NOT NULL,
+    "speciesId" TEXT NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
@@ -79,11 +79,36 @@ CREATE TABLE "PostToEnumBehavior" (
 );
 
 -- CreateTable
+CREATE TABLE "Diseases" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Diseases_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PostToDiseases" (
+    "id" TEXT NOT NULL,
+    "postId" TEXT NOT NULL,
+    "enumDiseasesId" TEXT,
+
+    CONSTRAINT "PostToDiseases_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Province" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
     CONSTRAINT "Province_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Species" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Species_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -96,6 +121,9 @@ ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFE
 ALTER TABLE "Post" ADD CONSTRAINT "Post_provinceId_fkey" FOREIGN KEY ("provinceId") REFERENCES "Province"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Post" ADD CONSTRAINT "Post_speciesId_fkey" FOREIGN KEY ("speciesId") REFERENCES "Species"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "PostToHowDelivered" ADD CONSTRAINT "PostToHowDelivered_howDeliveredId_fkey" FOREIGN KEY ("howDeliveredId") REFERENCES "HowDelivered"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -106,3 +134,9 @@ ALTER TABLE "PostToEnumBehavior" ADD CONSTRAINT "PostToEnumBehavior_enumBehavior
 
 -- AddForeignKey
 ALTER TABLE "PostToEnumBehavior" ADD CONSTRAINT "PostToEnumBehavior_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PostToDiseases" ADD CONSTRAINT "PostToDiseases_enumDiseasesId_fkey" FOREIGN KEY ("enumDiseasesId") REFERENCES "Diseases"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PostToDiseases" ADD CONSTRAINT "PostToDiseases_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
