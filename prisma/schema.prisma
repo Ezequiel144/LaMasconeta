@@ -56,7 +56,7 @@ model Post {
   age        Float
   phone      Float
   history    String
-  photos     String?
+  photos     String[] @default([])
   weight     Float //Peso
   size       Size //Aca era alto y ahora es tamaño
   enabled    Boolean  @default(true)

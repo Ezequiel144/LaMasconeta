@@ -18,7 +18,21 @@ export const getPosts = async () => {
         },
         postToHowDelivered: {
           select: {
-            howDelivered: true,
+            howDeliveredId: true,
+          },
+        },
+        postToDiseases: {
+          select: {
+            enumDiseases: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            lastName: true,
+            email: true,
+            image: true,
           },
         },
       },
