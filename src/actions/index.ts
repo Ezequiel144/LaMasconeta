@@ -9,3 +9,5 @@ export * from "./province/get-province";
 export * from "./behavior/get-behavior"
 
 export * from "./species/get-species"
+
+export * from "./howDelivered/get-how-delivered"
