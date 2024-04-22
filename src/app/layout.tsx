@@ -21,7 +21,6 @@ export default function RootLayout({
       <body className={titleFont.className}>
         <Providers>
           {/* <Header /> */}
-         
           {children}
         </Providers>
       </body>
