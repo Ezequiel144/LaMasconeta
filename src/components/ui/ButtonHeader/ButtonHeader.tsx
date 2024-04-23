@@ -20,7 +20,7 @@ export default function ButtonHeader() {
   }
 
   return (
-    <div className="flex items-center gap-x-3 border-2 rounded-lg text-violetGrow-600 border-violetGrow-600">
+    <div className="lg:flex items-center gap-x-3 border-2 rounded-lg text-violetGrow-600 border-violetGrow-600 hidden">
       {isAuthenticated ? (
         <Link href={"/profile"}
           className="flex w-full items-center rounded p-2 transition-all hover:bg-gray-100"

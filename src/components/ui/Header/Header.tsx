@@ -4,6 +4,8 @@ export const revalidate = 0;
 import Image from "next/image";
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import ListMenuLink from "../ListMenuLink/ListMenuLink";
+import SidebarMenu from "../SidebarMenu/SidebarMenu";
+import ResponsiveHeader from "../ResponsiveHeader/ResponsiveHeader";
 
 export default function Header() {
   return (
@@ -17,6 +19,16 @@ export default function Header() {
         />
         <ListMenuLink />
         <ButtonHeader />
+        
+        {/* <Image
+          src={"/MenuHeader.svg"}
+          className="hidden lg:block"
+          width={32}
+          height={32}
+          alt="menu Header"
+        />
+        <SidebarMenu /> */}
+        <ResponsiveHeader />
       </nav>
     </header>
   );

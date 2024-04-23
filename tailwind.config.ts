@@ -23,6 +23,7 @@ const config: Config = {
         },
         orangeGrow: {
           300:"#FFD56D",
+          400:"#FFB732",
           700:"#CC6302"
         }
       },
