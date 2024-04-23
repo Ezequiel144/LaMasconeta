@@ -1,6 +1,8 @@
 import { ListMenu } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
+import ButtonHeader from "../ButtonHeader/ButtonHeader";
+import ButtonSidebarMenu from "../ButtonSidebarMenu/ButtonSidebarMenu";
 
 const listMenu: ListMenu[] = [
   {
@@ -30,20 +32,42 @@ const listMenu: ListMenu[] = [
 ];
 
 type Props = {
-    isOpen: boolean
+  isOpen: boolean;
+  setIsOpen: any;
 };
 
-export default function SidebarMenu({ isOpen }:Props) {
+export default function SidebarMenu({ isOpen , setIsOpen}: Props) {
   return (
-    <aside className={`min-h-full w-3/4 bg-orangeGrow-400 absolute top-0 ${isOpen ? "left-0" : "-left-3/4"} transition-all duration-300`}>
-      <nav className=" border-2 flex flex-col w-fit h-full m-auto justify-center">
-        {listMenu.map((menu) => (
-          <Link href={menu.href} key={menu.name}>
-            {menu.name}
-          </Link>
-        ))}
-      </nav>
-      <Image src={"/bg-sidebarMenu.svg"} width={580} height={553} className="absolute bottom-0 right-0" alt="fondo del sidebarMenu"/>
-    </aside>
+    <div className={`bg-black/40 min-h-[100vh] w-full fixed top-0 z-20 lg:hidden ${
+        isOpen ? "left-0" : "-left-full"
+      }`}>
+      <aside
+        className={` z-30 min-h-[100vh] w-full sm:w-3/4 bg-orangeGrow-400 fixed top-0 ${
+          isOpen ? "left-0" : "sm:-left-3/4 -left-full"
+        } transition-all duration-300 flex flex-col gap-y-6 items-center justify-center lg:hidden`}
+      >
+        <Image src={"/CloseMenu.svg"} alt="boton para cerrar sidebarMenu" width={32} height={32} className="absolute top-2 right-2 text-white font-bold" onClick={() => setIsOpen(false)}/>
+        <nav className=" flex flex-col w-fit h-full mx-auto justify-center gap-y-10 text-white font-medium text-2xl">
+          {listMenu.map((menu) => (
+            <Link
+              href={menu.href}
+              key={menu.name}
+              className=" hover:text-violetGrow-600"
+            >
+              {menu.name}
+            </Link>
+          ))}
+        </nav>
+        {/* <ButtonHeader /> */}
+        <ButtonSidebarMenu />
+        <Image
+          src={"/bg-sidebarMenu.svg"}
+          width={380}
+          height={353}
+          className="absolute bottom-0 right-0"
+          alt="fondo del sidebarMenu"
+        />
+      </aside>
+    </div>
   );
 }

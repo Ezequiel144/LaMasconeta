@@ -19,15 +19,6 @@ export default function Header() {
         />
         <ListMenuLink />
         <ButtonHeader />
-        
-        {/* <Image
-          src={"/MenuHeader.svg"}
-          className="hidden lg:block"
-          width={32}
-          height={32}
-          alt="menu Header"
-        />
-        <SidebarMenu /> */}
         <ResponsiveHeader />
       </nav>
     </header>

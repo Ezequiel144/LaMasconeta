@@ -16,7 +16,7 @@ export default function ButtonHeader() {
   }, [status]);
 
   if (isLoading) {
-    return <div className="w-28 h-10 animate-pulse bg-gray-300" />;
+    return <div className="w-28 h-10 animate-pulse bg-gray-300 hidden lg:block" />;
   }
 
   return (

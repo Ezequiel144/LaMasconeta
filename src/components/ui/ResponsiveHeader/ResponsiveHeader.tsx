@@ -13,9 +13,9 @@ export default function ResponsiveHeader() {
         width={32}
         height={32}
         alt="menu Header"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => setIsOpen(!isOpen) }
       />
-      <SidebarMenu isOpen={isOpen}/>
+      <SidebarMenu isOpen={isOpen} setIsOpen={setIsOpen}/>
     </>
   );
 }
