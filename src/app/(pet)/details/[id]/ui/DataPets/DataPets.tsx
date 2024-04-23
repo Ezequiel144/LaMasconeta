@@ -33,13 +33,13 @@ const listDataPet = [
     },
     {
       name: "peso",
-      data: "3",
+      data: "3kg",
     },
   ];
 
 export default function DataPets() {
   return (
-    <section>
+    <section className=" pt-5">
       <h2 className=" text-xl font-semibold text-violetGrow-500">Datos</h2>
       <article className=" grid grid-cols-gridResponsive gap-3 ">
         {listDataPet.map((item) => {

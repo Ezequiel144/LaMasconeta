@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function CardUser() {
   return (
-    <section className=" flex gap-x-5 items-center w-fit h-fit mt-8">
+    <section className=" flex gap-x-5 items-center w-fit h-fit pt-5 ">
       <Image
         src={"/image/imagePerfilUserDetails.png"}
         className="rounded-full h-[120px]"

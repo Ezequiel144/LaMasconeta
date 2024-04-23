@@ -45,8 +45,8 @@ export default function MainImageWithCarousel() {
                 <Image
                   key={index}
                   src={imageMain}
-                  width={330}
-                  height={330}
+                  width={490}
+                  height={490}
                   className={`mx-auto rounded-3xl `}
                   alt={name}
                 />
@@ -58,7 +58,7 @@ export default function MainImageWithCarousel() {
       {/* carrusel */}
 
       <Swiper
-        className=" flex items-center justify-center w-full"
+        className=" flex items-center justify-center w-full md:max-w-[500px]"
         spaceBetween={0}
         slidesPerView={4}
         breakpoints={{
