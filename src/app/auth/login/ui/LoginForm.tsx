@@ -78,7 +78,7 @@ function LoginButton() {
       className={`${clsx({
         /* "btn-primary": !pending, */
         "btn-disabled": pending,
-      })} bg-white w-full sm:w-fit mx-auto text-violetGrow-700 text-base font-semibold uppercase px-[15px] py-[8px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white`}
+      })} bg-white w-full mx-auto text-violetGrow-700 text-base font-semibold uppercase px-[15px] py-[8px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white`}
       disabled={pending}
     >
       Ingresar
