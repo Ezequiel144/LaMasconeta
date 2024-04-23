@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col justify-center pt-10 ">
+    <div className="flex min-h-screen w-full flex-col justify-center pt-10 pb-3">
       <section className="w-5/6 md:w-[350px] mx-auto lg:ml-24 xl:ml-32">
         <article className=" flex items-center justify-between">
           <h2
