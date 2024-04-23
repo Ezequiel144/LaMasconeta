@@ -3,45 +3,9 @@ import Image from "next/image";
 import MainImageWithCarousel from "./ui/MainImageWithCarousel/MainImageWithCarousel";
 import CardUser from "./ui/CardUser/CardUser";
 import ButtonEmergency from "./ui/ButtonEmergency/ButtonEmergency";
-
-const listDataPet = [
-  {
-    name: "Sexo",
-    data: "Macho",
-  },
-  {
-    name: "Especie",
-    data: "Perro",
-  },
-  {
-    name: "Raza",
-    data: "Nose",
-  },
-  {
-    name: "Fecha de nacimiento",
-    data: "12/04/2022",
-  },
-  {
-    name: "Edad",
-    data: "2-4 años",
-  },
-  {
-    name: "Estado",
-    data: "En adopcion",
-  },
-  {
-    name: "Nivel de actividad",
-    data: "Baja",
-  },
-  {
-    name: "Adoptar junto a",
-    data: "Solo",
-  },
-  {
-    name: "peso",
-    data: "3",
-  },
-];
+import ButtonInterested from "./ui/ButtonInterested/ButtonInterested";
+import MainTitleCartAndButton from "./ui/MainTitleCartAndButton/MainTitleCartAndButton";
+import DataPets from "./ui/DataPets/Datapets";
 
 const listDataBehaviorPet = [
   "Bueno con los gatos",
@@ -76,30 +40,8 @@ export default function DetailsIdPage() {
       <MainImageWithCarousel />
       <CardUser />
       <ButtonEmergency>Caso extraño</ButtonEmergency>
-      <section className="flex flex-col">
-        <button className="text-[#EF6183] text-xl font-normal flex items-center gap-x-1">
-          <Image src={"/Favorite.svg"} width={24} height={24} alt="favoritos" />
-          <p>Interesado</p>
-        </button>
-        <div className=" bg-orangeGrow-300 px-4 py-3 rounded-xl text-white">
-          <h2 className=" uppercase text-4xl font-bold">Ramoncito</h2>
-          <p className=" text-base font-normal">Buenos Aires, La matanza</p>
-        </div>
-      </section>
-      <section>
-        <h2 className=" text-xl font-semibold text-violetGrow-500">Datos</h2>
-        <article className=" grid grid-cols-gridResponsive gap-3 ">
-          {listDataPet.map((item) => {
-            const { name, data } = item;
-            return (
-              <div key={name} className="w-fit">
-                <h3 className=" text-base font-semibold">{name}</h3>
-                <p className="text-base font-normal">{data}</p>
-              </div>
-            );
-          })}
-        </article>
-      </section>
+      <MainTitleCartAndButton />
+      <DataPets />
       <section className=" flex flex-col gap-y-3">
         <h2 className=" text-xl font-semibold text-violetGrow-500">
           Comportamiento
