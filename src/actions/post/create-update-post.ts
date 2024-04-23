@@ -31,7 +31,8 @@ export const createPost = async (
   formData: FormData,
   behaviors: string[],
   howDelivered: string[],
-  diseases: string[]
+  diseases: string[],
+  photos: string[]
 ) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);
@@ -49,14 +50,15 @@ export const createPost = async (
   }
 
   const postData = postParsed.data;
-  console.log(postData);
 
   const { userId, provinceId, speciesId, ...rest } = postData;
 
+  
   try {
     const post = await prisma.post.create({
       data: {
         ...rest,
+        photos: photos,
         user: { connect: { id: user } },
         province: { connect: { id: provinceId } },
         species: { connect: { id: speciesId } },

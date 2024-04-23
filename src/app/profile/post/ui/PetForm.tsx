@@ -1,5 +1,7 @@
 "use client";
 import { createPost } from "@/actions";
+import { FormInputs } from "@/interfaces";
+import app from "@/utils/firebase";
 import {
   Behavior,
   Diseases,
@@ -7,29 +9,19 @@ import {
   Province,
   Species,
 } from "@prisma/client";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import Image from "next/image";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+const storage = getStorage(app);
 
-interface Props {
+export interface Props {
   provinces: Province[];
   behaviors: Behavior[];
   species: Species[];
   howDelivered: HowDelivered[];
   diseases: Diseases[];
-}
-
-interface FormInputs {
-  name: string;
-  gender: "male" | "female" | "other";
-  age: number;
-  phone: number;
-  history: string;
-  weight: number;
-  size: "little" | "medium" | "big";
-  provinceId: string;
-  speciesId: string;
-  behaviors: string[];
-  howDelivered: string[];
-  diseases: string[];
 }
 
 export const PetForm = ({
@@ -53,7 +45,33 @@ export const PetForm = ({
       diseases: [],
     },
   });
+  const [loading, setLoading] = useState(false);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
+  const fileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = Array.from(e.target.files || []);
+    setLoading(true);
+
+    const uploadTasks = fileList.map(async (file) => {
+      const uniqueFileName = `${uuidv4()}_${file.name}`;
+      const storageRef = ref(storage, `${uniqueFileName}`);
+      await uploadBytes(storageRef, file);
+      return getDownloadURL(storageRef);
+    });
+
+    // Esperar a que todas las tareas de carga de archivos se completen y obtener las URL
+    Promise.all(uploadTasks)
+      .then((urls) => {
+        setImageUrls(urls);
+        setLoading(false);
+        console.log("URLs de las imágenes subidas:", urls);
+        setValue("photos", urls);
+      })
+      .catch((error) => {
+        console.error("Error al subir las imágenes:", error);
+        setLoading(false);
+      });
+  };
   watch(["behaviors", "howDelivered", "diseases"]);
 
   const onBehaviorChanged = (behaviorId: string) => {
@@ -124,7 +142,8 @@ export const PetForm = ({
       formData,
       data.behaviors,
       data.howDelivered,
-      data.diseases
+      data.diseases,
+      data.photos
     );
 
     if (!ok) {
@@ -273,6 +292,41 @@ export const PetForm = ({
               </option>
             ))}
           </select>
+        </div>
+
+        <div>
+          <div>
+            Fotos:
+            <input
+              type="file"
+              onChange={fileHandler}
+              multiple
+              accept="image/*"
+            />
+            {loading && (
+              <div className="w-full flex justify-center">
+                <p className="py-2 border-b-2">Subiendo...</p>
+              </div>
+            )}
+          </div>
+          {imageUrls.length > 0 && (
+            <div>
+              <p className="text-sm">Imágenes subidas:</p>
+              <ul className="grid grid-cols-6">
+                {imageUrls.map((url, index) => (
+                  <li key={index}>
+                    <Image
+                      src={url}
+                      width={150}
+                      height={150}
+                      alt={`Imagen ${index}`}
+                      className="w-[200px] h-[200px] rounded"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <button>Crear Mascota</button>
