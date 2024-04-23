@@ -16,7 +16,7 @@ export default function DetailsIdPage() {
       <div className="flex flex-col md:flex-row gap-x-8">
         <div className=" flex flex-col lg:w-[35%]">
           <MainImageWithCarousel />
-          <div className=" flex flex-col items-start w-full xl:w-[500px] mx-auto border">
+          <div className=" flex flex-col items-start w-full xl:w-[500px] mx-auto">
             <CardUser />
             <ButtonEmergency>Caso extraño</ButtonEmergency>
           </div>

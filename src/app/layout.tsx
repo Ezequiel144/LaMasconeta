@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={titleFont.className}>
         <Providers>
-          {/* <Header /> */}
+          <Header />
           {children}
         </Providers>
       </body>
