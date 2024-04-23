@@ -16,11 +16,11 @@ export default function ButtonHeader() {
   }, [status]);
 
   if (isLoading) {
-    return <div className="w-28 h-10 animate-pulse bg-gray-300" />;
+    return <div className="w-28 h-10 animate-pulse bg-gray-300 hidden lg:block" />;
   }
 
   return (
-    <div className="flex items-center gap-x-3 border-2 rounded-lg text-violetGrow-600 border-violetGrow-600">
+    <div className="lg:flex items-center gap-x-3 border-2 rounded-lg text-violetGrow-600 border-violetGrow-600 hidden">
       {isAuthenticated ? (
         <Link href={"/profile"}
           className="flex w-full items-center rounded p-2 transition-all hover:bg-gray-100"

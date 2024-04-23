@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={titleFont.className}>
+      <body className={`${titleFont.className} relative`} >
         <Providers>
           <Header />
           {children}

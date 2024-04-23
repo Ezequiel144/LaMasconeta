@@ -30,7 +30,7 @@ const listMenu: ListMenu[] = [
 
 export default function ListMenuLink() {
   return (
-    <ul className=" flex items-center gap-x-5">
+    <ul className=" hidden lg:flex items-center gap-x-5 ">
       {listMenu.map((item, index) => {
         return (
           <li key={index}>
