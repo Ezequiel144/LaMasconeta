@@ -30,6 +30,7 @@ const config: Config = {
       boxShadow: {
         shadowCardPets: "0px 0px 12px 0px rgba(0, 0, 0, 0.3)",
         shadowContainSecFive: "0px 0px 20px 0px rgba(0, 0, 0, 0.3)",
+        shadowInput: "0px 4px 10px -3px rgba(138,30,210,0.8)"
       },
       keyframes:{
         animateBounceTwo:{
