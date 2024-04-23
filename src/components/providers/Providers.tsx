@@ -1,4 +1,3 @@
-/* "use client"; */
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
 import { useEffect, useState } from "react";
@@ -8,11 +7,6 @@ interface Props {
 }
 
 export const Providers = ({ children }: Props) => {
-  
-  /* const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    setLoaded(true);
-  }, []); */
 
   return (
     <>
