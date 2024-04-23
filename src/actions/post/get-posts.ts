@@ -8,7 +8,18 @@ export const getPosts = async () => {
       orderBy: {
         name: "asc",
       },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        gender: true,
+        phone: true,
+        history: true,
+        photos: true,
+        weight: true,
+        size: true,
+        enabled: true,
+        complaints: true,
+        date: true,
         province: true,
         species: true,
         postToEnumBehavior: {
