@@ -22,7 +22,8 @@ const config: Config = {
           700: "#8A1ED2",
         },
         orangeGrow: {
-          300:"#FFD56D"
+          300:"#FFD56D",
+          700:"#CC6302"
         }
       },
       boxShadow: {
@@ -40,6 +41,10 @@ const config: Config = {
       animation:{ 
         animateBounceTwo:"animateBounceTwo 3s ease-in infinite"
       },
+      gridTemplateColumns:{
+        gridResponsive:"repeat(auto-fill,minmax(120px,1fr))",
+        gridResponsiveBehavior:"repeat(auto-fill,minmax(250px,1fr))"
+      }
     },
   },
   plugins: [],
