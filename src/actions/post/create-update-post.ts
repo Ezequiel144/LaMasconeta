@@ -2,12 +2,11 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { Gender } from "@prisma/client";
+import { Gender, Size } from "@prisma/client";
 import { z } from "zod";
 
 const postSchema = z.object({
   name: z.string().min(1).max(20),
-  description: z.string().min(1).max(200),
   gender: z.nativeEnum(Gender),
   age: z
     .string()
@@ -22,10 +21,7 @@ const postSchema = z.object({
     .string()
     .min(0)
     .transform((val) => Number(val)),
-  height: z
-    .string()
-    .min(0)
-    .transform((val) => Number(val)),
+  size: z.nativeEnum(Size),
   userId: z.string().optional(),
   provinceId: z.string(),
   speciesId: z.string(),
@@ -35,7 +31,8 @@ export const createPost = async (
   formData: FormData,
   behaviors: string[],
   howDelivered: string[],
-  diseases: string[]
+  diseases: string[],
+  photos: string[]
 ) => {
   const data = Object.fromEntries(formData);
   const postParsed = postSchema.safeParse(data);
@@ -56,10 +53,12 @@ export const createPost = async (
 
   const { userId, provinceId, speciesId, ...rest } = postData;
 
+  
   try {
     const post = await prisma.post.create({
       data: {
         ...rest,
+        photos: photos,
         user: { connect: { id: user } },
         province: { connect: { id: provinceId } },
         species: { connect: { id: speciesId } },
@@ -85,6 +84,17 @@ export const createPost = async (
           data: {
             postId,
             howDeliveredId: howDeliveredId,
+          },
+        });
+      })
+    );
+
+    await Promise.all(
+      diseases.map(async (diseasesId: string) => {
+        await prisma.postToDiseases.create({
+          data: {
+            postId,
+            enumDiseasesId: diseasesId,
           },
         });
       })

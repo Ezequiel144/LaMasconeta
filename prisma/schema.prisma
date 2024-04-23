@@ -20,6 +20,13 @@ enum Gender {
   other
 }
 
+// Enum para el tamañ
+enum Size {
+  little
+  medium
+  big
+}
+
 // Enum para el rol del usuario
 enum Role {
   admin
@@ -47,12 +54,11 @@ model Post {
   name       String
   gender     Gender
   age        Float
-  transfer   Boolean?  @default(false)
   phone      Float
   history    String
-  photos     String?
+  photos     String[] @default([])
   weight     Float //Peso
-  size       String //Aca era alto y ahora es tamaño
+  size       Size //Aca era alto y ahora es tamaño
   enabled    Boolean  @default(true)
   complaints Float    @default(0) //Denuncias
   date       DateTime @default(now())
