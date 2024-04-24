@@ -7,7 +7,7 @@ export const PetsList = async ({ searchParams }: FilterParams) => {
   return (
     <div>
       {pets.map((pet) => (
-        <div key={pet.id}>{/* Render pet information here */}</div>
+        <pre key={pet.id}>{JSON.stringify(pet,null,2)}</pre>
       ))}
     </div>
   );

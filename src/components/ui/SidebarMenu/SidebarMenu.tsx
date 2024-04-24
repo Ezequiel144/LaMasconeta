@@ -1,7 +1,7 @@
+
 import { ListMenu } from "@/interfaces";
 import Image from "next/image";
 import Link from "next/link";
-import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import ButtonSidebarMenu from "../ButtonSidebarMenu/ButtonSidebarMenu";
 
 const listMenu: ListMenu[] = [
@@ -33,7 +33,7 @@ const listMenu: ListMenu[] = [
 
 type Props = {
   isOpen: boolean;
-  setIsOpen: any;
+  setIsOpen?: any;
 };
 
 export default function SidebarMenu({ isOpen , setIsOpen}: Props) {
@@ -52,13 +52,13 @@ export default function SidebarMenu({ isOpen , setIsOpen}: Props) {
             <Link
               href={menu.href}
               key={menu.name}
+              onClick={() => setIsOpen!(!isOpen)}
               className=" hover:text-violetGrow-600"
             >
               {menu.name}
             </Link>
           ))}
         </nav>
-        {/* <ButtonHeader /> */}
         <ButtonSidebarMenu />
         <Image
           src={"/bg-sidebarMenu.svg"}
