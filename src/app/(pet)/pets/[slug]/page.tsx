@@ -2,12 +2,12 @@ import { getPetByName } from "@/actions";
 
 interface Props {
   params: {
-    name: string;
+    slug: string;
   };
 }
 
 export default async function PetNamePage({ params }: Props) {
-  const namePet = params.name;
+  const namePet = params.slug;
 
   const namePetResponse = await getPetByName(namePet);
 
