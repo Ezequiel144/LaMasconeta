@@ -145,6 +145,7 @@ model PostToDiseases {
 model Province {
   id    String @id
   name  String
+  slug  String
   // Relación con los posts
   posts Post[]
 }

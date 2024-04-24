@@ -6,16 +6,36 @@ import { Gender } from "@prisma/client";
 
 export const getPetByParams = async ({ searchParams }: FilterParams) => {
   try {
+    let whereClause: any = {};
+
+    if (searchParams.gender) {
+      whereClause.gender = searchParams.gender as Gender;
+    }
+
+    if (searchParams.province) {
+      whereClause.province = {
+        slug: searchParams.province,
+      };
+    }
+
+    if (searchParams.species) {
+      whereClause.species = {
+        name: searchParams.species,
+      };
+    }
+
+    if (searchParams.age) {
+      whereClause.age = Number(searchParams.age);
+    }
+
     const pets = await prisma.post.findMany({
-      where: {
-        gender: searchParams.gender as Gender,
-        province: searchParams.province as any,
-      },
+      where: whereClause,
     });
+
     return pets;
   } catch (error) {
     console.error("Error fetching pets:", error);
-    throw error; 
+    throw error;
   }
 };
 
