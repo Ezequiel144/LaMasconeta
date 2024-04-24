@@ -11,6 +11,7 @@ export const getPets = async () => {
       select: {
         id: true,
         name: true,
+        slug: true,
         gender: true,
         phone: true,
         history: true,
