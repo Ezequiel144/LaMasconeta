@@ -2,17 +2,15 @@ import Image from "next/image";
 
 type Prop = {
   name: string;
-  province: string;
-  image: string;
-  location: string;
-  typeOfAnimal: string;
+  province?: any; /*hacer su intreface o type */
+  image?: string | undefined;
+  typeOfAnimal?: string;
 };
 
 export default function CardsPets({
   image,
   name,
   province,
-  location,
   typeOfAnimal,
 }: Prop) {
   return (
@@ -23,8 +21,8 @@ export default function CardsPets({
 
         <section className=" flex items-center justify-start gap-x-1">
             <Image src={"../MapCardUbication.svg"} width={10} height={12} alt="ubicacion"/>
-          <p className="text-sm font-normal capitalize">
-            {province},{location}
+          <p className="text-sm font-normal capitalize max-w-[200px] truncate">
+            {province},{"ARG"}
           </p>
         </section>
 
