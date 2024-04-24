@@ -15,7 +15,7 @@ export const getPetByParams = async ({ searchParams }: FilterParams) => {
     return pets;
   } catch (error) {
     console.error("Error fetching pets:", error);
-    throw error; // Propagar el error para manejarlo en el componente de llamada
+    throw error; 
   }
 };
 
