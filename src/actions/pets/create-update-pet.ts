@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const postSchema = z.object({
+  id: z.string().uuid().optional().nullable(),
   name: z.string().min(1).max(20).toLowerCase().trim(),
   slug: z.string().min(3).max(255),
   gender: z.nativeEnum(Gender),
@@ -54,10 +55,10 @@ export const createPost = async (
   const postData = postParsed.data;
   postData.slug = postData.slug.toLowerCase().replace(/ /g, "-").trim();
 
-  const { userId, provinceId, speciesId, ...rest } = postData;
+  const { userId, provinceId, speciesId, id ,...rest } = postData;
 
   try {
-    const post = await prisma.post.create({
+    const postPet = await prisma.post.create({
       data: {
         ...rest,
         photos: photos,
@@ -67,7 +68,7 @@ export const createPost = async (
       },
     });
 
-    const postId = post.id;
+    const postId = postPet.id;
 
     await Promise.all(
       behaviors.map(async (behaviorId: string) => {
@@ -104,7 +105,7 @@ export const createPost = async (
 
     revalidatePath("/");
     revalidatePath(`/pets/${postData.slug}`);
-    return { ok: true, post };
+    return { ok: true, postPet };
   } catch (error) {
     console.log(error);
     return { ok: false, message: "Error al crear el post" };

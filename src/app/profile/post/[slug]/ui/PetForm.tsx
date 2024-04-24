@@ -17,6 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 const storage = getStorage(app);
 
 export interface Props {
+  pet: any;
   provinces: Province[];
   behaviors: Behavior[];
   species: Species[];
@@ -25,6 +26,7 @@ export interface Props {
 }
 
 export const PetForm = ({
+  pet,
   provinces,
   behaviors,
   species,
@@ -40,6 +42,7 @@ export const PetForm = ({
     watch,
   } = useForm<FormInputs>({
     defaultValues: {
+      ...pet,
       behaviors: [],
       howDelivered: [],
       diseases: [],
