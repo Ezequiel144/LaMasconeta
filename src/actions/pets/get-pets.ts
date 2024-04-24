@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 
-export const getPosts = async () => {
+export const getPets = async () => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {

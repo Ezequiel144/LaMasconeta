@@ -108,6 +108,7 @@ export const PetForm = ({
     const formData = new FormData();
 
     formData.append("name", data.name);
+    formData.append("slug", data.slug);
     formData.append("gender", data.gender);
     formData.append("age", data.age.toString());
     formData.append("phone", data.phone.toString());
@@ -161,6 +162,14 @@ export const PetForm = ({
             Nombre:
             <input type="text" {...register("name", { required: true })} />
           </label>
+        </div>
+        <div className="mb-2 flex flex-col">
+          <span>Slug</span>
+          <input
+            type="text"
+            className="rounded-md border bg-gray-200 p-2"
+            {...register("slug", { required: true })}
+          />
         </div>
         <div>
           <label>

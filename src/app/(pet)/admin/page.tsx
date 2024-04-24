@@ -1,7 +1,7 @@
-import { getPosts } from "@/actions/post/get-posts";
+import { getPets } from "@/actions";
 
 export default async function AdminPage() {
-  const posts = await getPosts();
+  const posts = await getPets();
 
   return (
     <div>

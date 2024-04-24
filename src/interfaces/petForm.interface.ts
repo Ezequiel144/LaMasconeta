@@ -1,5 +1,6 @@
 export interface FormInputs {
   name: string;
+  slug: string;
   gender: "male" | "female" | "other";
   age: number;
   phone: number;

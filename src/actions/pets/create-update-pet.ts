@@ -3,10 +3,12 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Gender, Size } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const postSchema = z.object({
-  name: z.string().min(1).max(20),
+  name: z.string().min(1).max(20).toLowerCase().trim(),
+  slug: z.string().min(3).max(255),
   gender: z.nativeEnum(Gender),
   age: z
     .string()
@@ -16,7 +18,7 @@ const postSchema = z.object({
     .string()
     .min(0)
     .transform((val) => Number(val)),
-  history: z.string().min(1).max(255),
+  history: z.string().min(1).max(255).trim(),
   weight: z
     .string()
     .min(0)
@@ -50,10 +52,10 @@ export const createPost = async (
   }
 
   const postData = postParsed.data;
+  postData.slug = postData.slug.toLowerCase().replace(/ /g, "-").trim();
 
   const { userId, provinceId, speciesId, ...rest } = postData;
 
-  
   try {
     const post = await prisma.post.create({
       data: {
@@ -100,6 +102,8 @@ export const createPost = async (
       })
     );
 
+    revalidatePath("/");
+    revalidatePath(`/pets/${postData.slug}`);
     return { ok: true, post };
   } catch (error) {
     console.log(error);
