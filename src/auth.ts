@@ -1,4 +1,3 @@
-import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
@@ -44,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!bcryptjs.compareSync(password, user.password)) return null;
 
         // Regresar el usuario sin el password
-        const { password: _, ...rest } = user;
+        const { password: _, emailVerified,role,enabled, ...rest } = user;
 
         return rest;
       },

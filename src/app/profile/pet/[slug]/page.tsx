@@ -29,7 +29,7 @@ export default async function Profile({ params }: Props) {
     ]);
 
   if (!pet && slug !== "new") {
-    redirect("/profile/posts");
+    redirect("/profile/pets");
   }
 
   const title = slug === "new" ? "Nueva publicación" : "Editar publicación";
