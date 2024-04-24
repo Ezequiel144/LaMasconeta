@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 
-export const getPetByName = async (slug: string) => {
+export const getPetBySlug = async (slug: string) => {
   try {
     const petId = await prisma.post.findFirst({
       where: {

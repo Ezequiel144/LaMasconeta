@@ -20,6 +20,25 @@ enum Gender {
   other
 }
 
+//Enum para las especies
+enum ListSpecies {
+  perro
+  gato
+  conejo
+  pajaro
+  pez
+  hamster
+  cobayo
+  reptil
+  huron
+  erizo
+  tortuga
+  caballo
+  cerdo
+  cabra
+  otro
+}
+
 // Enum para el tamañ
 enum Size {
   little

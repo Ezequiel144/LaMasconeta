@@ -1,4 +1,4 @@
-import { getPetByName } from "@/actions";
+import { getPetBySlug } from "@/actions";
 
 interface Props {
   params: {
@@ -9,7 +9,7 @@ interface Props {
 export default async function PetNamePage({ params }: Props) {
   const namePet = params.slug;
 
-  const namePetResponse = await getPetByName(namePet);
+  const namePetResponse = await getPetBySlug(namePet);
 
   return (
     <div>

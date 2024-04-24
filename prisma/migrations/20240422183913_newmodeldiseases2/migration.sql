@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "Post" ALTER COLUMN "transfer" DROP NOT NULL,
-ALTER COLUMN "enabled" SET DEFAULT true,
-ALTER COLUMN "complaints" SET DEFAULT 0;

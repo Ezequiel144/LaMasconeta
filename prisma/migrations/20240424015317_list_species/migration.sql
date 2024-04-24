@@ -2,6 +2,12 @@
 CREATE TYPE "Gender" AS ENUM ('male', 'female', 'other');
 
 -- CreateEnum
+CREATE TYPE "ListSpecies" AS ENUM ('perro', 'gato', 'conejo', 'pajaro', 'pez', 'hamster', 'cobayo', 'reptil', 'huron', 'erizo', 'tortuga', 'caballo', 'cerdo', 'cabra', 'otro');
+
+-- CreateEnum
+CREATE TYPE "Size" AS ENUM ('little', 'medium', 'big');
+
+-- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
 
 -- CreateTable
@@ -26,16 +32,16 @@ CREATE TABLE "User" (
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
     "gender" "Gender" NOT NULL,
     "age" DOUBLE PRECISION NOT NULL,
-    "transfer" BOOLEAN NOT NULL DEFAULT false,
     "phone" DOUBLE PRECISION NOT NULL,
     "history" TEXT NOT NULL,
-    "photos" TEXT,
+    "photos" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "weight" DOUBLE PRECISION NOT NULL,
-    "size" TEXT NOT NULL,
-    "enabled" BOOLEAN NOT NULL,
-    "complaints" DOUBLE PRECISION NOT NULL,
+    "size" "Size" NOT NULL,
+    "enabled" BOOLEAN NOT NULL DEFAULT true,
+    "complaints" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
     "provinceId" TEXT NOT NULL,
@@ -113,6 +119,9 @@ CREATE TABLE "Species" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Post_slug_key" ON "Post"("slug");
 
 -- AddForeignKey
 ALTER TABLE "Post" ADD CONSTRAINT "Post_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

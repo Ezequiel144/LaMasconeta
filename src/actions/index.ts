@@ -1,6 +1,7 @@
 export * from "./pets/create-update-pet";
-export * from "./pets/get-pet-by-name";
+export * from "./pets/get-pet-by-slug";
 export * from "./pets/get-pets";
+export * from "./pets/pets-pagination"
 
 export * from "./province/get-province";
 
