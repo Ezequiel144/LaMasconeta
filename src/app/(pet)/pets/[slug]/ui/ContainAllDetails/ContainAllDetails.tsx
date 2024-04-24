@@ -18,7 +18,7 @@ type Props = {
 };
 
 export default function ContainAllDetails({ namePetResponse }: Props) {
-  console.log(namePetResponse);
+  /* console.log(namePetResponse); */
   const [isOpen, setIsOpen] = useState<boolean>();
   const [idModal,setIdModal] = useState<string|null>(null);
   const { name, slug, gender, age, province, photos, user } = namePetResponse;

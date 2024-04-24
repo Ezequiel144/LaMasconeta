@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Modal,
   ModalContent,
@@ -9,6 +11,7 @@ import {
   RadioGroup,
   Radio,
 } from "@nextui-org/react";
+import { useState } from "react";
 
 type Props = {
   isOpen?: boolean;
@@ -17,7 +20,12 @@ type Props = {
   user?: any;
 };
 
-const listMotiveReport = [
+interface objectMotiveReport {
+  name: string;
+  value: string;
+}
+
+const listMotiveReport: objectMotiveReport[] = [
   {
     name: "Estafa",
     value: "scam",
@@ -46,6 +54,40 @@ export default function ModalDetails({
   idModal,
   user,
 }: Props) {
+  const [formConsulting, setFormConsulting] = useState({
+    tel: "",
+    sms: "",
+  });
+
+  const [formReport,setFormReport] = useState ({
+    optionReport: "",
+    smsReport: ""
+  })
+
+  const [] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const handleSubmitReport = (e) => {
+    e.preventDefault();
+    
+  };
+
+  const handleChangeInputsConsulting = (e) => {
+    const { name, value }: any = e.target;
+    setFormConsulting({ ...formConsulting, [name]: value });
+  };
+
+  const handleChangeInputsReport = (e) => {
+    /* console.log(e.target.value) */
+    const { name, value } = e.target
+    setFormReport({...formReport, [name]: value})
+  }
+
+  console.log(formReport)
+  /* console.log(formConsulting); */
   return (
     <div>
       <Modal
@@ -71,14 +113,26 @@ export default function ModalDetails({
           </ModalHeader>
           <ModalBody>
             {idModal === "ModalConsulting" ? (
-              <form action="">
+              <form onSubmit={handleChangeInputsConsulting}>
                 <label className="flex flex-col">
                   Telefono de contacto
-                  <input type="tel" className="border" id="phone" />
+                  <input
+                    type="tel"
+                    className="border"
+                    id="phone"
+                    name="tel"
+                    value={formConsulting.tel}
+                    onChange={handleChangeInputs}
+                  />
                 </label>
                 <label className="flex flex-col">
                   Mensaje
-                  <textarea name="sms" className="border"></textarea>
+                  <textarea
+                    name="sms"
+                    className="border"
+                    value={formConsulting.sms}
+                    onChange={handleChangeInputs}
+                  ></textarea>
                 </label>
                 <div className="flex gap-x-3">
                   <button className=" bg-gray-300 p-3">Enviar</button>
@@ -94,6 +148,7 @@ export default function ModalDetails({
                       value={item.value}
                       name="optionReport"
                       id={`opcion ${index}`}
+                      onChange={handleChangeInputsReport}
                     />
                     <p>{item.name}</p>
                   </label>
@@ -101,7 +156,7 @@ export default function ModalDetails({
 
                 <label className="flex flex-col">
                   Por que
-                  <textarea name="smsReport" className="border"></textarea>
+                  <textarea name="smsReport" className="border" onChange={handleChangeInputsReport}></textarea>
                 </label>
                 <div className="flex gap-x-3">
                   <button className=" bg-gray-300 p-3">Enviar</button>
