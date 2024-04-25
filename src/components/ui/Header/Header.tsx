@@ -4,7 +4,6 @@ export const revalidate = 0;
 import Image from "next/image";
 import ButtonHeader from "../ButtonHeader/ButtonHeader";
 import ListMenuLink from "../ListMenuLink/ListMenuLink";
-import SidebarMenu from "../SidebarMenu/SidebarMenu";
 import ResponsiveHeader from "../ResponsiveHeader/ResponsiveHeader";
 
 export default function Header() {
