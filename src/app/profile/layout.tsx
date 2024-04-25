@@ -16,7 +16,7 @@ export default async function AdminLayout({
   return (
     <div className="w-full min-h-screen px-6 py-2 flex">
       <SidebarProfile />
-      {children}
+      <div className="w-8/12">{children}</div>
     </div>
   );
 }
