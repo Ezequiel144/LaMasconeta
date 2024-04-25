@@ -6,6 +6,7 @@ export default function NamePage({ searchParams }: FilterParams) {
     <div>
       <h1>Pets</h1>
       <PetsList searchParams={searchParams} />
+      
     </div>
   );
 }

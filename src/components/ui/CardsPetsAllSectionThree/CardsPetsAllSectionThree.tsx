@@ -47,10 +47,9 @@ type Props = {
 }
 
 export default function CardsPetsAllSectionThree({ posts }:Props) {
-  console.log(posts);
 
   return (
-    <section className=" flex flex-col gap-y-5 pt-16 px-3 sm:p-0">
+    <section className=" flex flex-col gap-y-5 mt-16 px-3 sm:p-0">
       <article className="w-full text-center lg:text-right">
         <TitleGeneralHome>title lorem lorem</TitleGeneralHome>
       </article>
@@ -78,8 +77,8 @@ export default function CardsPetsAllSectionThree({ posts }:Props) {
           },
         }}
       >
-        {posts?.map((item: { name: any; province: any; photo: any; species: any; }, index: null | undefined) => { /* poner un interface o typw en item: ... */
-          const { name, province , photos, species} = item;
+        {posts?.map((item: { name: string; province: any; photos: string[]; species: any; slug: string; }, index: null | undefined) => { /* poner un interface o typw en item: ... */
+          const { name, province , photos, species, slug} = item;
 
           return (
             <SwiperSlide key={index}>
@@ -89,6 +88,7 @@ export default function CardsPetsAllSectionThree({ posts }:Props) {
                   province={province.name}
                   typeOfAnimal={species.name}
                   image={photos[0]}
+                  slug={slug}
                 />
               </article>
             </SwiperSlide>

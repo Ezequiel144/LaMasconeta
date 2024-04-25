@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type Prop = {
   name: string;
   province?: any; /*hacer su intreface o type */
-  image?: string | undefined;
+  image?: string | any;/*hacer su intreface o type */
   typeOfAnimal?: string;
+  slug?: string | undefined
 };
 
 export default function CardsPets({
@@ -12,6 +14,7 @@ export default function CardsPets({
   name,
   province,
   typeOfAnimal,
+  slug
 }: Prop) {
   return (
     <div className=" h-fit w-[280px] rounded-xl relative">
@@ -28,7 +31,7 @@ export default function CardsPets({
 
         <div className=" w-full flex items-center justify-between">
           <p className="text-sm font-normal capitalize">{typeOfAnimal}</p>
-          <button className=" text-sm font-semibold px-2 py-1 rounded-md bg-violetGrow-500 text-white flex items-center justify-between">
+          <Link href={`/pets/${slug}`} className=" text-sm font-semibold px-2 py-1 rounded-md bg-violetGrow-500 text-white flex items-center justify-between">
             Saber mas
             <Image
               src={"../arrowCard.svg"}
@@ -36,7 +39,7 @@ export default function CardsPets({
               height={15}
               alt="ir a detalle de mascota"
             />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
