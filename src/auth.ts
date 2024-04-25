@@ -43,7 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!bcryptjs.compareSync(password, user.password)) return null;
 
         // Regresar el usuario sin el password
-        const { password: _, emailVerified,role,enabled, ...rest } = user;
+        const { password: _, ...rest } = user;
 
         return rest;
       },

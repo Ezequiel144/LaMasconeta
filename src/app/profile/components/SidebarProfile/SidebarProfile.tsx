@@ -1,4 +1,3 @@
-import { logout } from "@/actions";
 import Link from "next/link";
 import { LogOutProfile } from "../LogOutProfile/LogOutProfile";
 
