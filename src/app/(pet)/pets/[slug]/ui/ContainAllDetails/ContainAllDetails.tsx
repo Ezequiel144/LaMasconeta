@@ -21,17 +21,19 @@ export default function ContainAllDetails({ namePetResponse }: Props) {
   /* console.log(namePetResponse); */
   const [isOpen, setIsOpen] = useState<boolean>();
   const [idModal,setIdModal] = useState<string|null>(null);
+
   const { name, slug, gender, age, province, photos, user } = namePetResponse;
+
   return (
     <div className="flex flex-col md:flex-row gap-x-8">
-      <div className=" flex flex-col lg:w-[35%]">
+      <div className=" flex flex-col md:w-[40%]">
         <MainImageWithCarousel photos={photos} />
         <div className=" flex flex-col items-start w-full xl:w-[500px] mx-auto">
           <CardUser />
           <ButtonEmergency onClickModal={setIsOpen} setIdModal={setIdModal}>Denunciar caso</ButtonEmergency>
         </div>
       </div>
-      <div className=" flex flex-col lg:w-[75%]">
+      <div className=" flex flex-col md:w-[60%]">
         <MainTitleCartAndButton
           name={name}
           province={province.name}

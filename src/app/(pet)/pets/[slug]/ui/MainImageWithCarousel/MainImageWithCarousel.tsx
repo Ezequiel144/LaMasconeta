@@ -43,10 +43,10 @@ export default function MainImageWithCarousel({ photos }: Props) {
     <section className=" flex flex-col w-full gap-y-3">
       {photos?.map((item, index) => {
         return (
-          <>
+          <div key={index}>
             {index === indexCarousel && (
                 <Image
-                  key={index}
+                  
                   src={item}
                   width={490}
                   height={490}
@@ -54,7 +54,7 @@ export default function MainImageWithCarousel({ photos }: Props) {
                   alt={`imagen  ${index + 1}`}
                 />
             )}
-          </>
+          </div>
         );
       })}
 
