@@ -1,19 +1,20 @@
 import Image from "next/image";
+import Link from "next/link";
 
 type Prop = {
   name: string;
-  province: string;
-  image: string;
-  location: string;
-  typeOfAnimal: string;
+  province?: any; /*hacer su intreface o type */
+  image?: string | any;/*hacer su intreface o type */
+  typeOfAnimal?: string;
+  slug?: string | undefined
 };
 
 export default function CardsPets({
   image,
   name,
   province,
-  location,
   typeOfAnimal,
+  slug
 }: Prop) {
   return (
     <div className=" h-fit w-[280px] rounded-xl relative">
@@ -23,14 +24,14 @@ export default function CardsPets({
 
         <section className=" flex items-center justify-start gap-x-1">
             <Image src={"../MapCardUbication.svg"} width={10} height={12} alt="ubicacion"/>
-          <p className="text-sm font-normal capitalize">
-            {province},{location}
+          <p className="text-sm font-normal capitalize max-w-[200px] truncate">
+            {province},{"ARG"}
           </p>
         </section>
 
         <div className=" w-full flex items-center justify-between">
           <p className="text-sm font-normal capitalize">{typeOfAnimal}</p>
-          <button className=" text-sm font-semibold px-2 py-1 rounded-md bg-violetGrow-500 text-white flex items-center justify-between">
+          <Link href={`/pets/${slug}`} className=" text-sm font-semibold px-2 py-1 rounded-md bg-violetGrow-500 text-white flex items-center justify-between">
             Saber mas
             <Image
               src={"../arrowCard.svg"}
@@ -38,7 +39,7 @@ export default function CardsPets({
               height={15}
               alt="ir a detalle de mascota"
             />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

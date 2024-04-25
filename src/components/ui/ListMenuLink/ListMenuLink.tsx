@@ -8,7 +8,7 @@ const listMenu: ListMenu[] = [
   },
   {
     name: "Mascotas",
-    href: "/",
+    href: "/pets",
   },
   {
     name: "Veterinarias",

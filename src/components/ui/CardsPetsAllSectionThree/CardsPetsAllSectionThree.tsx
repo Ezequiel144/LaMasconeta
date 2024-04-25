@@ -1,3 +1,4 @@
+
 "use client";
 import { objectCardPets } from "@/interfaces";
 import TitleGeneralHome from "../TitleGeneralHome/TitleGeneralHome";
@@ -8,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
 import { Autoplay } from "swiper/modules";
+import { Key } from "react";
 
 const listCardPets: objectCardPets[] = [
   {
@@ -40,16 +42,19 @@ const listCardPets: objectCardPets[] = [
   },
 ];
 
-export default function CardsPetsAllSectionThree() {
+type Props = {
+  posts: any; /* cambiar por interface o type */
+}
+
+export default function CardsPetsAllSectionThree({ posts }:Props) {
+
   return (
-    <section className=" flex flex-col gap-y-5 pt-16 px-3 sm:p-0">
+    <section className=" flex flex-col gap-y-5 mt-16 px-3 sm:p-0">
       <article className="w-full text-center lg:text-right">
         <TitleGeneralHome>title lorem lorem</TitleGeneralHome>
       </article>
       <Swiper
         className="w-full"
-        spaceBetween={0}
-        slidesPerView={4}
         modules={[Autoplay]}
         autoplay={{ delay: 5000 }}
         spaceBetween={0}
@@ -72,17 +77,18 @@ export default function CardsPetsAllSectionThree() {
           },
         }}
       >
-        {listCardPets.map((item, index) => {
-          const { name, province, location, typeOfAnimal, image } = item;
+        {posts?.map((item: { name: string; province: any; photos: string[]; species: any; slug: string; }, index: null | undefined) => { /* poner un interface o typw en item: ... */
+          const { name, province , photos, species, slug} = item;
+
           return (
             <SwiperSlide key={index}>
               <article className=" flex items-center justify-around h-fit">
                 <CardPets
                   name={name}
-                  province={province}
-                  location={location}
-                  typeOfAnimal={typeOfAnimal}
-                  image={image}
+                  province={province.name}
+                  typeOfAnimal={species.name}
+                  image={photos[0]}
+                  slug={slug}
                 />
               </article>
             </SwiperSlide>
