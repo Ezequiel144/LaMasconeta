@@ -166,6 +166,8 @@ export default function FilterContain({
       valueOption.urlAge
     ) {
       return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}&age=${valueOption.urlAge}`;
+    } else {
+      return " ";
     }
   };
 

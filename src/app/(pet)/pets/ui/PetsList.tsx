@@ -20,7 +20,7 @@ export const PetsList = async ({ searchParams }: FilterParams) => {
       {/* pets.map((pet) => (
         <pre key={pet.id}>{JSON.stringify(pet,null,2)}</pre>
       )) */}
-      <section className=" grid grid-cols-gridResponsiveFilter justify-items-center gap-10 w-full pt-20">
+      <section className=" grid grid-cols-gridResponsiveFilter justify-items-center gap-10 w-full pt-20 lg:px-16">
         {pets.map((item, index) => {
           const {name, slug, species, province, photos} = item;
           return (
