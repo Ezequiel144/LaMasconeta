@@ -46,7 +46,8 @@ const config: Config = {
       },
       gridTemplateColumns:{
         gridResponsive:"repeat(auto-fill,minmax(120px,1fr))",
-        gridResponsiveBehavior:"repeat(auto-fill,minmax(250px,1fr))"
+        gridResponsiveBehavior:"repeat(auto-fill,minmax(250px,1fr))",
+        gridResponsiveFilter:"repeat(auto-fill,minmax(280px,1fr))"
       }
     },
   },
