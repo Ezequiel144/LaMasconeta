@@ -31,6 +31,7 @@ export const getPetByParams = async ({ searchParams }: FilterParams) => {
     const pets = await prisma.post.findMany({
       where: whereClause,
       include: { province: true, species: true}
+
     });
 
     return pets;
