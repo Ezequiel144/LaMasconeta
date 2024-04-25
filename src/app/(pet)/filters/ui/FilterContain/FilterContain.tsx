@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { getSpecies } from "@/actions";
 
-
 /* cambiar por data por name y value por slug */
 const listOptionsFilterSex: objectListData[] = [
   {
@@ -147,8 +146,11 @@ const listOptionFilterAge: objectListData[] = [
   },
 ];
 
-
-export default function FilterContain({ petsSpecies, petsProvinces }: any) {
+export default function FilterContain({
+  petsSpecies,
+  petsProvinces,
+  petsAges,
+}: any) {
   const [valueOption, setValueOption] = useState({
     urlSex: "",
     urlSpecie: "",
@@ -156,7 +158,13 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
     urlAge: "",
   });
 
-  console.log(petsProvinces)
+  const queryFilter = (): any => {
+    if (valueOption.urlSex) {
+      return `/pets?gender=${valueOption.urlSex}`;
+    } else if (valueOption.urlSpecie && valueOption.urlSex) {
+      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}`;
+    }
+  };
 
   return (
     <form action="">
@@ -168,7 +176,7 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
           valueOption={valueOption}
         />
         <InputFilter
-          listData={listOptionsFilterSpecie}
+          listData={petsSpecies}
           name={"Especies"}
           setValueOption={setValueOption}
           valueOption={valueOption}
@@ -180,7 +188,7 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
           valueOption={valueOption}
         />
         <InputFilter
-          listData={listOptionFilterAge}
+          listData={petsAges}
           name={"Edad"}
           setValueOption={setValueOption}
           valueOption={valueOption}
@@ -198,6 +206,7 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
         Buscar
       </Link> */}
       <Link href={valueOption.urlSex && `/pets?gender=${valueOption.urlSex}` || valueOption.urlSpecie && `/pets?species=${valueOption.urlSpecie}` || valueOption.urlProvince && `/pets?province=${valueOption.urlProvince}` || valueOption.urlAge && `/pets?age=${valueOption.urlAge}`}>Buscar</Link>
+      {/* <Link href={`${queryFilter()}`}>Buscar</Link> */}
     </form>
   );
 }

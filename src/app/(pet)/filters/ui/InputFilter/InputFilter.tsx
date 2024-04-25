@@ -3,7 +3,7 @@ import { objectListData } from "@/interfaces";
 /* import { Select, SelectItem, Selection } from "@nextui-org/react"; */
 import { Key, useState } from "react";
 type Props = {
-  listData: objectListData[];
+  listData?: objectListData[];
   name: string;
   setValueOption: /* () => void */ any;
   valueOption: objectState;
@@ -30,7 +30,7 @@ export default function InputFilter({
 
   const handleChangeValueOption = (e: { target: { value: string } }) => {
     const { value, name }: any = e.target;
-    
+
     let newName = " ";
     if (name === "Sexo") {
       newName = "urlSex";
@@ -64,13 +64,22 @@ export default function InputFilter({
         className="rounded-xl border border-violetGrow-600 p-2"
         onChange={handleChangeValueOption}
       >
-        {listData.map((item: any, index: Key | null | undefined) => {
-          return (
-            <option key={index} value={item.slug}>
-              {item.name}
-            </option>
-          );
-        })}
+        {name !== "Edad"
+          ? listData?.map((item: objectListData, index: Key | null | undefined) => {
+              return (
+                <option
+                  key={index}
+                  value={item.slug ? item.slug : item.name.toLowerCase()}
+                >
+                  {item.name}
+                </option>
+              );
+            })
+          : listData?.map((item, index) => (
+              <option key={index} value={item.toString()} >
+                {item.toString()}
+              </option>
+            ))}
       </select>
       {/* <Select
         label="sexo"

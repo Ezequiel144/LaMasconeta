@@ -9,7 +9,8 @@ export interface FilterParams {
 }
 
 export interface objectListData {
-  slug: string;
+  id?: string
+  slug?: string;
   name: string;
 }
 

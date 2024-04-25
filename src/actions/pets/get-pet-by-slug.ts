@@ -16,6 +16,11 @@ export const getPetBySlug = async (slug: string) => {
             lastName: true,
             email: true,
             image: true,
+            posts: { 
+              select: { 
+                id: true,
+              } 
+            },
           },
         },
         province: true,
