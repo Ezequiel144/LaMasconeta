@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "gender" DROP NOT NULL,
+ALTER COLUMN "statusAdoption" DROP NOT NULL,
+ALTER COLUMN "activity" DROP NOT NULL,
+ALTER COLUMN "birthdate" DROP NOT NULL;

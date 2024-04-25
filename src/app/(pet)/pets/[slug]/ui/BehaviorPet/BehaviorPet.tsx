@@ -1,33 +1,28 @@
 import { Key } from "react";
 import TitleDetailsGeneral from "../TitleDetailsGeneral/TitleDetailsGeneral";
 
-const listDataBehaviorPet = [
-  "Bueno con los gatos",
-  "Protector",
-  "Le gusta la compañia",
-  "Revelde",
-  "Mal temperamento",
-];
+interface Behavior{
+  id: string;
+  name: string;
+}
 
-interface ObjectEnumBehavior{
-  enumBehavior: any;
-  map: any;
-  id: string,
-  name?: string,
+interface EnumBehavior{
+  enumBehavior: Behavior;
 }
 
 type Props = {
-  postToEnumBehavior: ObjectEnumBehavior;
+  postToEnumBehavior: EnumBehavior[];
 };
 
 export default function BehaviorPet({ postToEnumBehavior }: Props) {
-  /* console.log(postToEnumBehavior) */
-  const listEnumBehavior = postToEnumBehavior.map((item: ObjectEnumBehavior) => item.enumBehavior)
+  const listEnumBehavior = postToEnumBehavior.map((item: EnumBehavior) => item.enumBehavior)
+
   return (
     <section className=" flex flex-col gap-y-3 pt-5">
       <TitleDetailsGeneral>Comportamiento</TitleDetailsGeneral>
       <article className=" flex flex-row flex-wrap gap-4">
-        {listEnumBehavior?.map((item : string, index: Key | null | undefined) => {
+        {listEnumBehavior?.map((item : Behavior, index: Key | null | undefined) => {
+          console.log()
           return (
             <div
               key={index}
