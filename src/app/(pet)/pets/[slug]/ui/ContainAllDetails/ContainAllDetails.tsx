@@ -1,5 +1,4 @@
 "use client";
-import ButtonGeneral from "@/components/ui/ButtonGeneral/ButtonGeneral";
 import BehaviorPet from "../BehaviorPet/BehaviorPet";
 import ButtonEmergency from "../ButtonEmergency/ButtonEmergency";
 import CardUser from "../CardUser/CardUser";
@@ -9,7 +8,6 @@ import DiseasesPet from "../DiseasesPet/DiseasesPet";
 import HistoryPet from "../HistoryPet/HistoryPet";
 import MainImageWithCarousel from "../MainImageWithCarousel/MainImageWithCarousel";
 import MainTitleCartAndButton from "../MainTitleCartAndButton/MainTitleCartAndButton";
-
 import { useState } from "react";
 import ModalDetails from "../ModalDetails/ModalDetails";
 
@@ -29,7 +27,7 @@ export default function ContainAllDetails({ namePetResponse }: Props) {
       <div className=" flex flex-col md:w-[40%]">
         <MainImageWithCarousel photos={photos} />
         <div className=" flex flex-col items-start w-full xl:w-[500px] mx-auto">
-          <CardUser />
+          <CardUser user={user} province={province.name}/>
           <ButtonEmergency onClickModal={setIsOpen} setIdModal={setIdModal}>Denunciar caso</ButtonEmergency>
         </div>
       </div>
@@ -55,7 +53,7 @@ export default function ContainAllDetails({ namePetResponse }: Props) {
         <ConditionPet 
           postToHowDelivered={postToHowDelivered}
         />
-        <HistoryPet history={history}/>
+        <HistoryPet history={history} />
         <section className=" pt-5 w-fit mx-auto ">
           {/* <ButtonGeneral >Consultar adopcion</ButtonGeneral> */}
           <button
