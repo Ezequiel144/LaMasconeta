@@ -14,6 +14,7 @@
 ## Correr en prod
 
 ## Para migrar
+Dar de baja en npm
 1. Correr las migraciones de Prisma ```npx prisma migrate dev -n [nombre que quiera]```
 2. Generar prima ```npx prisma generate```
 3. Ejecutar el seed ```npm run seed```.

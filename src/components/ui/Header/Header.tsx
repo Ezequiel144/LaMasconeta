@@ -14,6 +14,7 @@ export default function Header() {
           src="../../../../Logo.svg"
           width={250}
           height={50}
+          className="w-auto h-auto"
           alt="logoSvg"
         />
         <ListMenuLink />

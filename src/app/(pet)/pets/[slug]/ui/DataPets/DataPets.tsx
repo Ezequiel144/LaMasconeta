@@ -1,11 +1,27 @@
-const listDataPet = [
+
+type Props = {
+  gender:string;
+  species: string;
+  age: number;
+  size: number;
+  weight: number; 
+};
+
+export default function DataPets({
+  gender,
+  species,
+  age,
+  size,
+  weight,
+}: Props) {
+  const listDataPet = [
     {
       name: "Sexo",
-      data: "Macho",
+      data: gender,
     },
     {
       name: "Especie",
-      data: "Perro",
+      data: species,
     },
     {
       name: "Raza",
@@ -17,7 +33,7 @@ const listDataPet = [
     },
     {
       name: "Edad",
-      data: "2-4 años",
+      data: `${age} años`,
     },
     {
       name: "Estado",
@@ -28,16 +44,14 @@ const listDataPet = [
       data: "Baja",
     },
     {
-      name: "Adoptar junto a",
-      data: "Solo",
+      name: "Tamaño",
+      data: size,
     },
     {
       name: "peso",
-      data: "3kg",
+      data: `${weight}kg`,
     },
   ];
-
-export default function DataPets() {
   return (
     <section className=" pt-5">
       <h2 className=" text-xl font-semibold text-violetGrow-500">Datos</h2>

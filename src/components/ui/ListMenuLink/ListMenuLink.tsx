@@ -11,14 +11,6 @@ const listMenu: ListMenu[] = [
     href: "/pets",
   },
   {
-    name: "Veterinarias",
-    href: "/",
-  },
-  {
-    name: "Tiendas",
-    href: "/",
-  },
-  {
     name: "Idea del proyecto",
     href: "/",
   },

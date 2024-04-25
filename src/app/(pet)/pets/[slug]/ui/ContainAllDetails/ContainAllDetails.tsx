@@ -1,5 +1,4 @@
 "use client";
-import ButtonGeneral from "@/components/ui/ButtonGeneral/ButtonGeneral";
 import BehaviorPet from "../BehaviorPet/BehaviorPet";
 import ButtonEmergency from "../ButtonEmergency/ButtonEmergency";
 import CardUser from "../CardUser/CardUser";
@@ -9,7 +8,6 @@ import DiseasesPet from "../DiseasesPet/DiseasesPet";
 import HistoryPet from "../HistoryPet/HistoryPet";
 import MainImageWithCarousel from "../MainImageWithCarousel/MainImageWithCarousel";
 import MainTitleCartAndButton from "../MainTitleCartAndButton/MainTitleCartAndButton";
-
 import { useState } from "react";
 import ModalDetails from "../ModalDetails/ModalDetails";
 
@@ -18,32 +16,45 @@ type Props = {
 };
 
 export default function ContainAllDetails({ namePetResponse }: Props) {
-  /* console.log(namePetResponse); */
+  console.log(namePetResponse);
   const [isOpen, setIsOpen] = useState<boolean>();
   const [idModal,setIdModal] = useState<string|null>(null);
-  const { name, slug, gender, age, province, photos, user } = namePetResponse;
+
+  const { name, postToEnumBehavior, history, gender, age, province, photos, user, species, size, weight, postToDiseases, postToHowDelivered } = namePetResponse;
+
   return (
     <div className="flex flex-col md:flex-row gap-x-8">
-      <div className=" flex flex-col lg:w-[35%]">
+      <div className=" flex flex-col md:w-[40%]">
         <MainImageWithCarousel photos={photos} />
         <div className=" flex flex-col items-start w-full xl:w-[500px] mx-auto">
-          <CardUser />
+          <CardUser user={user} province={province.name}/>
           <ButtonEmergency onClickModal={setIsOpen} setIdModal={setIdModal}>Denunciar caso</ButtonEmergency>
         </div>
       </div>
-      <div className=" flex flex-col lg:w-[75%]">
+      <div className=" flex flex-col md:w-[60%]">
         <MainTitleCartAndButton
           name={name}
           province={province.name}
           location={"Argentina"}
         />
-        <DataPets />
-        <BehaviorPet />
-        <DiseasesPet />
-        <ConditionPet />
-        <HistoryPet />
+        <DataPets 
+          gender={gender}
+          species={species.name}
+          age={age}
+          size={size}
+          weight={weight}
+        />
+        <BehaviorPet 
+          postToEnumBehavior={postToEnumBehavior}
+        />
+        <DiseasesPet 
+          postToDiseases={postToDiseases}
+        />
+        <ConditionPet 
+          postToHowDelivered={postToHowDelivered}
+        />
+        <HistoryPet history={history} />
         <section className=" pt-5 w-fit mx-auto ">
-          {/* <ButtonGeneral >Consultar adopcion</ButtonGeneral> */}
           <button
             className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
             onClick={() => {setIsOpen(!isOpen),setIdModal("ModalConsulting")}}
