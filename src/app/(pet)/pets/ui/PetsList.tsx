@@ -1,7 +1,7 @@
 import { agePets, getProvinces, getSpecies } from "@/actions";
 import { getPetByParams } from "@/actions/pets/get-pet-by-params";
 import { FilterParams } from "@/interfaces";
-import FilterContain from "../../filters/ui/FilterContain/FilterContain";
+import FilterContain from "./FilterContain/FilterContain";
 
 export const PetsList = async ({ searchParams }: FilterParams) => {
   const pets = await getPetByParams({ searchParams });

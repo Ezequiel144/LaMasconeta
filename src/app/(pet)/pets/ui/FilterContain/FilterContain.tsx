@@ -3,150 +3,153 @@ import { objectListData } from "@/interfaces";
 import InputFilter from "../InputFilter/InputFilter";
 import Link from "next/link";
 import { useState } from "react";
-import { getSpecies } from "@/actions";
 
+/* cambiar por data por name y value por slug */
 const listOptionsFilterSex: objectListData[] = [
+  /* {
+    slug: " ",
+    name: "Cualquiera",
+  }, */
   {
-    value: " ",
-    data: "Cualquiera",
+    slug: "male",
+    name: "Macho",
   },
   {
-    value: "male",
-    data: "Macho",
+    slug: "female",
+    name: "Hembra",
   },
   {
-    value: "female",
-    data: "Hembra",
-  },
-  {
-    value: "other",
-    data: "Otro",
+    slug: "other",
+    name: "Otro",
   },
 ];
 
 const listOptionsFilterSpecie: objectListData[] = [
   {
-    value: " ",
-    data: "Cualquiera",
+    slug: " ",
+    name: "Cualquiera",
   },
   {
-    value: "horse",
-    data: "Caballo",
+    slug: "horse",
+    name: "Caballo",
   },
   {
-    value: "horse",
-    data: "Cabra",
+    slug: "horse",
+    name: "Cabra",
   },
   {
-    value: "pig",
-    data: "Cerdo",
+    slug: "pig",
+    name: "Cerdo",
   },
   {
-    value: "guineaPig",
-    data: "Cobayo",
+    slug: "guineaPig",
+    name: "Cobayo",
   },
   {
-    value: "rabbit",
-    data: "Conejo",
+    slug: "rabbit",
+    name: "Conejo",
   },
   {
-    value: "hedgehog",
-    data: "Erizo",
+    slug: "hedgehog",
+    name: "Erizo",
   },
   {
-    value: "cat",
-    data: "Gato",
+    slug: "cat",
+    name: "Gato",
   },
   {
-    value: "hamster",
-    data: "Hamster",
+    slug: "hamster",
+    name: "Hamster",
   },
   {
-    value: "ferret",
-    data: "Hurón",
+    slug: "ferret",
+    name: "Hurón",
   },
   {
-    value: "bird",
-    data: "Pajaro",
+    slug: "bird",
+    name: "Pajaro",
   },
   {
-    value: "dog",
-    data: "Perro",
+    slug: "dog",
+    name: "Perro",
   },
   {
-    value: "fish",
-    data: "Pez",
+    slug: "fish",
+    name: "Pez",
   },
   {
-    value: "reptile",
-    data: "Reptil",
+    slug: "reptile",
+    name: "Reptil",
   },
   {
-    value: "tortoise",
-    data: "Tortuga",
+    slug: "tortoise",
+    name: "Tortuga",
   },
 ];
 
 const listOptionFilterProvince: objectListData[] = [
-  { value: " ", data: "Cualquiera" },
-  { value: "buenosaires", data: "Buenos Aires" },
-  { value: "catamarca", data: "Catamarca" },
-  { value: "chaco", data: "Chaco" },
-  { value: "chubut", data: "Chubut" },
-  { value: "córdoba", data: "Córdoba" },
-  { value: "corrientes", data: "Corrientes" },
-  { value: "entrerios", data: "Entre Ríos" },
-  { value: "formosa", data: "Formosa" },
-  { value: "jujuy", data: "Jujuy" },
-  { value: "lapampa", data: "La Pampa" },
-  { value: "larioja", data: "La Rioja" },
-  { value: "mendoza", data: "Mendoza" },
-  { value: "misiones", data: "Misiones" },
-  { value: "neuquén", data: "Neuquén" },
-  { value: "rionegro", data: "Río Negro" },
-  { value: "salta", data: "Salta" },
-  { value: "sanjuan", data: "San Juan" },
-  { value: "sanluis", data: "San Luis" },
-  { value: "santacruz", data: "Santa Cruz" },
-  { value: "santafe", data: "Santa Fe" },
-  { value: "santiagodelestero", data: "Santiago del Estero" },
-  { value: "tierradelfuego", data: "Tierra del Fuego" },
-  { value: "tucumán", data: "Tucumán" },
+  { slug: " ", name: "Cualquiera" },
+  { slug: "buenosaires", name: "Buenos Aires" },
+  { slug: "catamarca", name: "Catamarca" },
+  { slug: "chaco", name: "Chaco" },
+  { slug: "chubut", name: "Chubut" },
+  { slug: "córdoba", name: "Córdoba" },
+  { slug: "corrientes", name: "Corrientes" },
+  { slug: "entrerios", name: "Entre Ríos" },
+  { slug: "formosa", name: "Formosa" },
+  { slug: "jujuy", name: "Jujuy" },
+  { slug: "lapampa", name: "La Pampa" },
+  { slug: "larioja", name: "La Rioja" },
+  { slug: "mendoza", name: "Mendoza" },
+  { slug: "misiones", name: "Misiones" },
+  { slug: "neuquén", name: "Neuquén" },
+  { slug: "rionegro", name: "Río Negro" },
+  { slug: "salta", name: "Salta" },
+  { slug: "sanjuan", name: "San Juan" },
+  { slug: "sanluis", name: "San Luis" },
+  { slug: "santacruz", name: "Santa Cruz" },
+  { slug: "santafe", name: "Santa Fe" },
+  { slug: "santiagodelestero", name: "Santiago del Estero" },
+  { slug: "tierradelfuego", name: "Tierra del Fuego" },
+  { slug: "tucumán", name: "Tucumán" },
 ];
 
 const listOptionFilterAge: objectListData[] = [
   {
-    value: " ",
-    data: "Cualquiera",
+    slug: " ",
+    name: "Cualquiera",
   },
   {
-    value: "0a1",
-    data: "0-1 años",
+    slug: "0a1",
+    name: "0-1 años",
   },
   {
-    value: "1a3",
-    data: "1-3 años",
+    slug: "1a3",
+    name: "1-3 años",
   },
   {
-    value: "3a6",
-    data: "3-6 años",
+    slug: "3a6",
+    name: "3-6 años",
   },
   {
-    value: "6a10",
-    data: "6-10 años",
+    slug: "6a10",
+    name: "6-10 años",
   },
   {
-    value: "10a15",
-    data: "10-15 años",
+    slug: "10a15",
+    name: "10-15 años",
   },
   {
-    value: "15mas",
-    data: "15+ años",
+    slug: "15mas",
+    name: "15+ años",
   },
 ];
 
-
-export default function FilterContain({ petsSpecies, petsProvinces }: any) {
+export default function FilterContain({
+  petsSpecies,
+  petsProvinces,
+  petsAges,
+}: any) {
   const [valueOption, setValueOption] = useState({
     urlSex: "",
     urlSpecie: "",
@@ -154,7 +157,20 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
     urlAge: "",
   });
 
-  console.log(petsProvinces?.name)
+  const queryFilter = (): any => {
+    /* if (valueOption.urlSex && valueOption.urlSpecie && valueOption.urlProvince && valueOption.urlAge) {
+      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}&age=${valueOption.urlAge}`;
+    } else if(valueOption.urlSex && valueOption.urlSpecie &&  valueOption.urlProvince){
+      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}`;
+    } else if (valueOption.urlSex && valueOption.urlSpecie ) {
+      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}`;
+    } else if(valueOption.urlSex){
+      return `/pets?gender=${valueOption.urlSex}`;
+    } */
+    if(valueOption.urlSex || valueOption.urlSpecie || valueOption.urlProvince || valueOption.urlAge){
+      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}&age=${valueOption.urlAge}`;
+    }
+  };
 
   return (
     <form action="">
@@ -166,19 +182,19 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
           valueOption={valueOption}
         />
         <InputFilter
-          listData={listOptionsFilterSpecie}
+          listData={petsSpecies}
           name={"Especies"}
           setValueOption={setValueOption}
           valueOption={valueOption}
         />
         <InputFilter
-          listData={listOptionFilterProvince}
+          listData={petsProvinces}
           name={"Provincia"}
           setValueOption={setValueOption}
           valueOption={valueOption}
         />
         <InputFilter
-          listData={listOptionFilterAge}
+          listData={petsAges}
           name={"Edad"}
           setValueOption={setValueOption}
           valueOption={valueOption}
@@ -195,7 +211,8 @@ export default function FilterContain({ petsSpecies, petsProvinces }: any) {
       >
         Buscar
       </Link> */}
-      <Link href={valueOption.urlSex && `/pets?gender=${valueOption.urlSex}` || valueOption.urlSpecie && `/pets?species=${valueOption.urlSpecie}` || valueOption.urlProvince && `/pets?province=${valueOption.urlProvince}` || valueOption.urlAge && `/pets?age=${valueOption.urlAge}`}>Buscar</Link>
+      {/* <Link href={valueOption.urlSex && `/pets?gender=${valueOption.urlSex}` || valueOption.urlSpecie && `/pets?species=${valueOption.urlSpecie}` || valueOption.urlProvince && `/pets?province=${valueOption.urlProvince}` || valueOption.urlAge && `/pets?age=${valueOption.urlAge}`}>Buscar</Link> */}
+      <Link href={`${queryFilter()}`}>Buscar</Link>
     </form>
   );
 }
