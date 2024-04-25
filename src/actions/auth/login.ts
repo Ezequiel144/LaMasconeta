@@ -4,7 +4,7 @@ import { AuthError } from "next-auth";
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData,
+  formData: FormData
 ) {
   try {
     // await sleep(2);
@@ -23,11 +23,6 @@ export async function authenticate(
           return "Algo salió mal.";
       }
     }
-    /*     if ((error as any).type === "CredentialsSignin") {
-      return "CredentialsSignin";
-    }
-
-    return "Error desconocido"; */
   }
 }
 

@@ -9,3 +9,5 @@ export * from "./infoNumber.interface";
 export * from "./petForm.interface";
 
 export * from "./filterParams.interface";
+
+export * from "./userProfile.interface"
