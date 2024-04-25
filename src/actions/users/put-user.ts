@@ -12,6 +12,7 @@ const postSchema = z.object({
   gender: z.nativeEnum(Gender).optional(),
   email: z.string().email().optional(),
   phone: z.string().min(1).max(20).trim().optional(),
+  image: z.string().url().optional(),
 });
 
 export const putUser = async (userEmail: string, formData: FormData) => {
