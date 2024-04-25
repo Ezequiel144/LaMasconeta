@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { logout, putUser } from "@/actions";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 
 interface User {
   id: string;
@@ -19,6 +20,7 @@ interface FormProfileProps {
 
 export const FormProfile = ({ user }: FormProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
+  const userImage = user?.image || "/profile_image_default.webp";
 
   useEffect(() => {
     if (user) {
@@ -68,6 +70,21 @@ export const FormProfile = ({ user }: FormProfileProps) => {
         <p>Cargando...</p>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="w-full flex items-center gap-10">
+            <Image
+              src={userImage}
+              alt="Imagen de perfil"
+              width={150}
+              height={150}
+              className="rounded-full border"
+            />
+            <div>
+              <h1>Mi perfil | Masconeta</h1>
+
+              <button>Subir nueva imagen</button>
+            </div>
+          </div>
+
           <div>
             <label>Nombre:</label>
             <input
@@ -129,6 +146,7 @@ export const FormProfile = ({ user }: FormProfileProps) => {
             />
             {errors.phone && <p>{errors.phone.message}</p>}
           </div>
+
           <button type="submit">Guardar</button>
         </form>
       )}
