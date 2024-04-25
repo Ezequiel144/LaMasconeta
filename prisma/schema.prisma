@@ -52,6 +52,12 @@ enum Role {
   user
 }
 
+// Enum para los estados de adopcion
+enum Adoption {
+  adoption
+  adopted
+}
+
 model User {
   id            String    @id @default(uuid())
   name          String?
@@ -69,19 +75,20 @@ model User {
 }
 
 model Post {
-  id         String   @id @default(uuid())
-  name       String
-  slug       String   @unique
-  gender     Gender   @default(other)
-  age        Float
-  phone      Float
-  history    String
-  photos     String[] @default([])
-  weight     Float //Peso
-  size       Size //Aca era alto y ahora es tamaño
-  enabled    Boolean  @default(true)
-  complaints Float    @default(0) //Denuncias
-  date       DateTime @default(now())
+  id             String   @id @default(uuid())
+  name           String
+  slug           String   @unique
+  gender         Gender   @default(other)
+  statusAdoption Adoption @default(adoption)
+  age            Float
+  phone          Float
+  history        String
+  photos         String[] @default([])
+  weight         Float //Peso
+  size           Size //Aca era alto y ahora es tamaño
+  enabled        Boolean  @default(true)
+  complaints     Float    @default(0) //Denuncias
+  date           DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
