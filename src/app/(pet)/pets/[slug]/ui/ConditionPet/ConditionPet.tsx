@@ -1,26 +1,43 @@
 import Image from "next/image";
 import TitleDetailsGeneral from "../TitleDetailsGeneral/TitleDetailsGeneral";
 
-const listConditionPet = [
-  {
-    name: "Vacunado",
-    condition: true,
-  },
-  {
-    name: "Cartilla sanitaria",
-    condition: true,
-  },
-  {
-    name: "Desparacitacion",
-    condition: true,
-  },
-  {
-    name: "Esterelizado",
-    condition: false,
-  },
-];
 
-export default function ConditionPet() {
+
+interface ObjectHowDelivered{
+  id: string;
+  name: string;
+}
+
+interface ObjectPostToHowDelivered{
+  map(arg0: (item: { howDelivered: { name: string; }; }) => string): string[];
+  forEach(arg0: (item: any) => void): unknown;
+  howDelivered: ObjectHowDelivered;
+}
+
+type  Props = {
+  postToHowDelivered: ObjectPostToHowDelivered;
+}
+
+export default function ConditionPet({ postToHowDelivered }: Props) {
+  const listHowDeliveredName = postToHowDelivered.map((item: { howDelivered: { name: string; }; }) => item.howDelivered.name);
+  const listConditionPet = [
+    {
+      name: "Vacunado",
+      condition: listHowDeliveredName.find((item: string) => item === "vacunado") ,
+    },
+    {
+      name: "Cartilla sanitaria",
+      condition: listHowDeliveredName.find((item: string) => item === "cartillasanitaria"),
+    },
+    {
+      name: "Desparacitacion",
+      condition: listHowDeliveredName.find((item: string) => item === "desparasitado"),
+    },
+    {
+      name: "Esterelizado",
+      condition: listHowDeliveredName.find((item: string) => item === "esterilizado"),
+    },
+  ];
   return (
     <section className=" pt-5">
       <TitleDetailsGeneral>Condicion</TitleDetailsGeneral>

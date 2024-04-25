@@ -17,6 +17,7 @@ export default function CardUser() {
             src={"/MapDetailsUser.svg"}
             width={20}
             height={16}
+            className="w-auto h-auto"
             alt="svg de localizacion"
           />
           <p className=" text-sm md:text-base font-normal">Buenos Aires, Argentina</p>

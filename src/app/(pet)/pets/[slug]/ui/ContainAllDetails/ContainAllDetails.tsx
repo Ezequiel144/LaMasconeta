@@ -18,11 +18,11 @@ type Props = {
 };
 
 export default function ContainAllDetails({ namePetResponse }: Props) {
-  /* console.log(namePetResponse); */
+  console.log(namePetResponse);
   const [isOpen, setIsOpen] = useState<boolean>();
   const [idModal,setIdModal] = useState<string|null>(null);
 
-  const { name, slug, gender, age, province, photos, user } = namePetResponse;
+  const { name, postToEnumBehavior, history, gender, age, province, photos, user, species, size, weight, postToDiseases, postToHowDelivered } = namePetResponse;
 
   return (
     <div className="flex flex-col md:flex-row gap-x-8">
@@ -39,11 +39,23 @@ export default function ContainAllDetails({ namePetResponse }: Props) {
           province={province.name}
           location={"Argentina"}
         />
-        <DataPets />
-        <BehaviorPet />
-        <DiseasesPet />
-        <ConditionPet />
-        <HistoryPet />
+        <DataPets 
+          gender={gender}
+          species={species.name}
+          age={age}
+          size={size}
+          weight={weight}
+        />
+        <BehaviorPet 
+          postToEnumBehavior={postToEnumBehavior}
+        />
+        <DiseasesPet 
+          postToDiseases={postToDiseases}
+        />
+        <ConditionPet 
+          postToHowDelivered={postToHowDelivered}
+        />
+        <HistoryPet history={history}/>
         <section className=" pt-5 w-fit mx-auto ">
           {/* <ButtonGeneral >Consultar adopcion</ButtonGeneral> */}
           <button
