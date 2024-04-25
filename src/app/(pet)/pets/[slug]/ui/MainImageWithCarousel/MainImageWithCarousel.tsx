@@ -5,6 +5,10 @@ import "swiper/css";
 import { useState } from "react";
 import { objectImageCarousel } from "@/interfaces";
 
+type Props = {
+  photos: string[]
+}
+
 const listImageCarousel: objectImageCarousel[] = [
   {
     name: "imagen main",
@@ -33,22 +37,21 @@ const listImageCarousel: objectImageCarousel[] = [
   },
 ];
 
-export default function MainImageWithCarousel() {
+export default function MainImageWithCarousel({ photos }: Props) {
   const [indexCarousel, setIndexCarousel] = useState<number>(0);
   return (
     <section className=" flex flex-col w-full gap-y-3">
-      {listImageCarousel.map((item, index) => {
-        const { name, imageMain } = item;
+      {photos?.map((item, index) => {
         return (
           <>
             {index === indexCarousel && (
                 <Image
                   key={index}
-                  src={imageMain}
+                  src={item}
                   width={490}
                   height={490}
-                  className={`mx-auto rounded-3xl `}
-                  alt={name}
+                  className={`mx-auto rounded-3xl border`}
+                  alt={`imagen  ${index + 1}`}
                 />
             )}
           </>
@@ -69,16 +72,16 @@ export default function MainImageWithCarousel() {
           },
         }}
       >
-        {listImageCarousel.map((item, index) => {
-          const { name, url } = item;
+        {photos.map((item, index) => {
+          /* const { name, url } = item; */
           return (
             <SwiperSlide key={index}>
               <Image
-                src={url}
+                src={item}
                 width={70}
                 height={70}
-                className="mx-auto "
-                alt={name}
+                className="mx-auto border rounded-2xl"
+                alt={`imagen carrusel numero ${index + 1}`}
                 onClick={() => setIndexCarousel(index)}
               />
             </SwiperSlide>

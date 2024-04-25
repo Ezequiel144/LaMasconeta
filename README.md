@@ -17,5 +17,5 @@
 1. Correr las migraciones de Prisma ```npx prisma migrate dev -n [nombre que quiera]```
 2. Generar prima ```npx prisma generate```
 3. Ejecutar el seed ```npm run seed```.
-4. Limpiar el localStorage del navegador/Cookies.
-5. Correr el proyecto ```npm run dev```.
+4. Correr el proyecto ```npm run dev```.
+5. Limpiar el localStorage del navegador/Cookies.

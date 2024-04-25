@@ -1,4 +1,6 @@
 import { getPetBySlug } from "@/actions";
+import ContainAllDetails from "./ui/ContainAllDetails/ContainAllDetails";
+import RelatedCarousel from "./ui/RelatedCarousel/RelatedCarousel";
 
 interface Props {
   params: {
@@ -11,9 +13,18 @@ export default async function PetNamePage({ params }: Props) {
 
   const namePetResponse = await getPetBySlug(namePet);
 
+  console.log(namePetResponse)
+
+  if(!namePetResponse){
+    return(
+      <div>El id buscado no existe</div> /* Ponerlo con page error */
+    )
+  }
+
   return (
-    <div>
-      <pre>{JSON.stringify(namePetResponse,null,2)}</pre>
-    </div>
+    <main className=" w-full min-h-screen px-3 ">
+      <ContainAllDetails namePetResponse={namePetResponse}/>
+      <RelatedCarousel />
+    </main>
   );
 }
