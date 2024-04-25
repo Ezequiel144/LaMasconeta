@@ -3,6 +3,7 @@ import { objectListData } from "@/interfaces";
 import InputFilter from "../InputFilter/InputFilter";
 import Link from "next/link";
 import { useState } from "react";
+import ButtonFilter from "../ButtonFilter/ButtonFilter";
 
 /* cambiar por data por name y value por slug */
 const listOptionsFilterSex: objectListData[] = [
@@ -158,23 +159,19 @@ export default function FilterContain({
   });
 
   const queryFilter = (): any => {
-    /* if (valueOption.urlSex && valueOption.urlSpecie && valueOption.urlProvince && valueOption.urlAge) {
-      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}&age=${valueOption.urlAge}`;
-    } else if(valueOption.urlSex && valueOption.urlSpecie &&  valueOption.urlProvince){
-      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}`;
-    } else if (valueOption.urlSex && valueOption.urlSpecie ) {
-      return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}`;
-    } else if(valueOption.urlSex){
-      return `/pets?gender=${valueOption.urlSex}`;
-    } */
-    if(valueOption.urlSex || valueOption.urlSpecie || valueOption.urlProvince || valueOption.urlAge){
+    if (
+      valueOption.urlSex ||
+      valueOption.urlSpecie ||
+      valueOption.urlProvince ||
+      valueOption.urlAge
+    ) {
       return `/pets?gender=${valueOption.urlSex}&species=${valueOption.urlSpecie}&province=${valueOption.urlProvince}&age=${valueOption.urlAge}`;
     }
   };
 
   return (
-    <form action="">
-      <section className="flex gap-x-5">
+    <form className="w-full flex flex-col items-center gap-y-8">
+      <section className="flex gap-5 bg-orangeGrow-300 rounded-lg w-fit mx-auto px-8 py-5 shadow-shadowCardPets flex-col md:flex-row">
         <InputFilter
           listData={listOptionsFilterSex}
           name={"Sexo"}
@@ -200,19 +197,10 @@ export default function FilterContain({
           valueOption={valueOption}
         />
       </section>
-      {/* <Link
-        href={
-          valueOption.urlSex
-            ? `/pets?gender=${valueOption.urlSex}`
-            : valueOption.urlSpecie
-            ? `pets?gender=${valueOption.urlSpecie}`
-            : ""
-        }
-      >
-        Buscar
-      </Link> */}
-      {/* <Link href={valueOption.urlSex && `/pets?gender=${valueOption.urlSex}` || valueOption.urlSpecie && `/pets?species=${valueOption.urlSpecie}` || valueOption.urlProvince && `/pets?province=${valueOption.urlProvince}` || valueOption.urlAge && `/pets?age=${valueOption.urlAge}`}>Buscar</Link> */}
-      <Link href={`${queryFilter()}`}>Buscar</Link>
+      <section className=" flex flex-col md:flex-row gap-5 items-center justify-center w-full px-3 md:px-0">
+        <ButtonFilter functionQuery={queryFilter()}>Buscar</ButtonFilter>
+        <ButtonFilter href="/pets">Limpiar</ButtonFilter>
+      </section>
     </form>
   );
 }

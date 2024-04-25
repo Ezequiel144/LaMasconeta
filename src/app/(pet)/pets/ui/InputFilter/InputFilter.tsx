@@ -1,7 +1,6 @@
 "use client";
 import { objectListData } from "@/interfaces";
-/* import { Select, SelectItem, Selection } from "@nextui-org/react"; */
-import { Key, useState } from "react";
+import { Key } from "react";
 type Props = {
   listData?: objectListData[];
   name: string;
@@ -22,11 +21,7 @@ export default function InputFilter({
   setValueOption,
   valueOption,
 }: Props) {
-  /* const [valueOption, setValueOption] = useState<string>("Cualquiera"); */
-  /*  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value);
-  }; */
-  console.log(listData);
+ /* console.log(listData); */
 
   const handleChangeValueOption = (e: { target: { value: string } }) => {
     const { value, name }: any = e.target;
@@ -51,17 +46,17 @@ export default function InputFilter({
       <select
         name={name}
         value={
-          name === "Sexo"
+          name === "Sexo" 
             ? valueOption.urlSex
-            : name === "Especies"
+            : name === "Especies" 
             ? valueOption.urlSpecie
-            : name === "Provincia"
+            : name === "Provincia" 
             ? valueOption.urlProvince
             : name === "Edad"
             ? valueOption.urlAge
             : "cualquiera"
         }
-        className="rounded-xl border border-violetGrow-600 p-2"
+        className="rounded-xl border border-violetGrow-600 p-2 w-full md:w-fit"
         onChange={handleChangeValueOption}
       >
         {name !== "Edad"
@@ -81,21 +76,6 @@ export default function InputFilter({
               </option>
             ))}
       </select>
-      {/* <Select
-        label="sexo"
-        placeholder="Cualquiera"
-        className="rounded-xl border border-violetGrow-600"
-        items={listOptionsFilter}
-        selectedKeys={[value]}
-        onChange={handleSelectionChange}
-        disableSelectorIconRotation
-      >
-        {(item) => (
-          <SelectItem key={item.value} value={item.value}>
-            {item.data}
-          </SelectItem>
-        )}
-      </Select> */}
     </div>
   );
 }
