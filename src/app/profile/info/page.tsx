@@ -6,7 +6,6 @@ export default async function ProfilePage() {
   const session = await auth();
   const user = session?.user;
   const userImage = user?.image || "/profile_image_default.webp";
-  console.log(user);
 
   return (
     <div>
@@ -21,9 +20,7 @@ export default async function ProfilePage() {
           className="rounded-full border"
         />
       </div>
-      <FormProfile user={user}/>
-
-      <div></div>
+      <FormProfile user={user} />
     </div>
   );
 }

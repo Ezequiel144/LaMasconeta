@@ -23,7 +23,7 @@ export const LoginForm = () => {
   return (
     <form action={dispatch} className="flex flex-col gap-y-2 py-3">
       {/* <label htmlFor="email">Correo electrónico</label> */}
-      <label htmlFor="password">Email</label>
+      <label htmlFor="email">Email</label>
       <input
         className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
         type="email"
