@@ -113,7 +113,10 @@ export const PetForm = ({
     formData.append("name", data.name);
     formData.append("slug", data.slug);
     formData.append("gender", data.gender);
+    formData.append("statusAdoption", data.statusAdoption);
+    formData.append("activity", data.activity);
     formData.append("age", data.age.toString());
+    formData.append("birthdate", data.birthdate.toString());
     formData.append("phone", data.phone.toString());
     formData.append("history", data.history);
     formData.append("weight", data.weight.toString());
@@ -161,10 +164,8 @@ export const PetForm = ({
       <h1>Crear nueva mascota</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>
-            Nombre:
-            <input type="text" {...register("name", { required: true })} />
-          </label>
+          <label>Nombre:</label>
+          <input type="text" {...register("name", { required: true })} />
         </div>
         <div className="mb-2 flex flex-col">
           <span>Slug</span>
@@ -185,39 +186,48 @@ export const PetForm = ({
           </label>
         </div>
         <div>
-          <label>
-            Edad:
-            <input type="number" {...register("age", { required: true })} />
-          </label>
+          <label>Estado:</label>
+          <select {...register("statusAdoption", { required: true })}>
+            <option value="adoption">En adopción</option>
+            <option value="adopted">Adoptado</option>
+          </select>
+        </div>
+        <div>
+          <label>Actividad:</label>
+          <select {...register("activity", { required: true })}>
+            <option value="low">Baja</option>
+            <option value="mid">Media</option>
+            <option value="high">Alta</option>
+          </select>
+        </div>
+        <div>
+          <label>Edad:</label>
+          <input type="number" {...register("age", { required: true })} />
+        </div>
+        <div>
+          <label>Fecha de nacimiento:</label>
+          <input type="date" {...register("birthdate", { required: true })} />
         </div>
 
         <div>
-          <label>
-            Teléfono:
-            <input type="number" {...register("phone", { required: true })} />
-          </label>
+          <label>Teléfono:</label>
+          <input type="number" {...register("phone", { required: true })} />
         </div>
         <div>
-          <label>
-            Historia:
-            <textarea {...register("history", { required: true })} />
-          </label>
+          <label>Historia:</label>
+          <textarea {...register("history", { required: true })} />
         </div>
         <div>
-          <label>
-            Peso:
-            <input type="number" {...register("weight", { required: true })} />
-          </label>
+          <label>Peso:</label>
+          <input type="number" {...register("weight", { required: true })} />
         </div>
         <div>
-          <label>
-            Tamaño:
-            <select {...register("size", { required: true })}>
-              <option value="little">Pequeño</option>
-              <option value="medium">Mediano</option>
-              <option value="big">Grande</option>
-            </select>
-          </label>
+          <label>Tamaño:</label>
+          <select {...register("size", { required: true })}>
+            <option value="little">Pequeño</option>
+            <option value="medium">Mediano</option>
+            <option value="big">Grande</option>
+          </select>
         </div>
 
         <div className="mb-2 flex flex-col">
