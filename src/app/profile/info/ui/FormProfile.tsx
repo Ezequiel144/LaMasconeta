@@ -1,8 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
 import { logout, putUser } from "@/actions";
-import { useForm } from "react-hook-form";
+import app from "@/utils/firebase";
+import clsx from "clsx";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+const storage = getStorage(app);
 
 interface User {
   id: string;
@@ -20,7 +25,8 @@ interface FormProfileProps {
 
 export const FormProfile = ({ user }: FormProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const userImage = user?.image || "/profile_image_default.webp";
+  const [imageUrl, setImageUrl] = useState<string | undefined>(user?.image);
+  const [buttonText, setButtonText] = useState<string>("Subir imagen");
 
   useEffect(() => {
     if (user) {
@@ -38,16 +44,35 @@ export const FormProfile = ({ user }: FormProfileProps) => {
     },
   });
 
-  const onSubmit = async (data: User) => {
-    setIsLoading(true);
+  const upImage = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
 
+    const uniqueFileName = `${uuidv4()}_${file.name}`;
+    const storageRef = ref(storage, `profile/${uniqueFileName}`);
+
+    try {
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      setImageUrl(url);
+      setButtonText("Imagen subida");
+      console.log("URL de la imagen subida:", url);
+    } catch (error) {
+      console.error("Error al subir la imagen:", error);
+    }
+  };
+
+  const onSubmit = async (data: User) => {
     const formData = new FormData();
 
+    console.log("Datos del formulario:", data);
+    console.log("URL de la imagen:", imageUrl);
     formData.append("name", data.name);
     formData.append("lastName", data.lastName);
     formData.append("gender", data.gender);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
+    formData.append("image", imageUrl || "");
 
     const { ok } = await putUser(user!.email, formData);
 
@@ -72,7 +97,7 @@ export const FormProfile = ({ user }: FormProfileProps) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-full flex items-center gap-10">
             <Image
-              src={userImage}
+              src={imageUrl || "/profile_image_default.webp"}
               alt="Imagen de perfil"
               width={150}
               height={150}
@@ -80,8 +105,27 @@ export const FormProfile = ({ user }: FormProfileProps) => {
             />
             <div>
               <h1>Mi perfil | Masconeta</h1>
-
-              <button>Subir nueva imagen</button>
+              <input type="file" onChange={upImage} className="hidden" />
+              <button
+                type="button"
+                onClick={() =>
+                  (
+                    document.querySelector(
+                      "input[type='file']"
+                    ) as HTMLInputElement
+                  )?.click()
+                }
+                disabled={buttonText !== "Subir imagen"}
+                className={clsx(
+                  "px-4 py-2 rounded-md text-white transition-colors duration-300",
+                  {
+                    "bg-blue-500": buttonText === "Subir imagen",
+                    "bg-green-500": buttonText === "Imagen subida",
+                  }
+                )}
+              >
+                {buttonText}
+              </button>
             </div>
           </div>
 
