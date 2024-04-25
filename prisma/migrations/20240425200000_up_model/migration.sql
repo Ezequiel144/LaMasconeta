@@ -10,6 +10,12 @@ CREATE TYPE "Size" AS ENUM ('little', 'medium', 'big');
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('admin', 'user');
 
+-- CreateEnum
+CREATE TYPE "Adoption" AS ENUM ('adoption', 'adopted');
+
+-- CreateEnum
+CREATE TYPE "Activity" AS ENUM ('low', 'mid', 'high');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -33,7 +39,10 @@ CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "gender" "Gender" NOT NULL,
+    "gender" "Gender" NOT NULL DEFAULT 'other',
+    "statusAdoption" "Adoption" NOT NULL DEFAULT 'adoption',
+    "activity" "Activity" NOT NULL DEFAULT 'mid',
+    "birthdate" TEXT NOT NULL,
     "age" DOUBLE PRECISION NOT NULL,
     "phone" DOUBLE PRECISION NOT NULL,
     "history" TEXT NOT NULL,
@@ -105,6 +114,7 @@ CREATE TABLE "PostToDiseases" (
 CREATE TABLE "Province" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "slug" TEXT NOT NULL,
 
     CONSTRAINT "Province_pkey" PRIMARY KEY ("id")
 );

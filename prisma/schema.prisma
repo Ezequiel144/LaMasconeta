@@ -58,6 +58,13 @@ enum Adoption {
   adopted
 }
 
+// Enum para actividad
+enum Activity {
+  low
+  mid
+  high
+}
+
 model User {
   id            String    @id @default(uuid())
   name          String?
@@ -80,6 +87,8 @@ model Post {
   slug           String   @unique
   gender         Gender   @default(other)
   statusAdoption Adoption @default(adoption)
+  activity       Activity @default(mid)
+  birthdate      String   
   age            Float
   phone          Float
   history        String
