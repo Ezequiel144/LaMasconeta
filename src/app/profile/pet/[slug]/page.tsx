@@ -9,6 +9,7 @@ import {
 import { PetForm } from "./ui/PetForm";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
+import { agePets } from "@/actions/agePets/get-age-pets";
 
 interface Props {
   params: {
@@ -18,7 +19,7 @@ interface Props {
 export default async function Profile({ params }: Props) {
   const { slug } = params;
 
-  const [pet, provinces, behaviors, species, howDelivered, diseases] =
+  const [pet, provinces, behaviors, species, howDelivered, diseases, age] =
     await Promise.all([
       getPetBySlug(slug),
       getProvinces(),
@@ -26,7 +27,10 @@ export default async function Profile({ params }: Props) {
       getSpecies(),
       getHowDelivered(),
       getDiseases(),
+      agePets(),
     ]);
+
+  console.log(age);
 
   if (!pet && slug !== "new") {
     redirect("/profile/pets");

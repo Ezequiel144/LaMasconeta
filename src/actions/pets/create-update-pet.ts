@@ -14,6 +14,7 @@ const postSchema = z.object({
   age: z
     .string()
     .min(0)
+    .max(50)
     .transform((val) => Number(val)),
   phone: z
     .string()
@@ -55,7 +56,7 @@ export const createPost = async (
   const postData = postParsed.data;
   postData.slug = postData.slug.toLowerCase().replace(/ /g, "-").trim();
 
-  const { userId, provinceId, speciesId, id ,...rest } = postData;
+  const { userId, provinceId, speciesId, id, ...rest } = postData;
 
   try {
     const postPet = await prisma.post.create({
