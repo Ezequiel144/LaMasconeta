@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { Gender, Size } from "@prisma/client";
+import { Activity, Adoption, Gender, Size } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -11,11 +11,14 @@ const postSchema = z.object({
   name: z.string().min(1).max(20).toLowerCase().trim(),
   slug: z.string().min(3).max(255),
   gender: z.nativeEnum(Gender),
+  statusAdoption: z.nativeEnum(Adoption),
+  activity: z.nativeEnum(Activity),
   age: z
     .string()
     .min(0)
     .max(50)
     .transform((val) => Number(val)),
+  birthdate: z.string(),
   phone: z
     .string()
     .min(0)

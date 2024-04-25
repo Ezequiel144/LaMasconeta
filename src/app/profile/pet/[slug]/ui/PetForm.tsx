@@ -113,9 +113,10 @@ export const PetForm = ({
     formData.append("name", data.name);
     formData.append("slug", data.slug);
     formData.append("gender", data.gender);
+    formData.append("statusAdoption", data.statusAdoption);
+    formData.append("activity", data.activity);
     formData.append("age", data.age.toString());
     formData.append("birthdate", data.birthdate.toString());
-    formData.append("activity", data.activity);
     formData.append("phone", data.phone.toString());
     formData.append("history", data.history);
     formData.append("weight", data.weight.toString());
@@ -185,12 +186,11 @@ export const PetForm = ({
           </label>
         </div>
         <div>
-          <label>Edad:</label>
-          <input type="number" {...register("age", { required: true })} />
-        </div>
-        <div>
-          <label>Fecha de nacimiento:</label>
-          <input type="date" {...register("birthdate", { required: true })} />
+          <label>Estado:</label>
+          <select {...register("statusAdoption", { required: true })}>
+            <option value="adoption">En adopción</option>
+            <option value="adopted">Adoptado</option>
+          </select>
         </div>
         <div>
           <label>Actividad:</label>
@@ -200,6 +200,15 @@ export const PetForm = ({
             <option value="high">Alta</option>
           </select>
         </div>
+        <div>
+          <label>Edad:</label>
+          <input type="number" {...register("age", { required: true })} />
+        </div>
+        <div>
+          <label>Fecha de nacimiento:</label>
+          <input type="date" {...register("birthdate", { required: true })} />
+        </div>
+
         <div>
           <label>Teléfono:</label>
           <input type="number" {...register("phone", { required: true })} />
