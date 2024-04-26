@@ -32,7 +32,7 @@ export default function CardsPets({
         <div className=" w-full flex items-center justify-between">
           <p className="text-sm font-normal capitalize">{typeOfAnimal}</p>
           <Link href={`/pets/${slug}`} className=" text-sm font-semibold px-2 py-1 rounded-md bg-violetGrow-500 text-white flex items-center justify-between">
-            Saber mas
+            Saber más
             <Image
               src={"../arrowCard.svg"}
               width={15}
