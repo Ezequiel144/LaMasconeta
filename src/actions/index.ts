@@ -1,25 +1,24 @@
-export * from "./pets/create-update-pet";
-export * from "./pets/get-pet-by-slug";
-export * from "./pets/get-pets";
-export * from "./pets/pets-pagination"
+export { createPost } from "./pets/create-update-pet";
+export { getPetBySlug } from "./pets/get-pet-by-slug";
+export { getPets } from "./pets/get-pets";
+export { getPaginatedProductsWithImages } from "./pets/pets-pagination";
 
-export * from "./province/get-province";
+export { getProvinces } from "./province/get-province";
 
-export * from "./behavior/get-behavior";
+export { getBehaviors } from "./behavior/get-behavior";
 
-export * from "./species/get-species";
+export { getSpecies } from "./species/get-species";
 
-export * from "./howDelivered/get-how-delivered";
+export { getHowDelivered } from "./howDelivered/get-how-delivered";
 
-export * from "./diseases/get-diseases";
+export { getDiseases } from "./diseases/get-diseases";
 
-export * from "./auth/login";
-export * from "./auth/logout";
-export * from "./auth/register";
+export { authenticate } from "./auth/login";
+export { logout } from "./auth/logout";
+export { registerUser } from "./auth/register";
 
+export { getAllPetsUser } from "./users/get-all-pets-user";
+export { putUser } from "./users/put-user";
+export { getUserId } from "./users/get-user-id";
 
-export * from "./users/get-all-pets-user"
-export * from "./users/put-user"
-export * from "./users/get-user-id"
-
-export * from "./agePets/get-age-pets"
+export { agePets } from "./agePets/get-age-pets";
