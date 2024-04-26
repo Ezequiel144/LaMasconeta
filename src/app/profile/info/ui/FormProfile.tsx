@@ -109,17 +109,17 @@ export const FormProfile = ({ user }: FormProfileProps) => {
       {isLoading ? (
         <p>Cargando...</p>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-full flex items-center gap-10">
+        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-y-5 items-center md:items-start">
+          <div className="w-full flex md:items-start lg:items-center gap-10 flex-col lg:flex-row ">
             <Image
               src={imageUrl || "/profile_image_default.webp"}
               alt="Imagen de perfil"
               width={210}
               height={210}
-              className="rounded-full border"
+              className="rounded-full border mx-auto md:m-0"
             />
             <div className=" flex flex-col gap-y-3">
-              <h1 className=" text-4xl font-bold">Mi perfil | Masconeta</h1>
+              <h1 className=" text-4xl font-bold uppercase">Mi perfil | Masconeta</h1>
               <input type="file" onChange={upImage} className="hidden" />
               <button
                 type="button"
@@ -143,11 +143,11 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               </button>
             </div>
           </div>
-          <section className="  flex flex-wrap gap-5 max-w-[770px]">
-            <div className="  flex flex-col max-w-[200px]">
+          <section className="  flex flex-wrap gap-5 max-w-[770px] justify-center md:justify-start">
+            <div className="  flex flex-col w-full sm:max-w-[200px]">
               <label>Nombre:</label>
               <input
-                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none w-full"
                 type="text"
                 id="name"
                 {...register("name", {
@@ -170,10 +170,10 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               register={register}
               title={"Nombre"}
             /> */}
-            <div className="  flex flex-col max-w-[200px]">
+            <div className="  flex flex-col w-full sm:max-w-[200px]">
               <label>Apellido:</label>
               <input
-                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none w-full"
                 type="text"
                 id="lastName"
                 {...register("lastName", {
@@ -196,11 +196,11 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               register={register}
               title={"Apellido"}
             /> */}
-            <div className="  flex flex-col max-w-[200px]">
+            <div className="  flex flex-col w-full sm:max-w-[200px]">
               <label>Género:</label>
               <select
                 {...register("gender")}
-                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none w-full"
                 onChange={handleChangeForm}
                 id="gender"
               >
@@ -210,10 +210,10 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               </select>
               {errors.gender && <p>{errors.gender.message}</p>}
             </div>
-            <div className="  flex flex-col max-w-[200px]">
+            <div className="  flex flex-col w-full sm:max-w-[200px]">
               <label htmlFor="email">Email:</label>
               <input
-                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none w-full"
                 type="email"
                 id="email"
                 {...register("email", {
@@ -236,10 +236,10 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               register={register}
               title={"Email"}
             /> */}
-            <div className="  flex flex-col max-w-[200px]">
+            <div className="  flex flex-col w-full sm:max-w-[200px]">
               <label>Telefono:</label>
               <input
-                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none w-full"
                 type="text"
                 id="phone"
                 {...register("phone", {
