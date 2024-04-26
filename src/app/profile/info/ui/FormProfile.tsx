@@ -10,17 +10,31 @@ import { v4 as uuidv4 } from "uuid";
 import InputsPerfil from "./InputsPerfil/InputsPerfil";
 import { User } from "@/interfaces";
 
-
 const storage = getStorage(app);
 
 interface FormProfileProps {
   user: User | undefined;
 }
 
+interface inputForm {
+  name: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  phone: string;
+}
+
 export const FormProfile = ({ user }: FormProfileProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState<string | undefined>(user?.image);
   const [buttonText, setButtonText] = useState<string>("Subir imagen");
+  const [inputChange, setInputChange] = useState<inputForm>({
+    name: "",
+    lastName: "",
+    gender: "",
+    email: "",
+    phone: "",
+  });
 
   useEffect(() => {
     if (user) {
@@ -83,6 +97,13 @@ export const FormProfile = ({ user }: FormProfileProps) => {
     }
   };
 
+  const handleChangeForm = (e: {
+    target: { id: string; value: string | number | undefined };
+  }) => {
+    const { id, value } = e.target;
+    setInputChange({ ...inputChange, [id]: value });
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -128,12 +149,14 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               <input
                 className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
                 type="text"
+                id="name"
                 {...register("name", {
                   maxLength: {
                     value: 20,
                     message: "El nombre debe tener menos de 20 caracteres",
                   },
                 })}
+                onChange={handleChangeForm}
               />
               {errors.name && <p>{errors.name.message}</p>}
             </div>
@@ -152,16 +175,18 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               <input
                 className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
                 type="text"
+                id="lastName"
                 {...register("lastName", {
                   maxLength: {
                     value: 20,
                     message: "El apellido debe tener menos de 20 caracteres",
                   },
                 })}
+                onChange={handleChangeForm}
               />
               {errors.lastName && <p>{errors.lastName.message}</p>}
             </div>
-           {/*  <InputsPerfil
+            {/*  <InputsPerfil
               type={"text"}
               name={"lastName"}
               sms={"El apellido debe tener menos de 20 caracteres"}
@@ -176,6 +201,8 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               <select
                 {...register("gender")}
                 className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                onChange={handleChangeForm}
+                id="gender"
               >
                 <option value="male">Masculino</option>
                 <option value="female">Femenino</option>
@@ -188,12 +215,14 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               <input
                 className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
                 type="email"
+                id="email"
                 {...register("email", {
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: "Por favor ingrese un correo electrónico válido",
                   },
                 })}
+                onChange={handleChangeForm}
               />
               {errors.email && <p>{errors.email.message}</p>}
             </div>
@@ -212,16 +241,18 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               <input
                 className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
                 type="text"
+                id="phone"
                 {...register("phone", {
                   maxLength: {
                     value: 20,
                     message: "El telefono debe tener menos de 20 digitos",
                   },
                 })}
+                onChange={handleChangeForm}
               />
               {errors.phone && <p>{errors.phone.message}</p>}
             </div>
-            <InputsPerfil
+            {/* <InputsPerfil
               type={"text"}
               name={"phone"}
               sms={"El telefono debe tener menos de 20 digitos"}
@@ -229,10 +260,35 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               errorsMessage={errors?.phone?.message}
               value={20}
               title={"Telefono"}
-            />
+            /> */}
           </section>
 
-          <button type="submit">Guardar</button>
+          {inputChange.name ||
+          inputChange.lastName ||
+          inputChange.gender ||
+          inputChange.email ||
+          inputChange.phone ? (
+            <button
+              type="submit"
+              className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
+            >
+              Guardar
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className=" w-full max-w-[620px] sm:w-fit text-gray-500 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-gray-500 hover:transition-all hover:duration-300"
+              disabled
+            >
+              Guardar
+            </button>
+          )}
+          {/* <button
+            type="submit"
+            className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
+          >
+            Guardar
+          </button> */}
         </form>
       )}
     </div>
