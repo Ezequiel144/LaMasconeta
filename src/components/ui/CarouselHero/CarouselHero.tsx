@@ -27,7 +27,7 @@ export default function CarouselHero() {
               Adopcion lorem lorem
             </h1>
             <div className=" w-full flex justify-center lg:justify-start">
-              <ButtonGeneral> Adoptar Ahora </ButtonGeneral>
+            <ButtonGeneral title="Adoptar Ahora" /> 
             </div>
           </article>
           <Image
@@ -49,7 +49,7 @@ export default function CarouselHero() {
               Adopcion lorem lorem
             </h1>
             <div className=" w-full flex justify-center lg:justify-start">
-              <ButtonGeneral> Adoptar Ahora </ButtonGeneral>
+              <ButtonGeneral title="Adoptar Ahora" /> 
             </div>
           </article>
           <Image

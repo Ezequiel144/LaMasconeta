@@ -2,6 +2,7 @@ import { Providers } from "@/components";
 import { titleFont } from "@/config/fonts";
 import Header from "@/components/ui/Header/Header";
 import "./globals.css";
+import Footer from "@/components/ui/Footer/Footer";
 
 export const metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>
