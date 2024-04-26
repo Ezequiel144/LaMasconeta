@@ -1,20 +1,23 @@
 import { Key } from "react";
 import TitleDetailsGeneral from "../TitleDetailsGeneral/TitleDetailsGeneral";
 
-interface ObjectEnumDiseases {
-  map(arg0: (item: ObjectEnumDiseases) => any): unknown;
-  enumDiseases: any;
+interface Diseases {
   id: string;
   name: string;
 }
 
+interface EnumDiseases {
+  enumDiseases: Diseases;
+
+}
+
 type Props = {
-  postToDiseases: ObjectEnumDiseases;
+  postToDiseases: EnumDiseases[];
 };
 
 export default function DiseasesPet({ postToDiseases }: Props) {
   const listEnumDiseases = postToDiseases.map(
-    (item: ObjectEnumDiseases) => item.enumDiseases
+    (item: EnumDiseases) => item.enumDiseases
   );
 
   return (
