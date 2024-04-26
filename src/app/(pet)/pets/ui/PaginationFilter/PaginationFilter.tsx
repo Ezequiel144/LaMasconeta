@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
 
 type Props = {
   setCurrentPage: (pageNumber: number) => void;
@@ -14,7 +13,7 @@ export default function PaginationFilter({
   maxPage,
 }: Props) {
   console.log(maxPage, currentPage);
-  /* const [showInput,setShowInput] = useState(currentPage) */
+  
   const handleClicNext = () => {
     if (currentPage < maxPage) {
       setCurrentPage(currentPage + 1);

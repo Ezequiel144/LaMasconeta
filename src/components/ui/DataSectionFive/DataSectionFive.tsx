@@ -11,7 +11,6 @@ interface ObjectSecFive {
 interface ObjectInfoContain {
   title: string;
   infoMain: string;
-  textButton: string;
 }
 
 const listSecfive: ObjectSecFive[] = [
@@ -36,43 +35,19 @@ const listSecfive: ObjectSecFive[] = [
 const listInfoContain: ObjectInfoContain[] = [
   {
     title: "Mision",
-    infoMain: `Lorem ipsum dolor sit amet consectetur. Suspendisse vestibulum urna
-      adipiscing ultrices. Risus cras sit auctor vulputate rhoncus. Nisi
-      arcu libero ac non amet ultrices augue mattis cursus. Viverra
-      vulputate luctus volutpat in. Sit rhoncus egestas scelerisque amet
-      quis. Ut justo eu vitae pellentesque nullam. A nam enim nam maecenas
-      tristique lectus eu tortor.`,
-    textButton: "info mision",
+    infoMain: `Nuestra misión es crear un puente de amor entre mascotas necesitadas y hogares amorosos, promoviendo la adopción responsable y el bienestar animal.`,
   },
   {
     title: "Vision",
-    infoMain: `Lorem ipsum dolor sit amet consectetur. Suspendisse vestibulum urna
-      adipiscing ultrices. Risus cras sit auctor vulputate rhoncus. Nisi
-      arcu libero ac non amet ultrices augue mattis cursus. Viverra
-      vulputate luctus volutpat in. Sit rhoncus egestas scelerisque amet
-      quis. Ut justo eu vitae pellentesque nullam. A nam enim nam maecenas
-      tristique lectus eu tortor.`,
-    textButton: "info vision",
+    infoMain: `Nuestra visión es un mundo donde cada mascota recibe el amor y el cuidado que merece, y donde cada hogar encuentra la compañía perfecta.`,
   },
   {
     title: "Nosotros",
-    infoMain: `Lorem ipsum dolor sit amet consectetur. Suspendisse vestibulum urna
-      adipiscing ultrices. Risus cras sit auctor vulputate rhoncus. Nisi
-      arcu libero ac non amet ultrices augue mattis cursus. Viverra
-      vulputate luctus volutpat in. Sit rhoncus egestas scelerisque amet
-      quis. Ut justo eu vitae pellentesque nullam. A nam enim nam maecenas
-      tristique lectus eu tortor.`,
-    textButton: "info nosotros",
+    infoMain: `Somos dos amantes de los animales convertidos en desarrolladores web, dedicados a hacer posible la adopción y la conexión entre mascotas y familias.`,
   },
   {
-    title: "Mision",
-    infoMain: `Lorem ipsum dolor sit amet consectetur. Suspendisse vestibulum urna
-      adipiscing ultrices. Risus cras sit auctor vulputate rhoncus. Nisi
-      arcu libero ac non amet ultrices augue mattis cursus. Viverra
-      vulputate luctus volutpat in. Sit rhoncus egestas scelerisque amet
-      quis. Ut justo eu vitae pellentesque nullam. A nam enim nam maecenas
-      tristique lectus eu tortor.`,
-    textButton: "info mision",
+    title: "Amor",
+    infoMain: `En cada lamida, ronroneo y abrazo, encontramos la verdadera esencia del amor. Celebremos juntos la alegría de compartir nuestras vidas con las mascotas que tanto amamos.`,
   },
 ];
 
@@ -96,18 +71,13 @@ export default function DataSectionFive() {
       />
       <article className="w-fit h-fit px-10 py-12 flex flex-col gap-y-5 bg-white shadow-shadowContainSecFive rounded-xl">
         <div className=" text-center sm:text-left">
-          <TitleGeneralHome>
-            {listInfoContain[isInfoContain]?.title}
-          </TitleGeneralHome>
+          <TitleGeneralHome title={listInfoContain[isInfoContain]?.title} />
         </div>
         <p
           className={`max-w-[650px] text-base font-normal text-center sm:text-left`}
         >
           {listInfoContain[isInfoContain]?.infoMain}
         </p>
-        <ButtonGeneral>
-          {listInfoContain[isInfoContain]?.textButton}
-        </ButtonGeneral>
       </article>
       <article className=" grid grid-cols-2 grid-rows-2 gap-6 md:gap-10 h-fit">
         {listSecfive.map((item, index) => {
