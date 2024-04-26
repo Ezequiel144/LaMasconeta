@@ -57,6 +57,7 @@ export default function InputFilter({
         className="rounded-xl border border-violetGrow-600 p-2 w-full md:w-fit"
         onChange={handleChangeValueOption}
       >
+        <option value="">Cualquiera</option>
         {name !== "Edad"
           ? listData?.map(
               (item: objectListData, index: Key | null | undefined) => {

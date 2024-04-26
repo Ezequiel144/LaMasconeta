@@ -7,7 +7,7 @@ export default function RenderCardAndPagination({ pets }: any) {
   const dimPetsCards = pets.length;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showPorPage, setShowPorPage] = useState<number>(10);
-  const maxPage = Math.round(dimPetsCards / showPorPage);
+  const maxPage = Math.round(dimPetsCards / 10);
   return (
     <section className="flex flex-col items-center">
       <article className=" grid grid-cols-gridResponsiveFilter justify-items-center gap-10 w-full pt-20 lg:px-16">
