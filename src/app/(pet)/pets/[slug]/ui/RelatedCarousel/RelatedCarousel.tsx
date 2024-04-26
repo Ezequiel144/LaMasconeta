@@ -41,8 +41,6 @@ export default function RelatedCarousel() {
   return (
     <Swiper
       className="w-full mt-5 lg:mt-16"
-      spaceBetween={0}
-      slidesPerView={4}
       modules={[Autoplay]}
       autoplay={{ delay: 5000 }}
       spaceBetween={0}

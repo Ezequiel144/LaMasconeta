@@ -357,7 +357,7 @@ export const PetForm = ({
               </div>
             )}
           </div>
-          {imageUrls.length > 0 && (
+          {imageUrls?.length > 0 && (
             <div>
               <p className="text-sm">Imágenes subidas:</p>
               <ul className="grid grid-cols-6">

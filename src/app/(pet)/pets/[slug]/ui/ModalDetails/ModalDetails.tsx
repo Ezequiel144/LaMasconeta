@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-  RadioGroup,
-  Radio,
-} from "@nextui-org/react";
+import sendEmail from "@/utils/sendEmail";
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 import { useState } from "react";
+
+import React, { useRef } from "react";
 
 type Props = {
   isOpen?: boolean;
@@ -54,9 +47,11 @@ export default function ModalDetails({
   idModal,
   user,
 }: Props) {
+  const form: any = useRef<HTMLFormElement | null>();
+
   const [formConsulting, setFormConsulting] = useState({
-    tel: "",
-    sms: "",
+    from_tel: "",
+    message: "",
   });
 
   const [formReport, setFormReport] = useState({
@@ -64,12 +59,9 @@ export default function ModalDetails({
     smsReport: "",
   });
 
-  const [] = useState({});
-
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log("enviado");
-    console.log(formConsulting);
+    sendEmail()
   };
 
   const handleSubmitReport = (e: { preventDefault: () => void }) => {
@@ -90,8 +82,6 @@ export default function ModalDetails({
     setFormReport({ ...formReport, [name]: value });
   };
 
-  /* console.log(formReport) */
-  /* console.log(formConsulting); */
   return (
     <div>
       <Modal
@@ -117,37 +107,63 @@ export default function ModalDetails({
           </ModalHeader>
           <ModalBody>
             {idModal === "ModalConsulting" ? (
-              <form onSubmit={handleSubmit} className=" flex flex-col gap-y-4">
+              <form
+                ref={form}
+                onSubmit={handleSubmit}
+                className=" flex flex-col gap-y-4"
+              >
+                {/* <label>
+                </label> */}
+                {/* <input
+                  type="text"
+                  className=" shadow-shadowInput p-3 rounded-lg border border-violetGrow-700"
+                  name="from_name"
+                  id="from_name"
+                  value={user.name}
+                />
+                <input
+                  type="text"
+                  className=" shadow-shadowInput p-3 rounded-lg border border-violetGrow-700"
+                  name="from_email"
+                  id="from_email"
+                  value={user.email}
+                /> */}
+                {/* <label>
+                </label> */}
                 <label className="flex flex-col">
                   Telefono de contacto
                   <input
                     type="tel"
                     className=" shadow-shadowInput p-3 rounded-lg border border-violetGrow-700"
-                    id="phone"
-                    name="tel"
-                    value={formConsulting.tel}
+                    name="from_tel"
+                    id="from_tel"
+                    value={formConsulting.from_tel}
                     onChange={handleChangeInputsConsulting}
                   />
                 </label>
                 <label className="flex flex-col">
                   Mensaje
                   <textarea
-                    name="sms"
+                    id="message"
+                    name="message"
                     className="border shadow-shadowInput p-3 rounded-lg border-violetGrow-700"
-                    value={formConsulting.sms}
+                    value={formConsulting.message}
                     onChange={handleChangeInputsConsulting}
                   ></textarea>
                 </label>
                 <div className="flex gap-3 items-center justify-end sm:flex-row flex-col">
-                  <button className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white">
-                    Enviar
-                  </button>
                   <div
-                    className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-center text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
+                    className=" cursor-pointer w-full max-w-[620px] sm:w-fit text-red-600 text-center text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-red-600 hover:transition-all hover:duration-300 hover:bg-red-500 hover:text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     Cancelar
                   </div>
+                  <button
+                    type="submit"
+                    className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </form>
             ) : (
@@ -177,15 +193,15 @@ export default function ModalDetails({
                   ></textarea>
                 </label>
                 <div className="flex gap-3 items-center justify-end sm:flex-row flex-col ">
-                  <button className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white">
-                    Enviar
-                  </button>
                   <div
-                    className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-lg text-center font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
+                    className=" cursor-pointer w-full max-w-[620px] sm:w-fit text-red-600 text-center text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-red-600 hover:transition-all hover:duration-300 hover:bg-red-500 hover:text-white"
                     onClick={() => setIsOpen(false)}
                   >
                     Cancelar
                   </div>
+                  <button className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-lg font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white">
+                    Enviar
+                  </button>
                 </div>
               </form>
             )}

@@ -57,6 +57,7 @@ export default function ConditionPet({ postToHowDelivered }: Props) {
                   src={"/conditionOk.svg"}
                   width={21}
                   height={15}
+                  className=" w-auto h-auto"
                   alt="estado ok"
                 />
               ) : (
@@ -64,6 +65,7 @@ export default function ConditionPet({ postToHowDelivered }: Props) {
                   src={"/conditionFalse.svg"}
                   width={13}
                   height={13}
+                  className=" w-auto h-auto"
                   alt="estado false"
                 />
               )}

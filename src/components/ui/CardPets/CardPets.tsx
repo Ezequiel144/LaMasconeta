@@ -18,12 +18,12 @@ export default function CardsPets({
 }: Prop) {
   return (
     <div className=" h-fit w-[280px] rounded-xl relative">
-      <Image src={image} width={280} height={255} alt={name} />
+      <Image src={image} width={280} height={255} className=" w-[280px] h-[255px]" alt={name} />
       <div className=" w-full h-[106px] py-[20px] px-[10px] flex flex-col justify-between relative bottom-5 bg-white rounded-xl shadow-shadowCardPets">
         <h3 className=" text-sm font-semibold uppercase">{name}</h3>
 
         <section className=" flex items-center justify-start gap-x-1">
-            <Image src={"../MapCardUbication.svg"} width={10} height={12} alt="ubicacion"/>
+            <Image src={"/MapCardUbication.svg"} width={10} height={12} className=" w-auto h-auto" alt="ubicacion"/>
           <p className="text-sm font-normal capitalize max-w-[200px] truncate">
             {province},{"ARG"}
           </p>
@@ -37,6 +37,7 @@ export default function CardsPets({
               src={"../arrowCard.svg"}
               width={15}
               height={15}
+              className=" w-auto h-auto"
               alt="ir a detalle de mascota"
             />
           </Link>
