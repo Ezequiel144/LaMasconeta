@@ -116,7 +116,6 @@ export const PetForm = ({
     setValue("diseases", Array.from(selectedDiseases));
   };
 
-  // console.log(userIdAuth);
 
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
@@ -151,21 +150,18 @@ export const PetForm = ({
       }
     }
 
-    // Verificar que behaviors no sea undefined
     if (data.behaviors) {
       data.behaviors.forEach((behavior) => {
         formData.append("behaviors", behavior);
       });
     }
 
-    // Verificar que howDelivered no sea undefined
     if (data.howDelivered) {
       data.howDelivered.forEach((delivered) => {
         formData.append("howDelivered", delivered);
       });
     }
 
-    // Verificar que onHowDeliveredChanged no sea undefined
     if (data.diseases) {
       data.diseases.forEach((disease) => {
         formData.append("diseases", disease);
@@ -195,14 +191,6 @@ export const PetForm = ({
           <label>Nombre:</label>
           <input type="text" {...register("name", { required: true })} />
         </div>
-        {/* <div className="mb-2 flex flex-col">
-          <span>Slug</span>
-          <input
-            type="text"
-            className="rounded-md border bg-gray-200 p-2"
-            {...register("slug", { required: true })}
-          />
-        </div> */}
         <div>
           <label>
             Género:

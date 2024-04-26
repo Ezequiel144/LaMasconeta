@@ -13,9 +13,6 @@ export default async function PetNamePage({ params }: Props) {
   const namePet = params.slug;
 
   const namePetResponse = await getPetBySlug(namePet);
-
-  /* console.log(namePetResponse) */
-
   if (!namePetResponse) {
     notFound();
   }
