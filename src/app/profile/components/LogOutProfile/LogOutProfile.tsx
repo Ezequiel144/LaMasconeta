@@ -3,8 +3,11 @@ import { logout } from "@/actions";
 
 export const LogOutProfile = () => {
   return (
-    <div>
-      <button onClick={() => logout()}>Cerrar sesion</button>
-    </div>
+    <button
+      onClick={() => logout()}
+      className=" px-3 py-1 border border-orangeGrow-600 rounded-lg w-full text-left text-lg font-medium"
+    >
+      Cerrar sesion
+    </button>
   );
 };

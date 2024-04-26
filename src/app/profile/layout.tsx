@@ -14,7 +14,7 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="w-full min-h-screen px-6 py-2 flex">
+    <div className="w-full max-w-7xl mx-auto min-h-screen px-6 py-2 flex gap-x-32 lg:gap-x-28 ">
       <SidebarProfile />
       <div className="w-8/12">{children}</div>
     </div>
