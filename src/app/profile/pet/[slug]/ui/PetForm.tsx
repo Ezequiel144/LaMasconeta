@@ -11,6 +11,7 @@ import {
 } from "@prisma/client";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -33,6 +34,8 @@ export const PetForm = ({
   howDelivered,
   diseases,
 }: Props) => {
+  const router = useRouter();
+
   const {
     handleSubmit,
     register,
@@ -165,7 +168,7 @@ export const PetForm = ({
       });
     }
 
-    const { ok } = await createPost(
+    const { ok, postPet } = await createPost(
       formData,
       data.behaviors,
       data.howDelivered,
@@ -177,6 +180,7 @@ export const PetForm = ({
       alert("Producto no se pudo crear");
       return;
     }
+    router.replace(`/profile/pet/${postPet?.slug}`);
   };
 
   return (

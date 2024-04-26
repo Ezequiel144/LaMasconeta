@@ -120,7 +120,7 @@ export const createPost = async (
     revalidatePath(`/profile/pet/${postData.slug}`);
     revalidatePath(`/profile/pets`);
 
-    return { ok: true, pet: postPet };
+    return { ok: true, postPet: postPet };
   } catch (error) {
     console.log(error);
     return { ok: false, message: "Error al crear el post" };
