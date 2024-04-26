@@ -54,7 +54,7 @@ const listInfoContain: ObjectInfoContain[] = [
 export default function DataSectionFive() {
   const [isInfoContain, setIsInfoContain] = useState(0);
   return (
-    <section className="h-fit lg:h-[620px] mt-16 relative flex lg:flex-row flex-col-reverse items-center justify-around gap-y-7 gap-x-5 px-3">
+    <section className="h-fit lg:h-[620px] mt-16 pb-5 relative flex lg:flex-row flex-col-reverse items-center justify-around gap-y-7 gap-x-5 px-3">
       <Image
         src={"/EllipseBlurOrange.svg"}
         className=" absolute -bottom-20 left-0 -z-10"
@@ -70,7 +70,7 @@ export default function DataSectionFive() {
         alt="Elipse violeta"
       />
       <article className="w-fit h-fit px-10 py-12 flex flex-col gap-y-5 bg-white shadow-shadowContainSecFive rounded-xl">
-        <div className=" text-center sm:text-left">
+        <div className=" flex items-center justify-center sm:justify-start">
           <TitleGeneralHome title={listInfoContain[isInfoContain]?.title} />
         </div>
         <p
