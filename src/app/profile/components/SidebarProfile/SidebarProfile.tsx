@@ -1,5 +1,7 @@
+'use client';
 import Link from "next/link";
 import { LogOutProfile } from "../LogOutProfile/LogOutProfile";
+import { usePathname } from 'next/navigation'
 
 const listLinksUser: {name:string,href:string}[]= [
   {
@@ -17,11 +19,14 @@ const listLinksUser: {name:string,href:string}[]= [
 ]
 
 export const SidebarProfile = () => {
+  const params = usePathname()
+  console.log(params);
+
   return (
     <div className="w-4/12 h-fit flex flex-col gap-y-5 ">
       {listLinksUser.map(item => {
         return(
-          <Link className=" px-3 py-1 border border-orangeGrow-600 rounded-lg w-full text-lg font-medium" key={item.name} href={item.href}>{item.name}</Link>
+          <Link className={` ${params === `${item.href}/info` || params === item.href ? "bg-orangeGrow-300 border-orangeGrow-300 text-white" : "border-orangeGrow-600" } px-3 py-1 border rounded-lg w-full text-lg font-medium hover:bg-orangeGrow-300 hover:border-orangeGrow-300 hover:text-white transition-all duration-300`} key={item.name} href={item.href}>{item.name}</Link>
         )
       })}
       <LogOutProfile/>
