@@ -1,20 +1,20 @@
 -- CreateEnum
+CREATE TYPE "Role" AS ENUM ('admin', 'user');
+
+-- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('male', 'female', 'other');
 
 -- CreateEnum
 CREATE TYPE "ListSpecies" AS ENUM ('perro', 'gato', 'conejo', 'pajaro', 'pez', 'hamster', 'cobayo', 'reptil', 'huron', 'erizo', 'tortuga', 'caballo', 'cerdo', 'cabra', 'otro');
 
 -- CreateEnum
-CREATE TYPE "Size" AS ENUM ('little', 'medium', 'big');
-
--- CreateEnum
-CREATE TYPE "Role" AS ENUM ('admin', 'user');
-
--- CreateEnum
 CREATE TYPE "Adoption" AS ENUM ('adoption', 'adopted');
 
 -- CreateEnum
 CREATE TYPE "Activity" AS ENUM ('low', 'mid', 'high');
+
+-- CreateEnum
+CREATE TYPE "Size" AS ENUM ('little', 'medium', 'big');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -27,7 +27,7 @@ CREATE TABLE "User" (
     "role" "Role" NOT NULL DEFAULT 'user',
     "image" TEXT,
     "phone" TEXT,
-    "gender" "Gender",
+    "gender" "Gender" DEFAULT 'other',
     "enabled" BOOLEAN NOT NULL DEFAULT true,
     "complaints" DOUBLE PRECISION NOT NULL DEFAULT 0,
 
@@ -39,10 +39,10 @@ CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
-    "gender" "Gender" NOT NULL DEFAULT 'other',
-    "statusAdoption" "Adoption" NOT NULL DEFAULT 'adoption',
-    "activity" "Activity" NOT NULL DEFAULT 'mid',
-    "birthdate" TEXT NOT NULL,
+    "gender" "Gender" DEFAULT 'other',
+    "statusAdoption" "Adoption" DEFAULT 'adoption',
+    "activity" "Activity" DEFAULT 'mid',
+    "birthdate" TEXT,
     "age" DOUBLE PRECISION NOT NULL,
     "phone" DOUBLE PRECISION NOT NULL,
     "history" TEXT NOT NULL,
