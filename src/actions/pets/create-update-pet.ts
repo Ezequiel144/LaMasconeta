@@ -1,6 +1,5 @@
 "use server";
 
-import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Activity, Adoption, Gender, Post, Size } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -9,8 +8,8 @@ import { z } from "zod";
 const postSchema = z.object({
   id: z.string().uuid().optional().nullable(),
   userId: z.string(),
-  name: z.string().min(1).max(20).toLowerCase().trim(),
-  slug: z.string().min(3).max(255),
+  name: z.string().min(3).max(20).toLowerCase().trim(),
+  slug: z.string().min(3).max(30),
   gender: z.nativeEnum(Gender),
   statusAdoption: z.nativeEnum(Adoption),
   activity: z.nativeEnum(Activity),
@@ -52,7 +51,6 @@ export const createPost = async (
   }
 
   const postData = postParsed.data;
-  postData.slug = postData.slug.toLowerCase().replace(/ /g, "-").trim();
 
   const { userId, provinceId, speciesId, id, ...rest } = postData;
 
