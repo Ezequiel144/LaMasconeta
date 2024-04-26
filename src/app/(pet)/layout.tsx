@@ -1,5 +1,3 @@
-
-
 // lrc
 export default function ShopLayout({
   children,
@@ -8,8 +6,6 @@ export default function ShopLayout({
 }) {
   return (
     <main className="min-h-screen">
-      {/* <TopMenu />
-      <Sidebar /> */}
       <div className=" sm:px-0">{children}</div>
     </main>
   );

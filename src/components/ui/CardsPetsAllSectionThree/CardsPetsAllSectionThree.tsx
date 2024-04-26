@@ -66,7 +66,7 @@ export default function CardsPetsAllSectionThree({ posts }: Props) {
       ) : (
         <>
           <article className="w-full text-center lg:text-right px-3">
-            <TitleGeneralHome>title lorem lorem</TitleGeneralHome>
+            <TitleGeneralHome title="Adoptanos ❤"/>
           </article>
           <Swiper
             className="w-full"
@@ -123,7 +123,7 @@ export default function CardsPetsAllSectionThree({ posts }: Props) {
             )}
           </Swiper>
           <article className="w-full text-center">
-            <ButtonGeneral>MOSTRAR MAS</ButtonGeneral>
+            <ButtonGeneral title="Mostrar más"/>
           </article>
         </>
       )}

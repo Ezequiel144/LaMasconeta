@@ -1,10 +1,12 @@
-
 type Props = {
-  gender:string;
+  gender: string;
   species: string;
   age: number;
   size: number;
-  weight: number; 
+  weight: number;
+  birthdate: string;
+  statusAdoption: string;
+  activity: string;
 };
 
 export default function DataPets({
@@ -13,6 +15,9 @@ export default function DataPets({
   age,
   size,
   weight,
+  birthdate,
+  statusAdoption,
+  activity,
 }: Props) {
   const listDataPet = [
     {
@@ -29,7 +34,7 @@ export default function DataPets({
     },
     {
       name: "Fecha de nacimiento",
-      data: "12/04/2022",
+      data: birthdate,
     },
     {
       name: "Edad",
@@ -37,11 +42,11 @@ export default function DataPets({
     },
     {
       name: "Estado",
-      data: "En adopcion",
+      data: statusAdoption,
     },
     {
       name: "Nivel de actividad",
-      data: "Baja",
+      data: activity,
     },
     {
       name: "Tamaño",
@@ -61,7 +66,7 @@ export default function DataPets({
           return (
             <div key={name} className="w-fit">
               <h3 className=" text-base font-semibold">{name}</h3>
-              <p className="text-base font-normal">{data}</p>
+              <p className="text-base font-normal capitalize">{data}</p>
             </div>
           );
         })}

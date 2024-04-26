@@ -5,12 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ButtonFilter from "../ButtonFilter/ButtonFilter";
 
-/* cambiar por data por name y value por slug */
 const listOptionsFilterSex: objectListData[] = [
-  /* {
-    slug: " ",
-    name: "Cualquiera",
-  }, */
   {
     slug: "male",
     name: "Macho",

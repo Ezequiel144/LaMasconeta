@@ -26,7 +26,7 @@ export default function DiseasesPet({ postToDiseases }: Props) {
       <article className="flex flex-row flex-wrap gap-4">
         {listEnumDiseases?.map((item: any,index: Key | null | undefined) => {
           return (
-            <div key={index} className=" text-white text-base font-medium w-fit h-fit px-2 py-1 bg-orangeGrow-300 border-l-2 border-r-2 rounded-se-lg rounded-bl-lg border-orange-700">
+            <div key={index} className=" text-white text-base font-medium w-fit h-fit px-2 py-1 bg-orangeGrow-300 border-l-2 border-r-2 rounded-se-lg rounded-bl-lg border-orange-700 capitalize">
               { item.name }
             </div>
           );

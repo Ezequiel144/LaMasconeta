@@ -5,29 +5,28 @@ import React from "react";
 
 export const PageNotFound = () => {
   return (
-    <div className="flex h-[600px] w-full flex-col-reverse items-center  justify-center align-middle md:flex-row">
-      <div className="mx-5 px-5 text-center">
-        <h2 className={`${titleFont.className} text-9xl antialiased`}>404</h2>
-        <p className="text-xl font-semibold">Whoops! Lo sentimos mucho</p>
-        <p className="font-light">
-          <span>Puedes regresar al </span>
-          <Link
-            href={"/"}
-            className="font-normal transition-all hover:underline"
-          >
-            Inicio
-          </Link>
-        </p>
-      </div>
-      <div className="mx-5 px-5 ">
+    <div className=" h-[600px] w-full flex flex-col items-center  justify-center align-middle gap-10">
+      <div className="mx-3 px-3 ">
         <Image
-          src={"/imgs/starman_750x750.png"}
+          src={"/pageNotFound.svg"}
           alt="Starman"
           className="p-5 sm:p-0 "
-          width={550}
-          height={550}
+          width={300}
+          height={300}
         />
       </div>
+      <h2 className={`${titleFont.className} text-3xl antialiased`}>
+        Página no encontrada
+      </h2>
+      <span>
+        Lo siento, no pudimos encontrar la página que estabas buscando
+      </span>
+      <Link
+        href={"/"}
+        className={`${titleFont.className} border font-bold antialiased border-violetGrow-600 p-2 rounded-2xl text-violetGrow-600`}
+      >
+        <span>Ir al inicio</span>
+      </Link>
     </div>
   );
 };

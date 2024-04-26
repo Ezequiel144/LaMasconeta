@@ -14,21 +14,17 @@ export default function ConscientiouslyMessageSectionFour() {
       />
       <article className=" h-full flex flex-col justify-center gap-y-5 items-center lg:items-start max-w-[730px] w-full lg:w-[50%]">
         <div className="text-center">
-          <TitleGeneralHome>Title lorem text</TitleGeneralHome>
+          <TitleGeneralHome title="Toma conciencia a la hora de adoptar" />
         </div>
         <ParagraphGeneral>
-          Lorem ipsum dolor sit amet consectetur. Suspendisse vestibulum urna
-          adipiscing ultrices. Risus cras sit auctor vulputate rhoncus. Nisi
-          arcu libero ac non amet ultrices augue mattis cursus. Viverra
-          vulputate luctus volutpat in. Sit rhoncus egestas scelerisque amet
-          quis. Ut justo eu vitae pellentesque nullam. A nam enim nam maecenas
-          tristique lectus eu tortor. Maecenas id nulla ut euismod quisque nisi.
-          Vestibulum aenean enim malesuada nunc sem hendrerit. Id augue nibh
-          nascetur euismod sit in tortor. Eu viverra urna molestie convallis
-          massa nulla dictum eget cursus. Erat et ac turpis a.
+          Al adoptar, no solo estás cambiando la vida de un animal, estás
+          cambiando la tuya también. Estás dando a un ser necesitado una segunda
+          oportunidad y recibiendo amor incondicional a cambio. Adopta con
+          conciencia y descubre cómo un pequeño gesto puede marcar una gran
+          diferencia en el mundo.
         </ParagraphGeneral>
-        <div className=" lg:text-left text-center w-full">
-          <ButtonGeneral>lorem button</ButtonGeneral>
+        <div className=" lg:text-left text-center w-full flex justify-center items-center">
+          <ButtonGeneral title="Adopta" />
         </div>
       </article>
     </section>
