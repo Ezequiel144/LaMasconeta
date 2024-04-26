@@ -19,7 +19,7 @@ export default function CarouselHero() {
     >
       <SwiperSlide>
         <div className=" flex flex-col-reverse lg:flex-row items-center justify-between gap-y-3">
-          <article className="flex flex-col gap-y-8 lg:pl-20">
+          <article className="flex flex-col gap-y-8 lg:pl-20  px-3 sm:px-0">
             <h4 className=" text-violetGrow-700 font-bold text-base lg:text-xl text-center lg:text-left">
               lorem lorem lorem lorem
             </h4>
@@ -41,7 +41,7 @@ export default function CarouselHero() {
       </SwiperSlide>
       <SwiperSlide>
         <div className=" flex flex-col-reverse lg:flex-row items-center justify-between gap-y-3">
-          <article className="flex flex-col gap-y-8 lg:pl-20">
+          <article className="flex flex-col gap-y-8 lg:pl-20 px-3 sm:px-0">
             <h4 className=" text-violetGrow-700 font-bold text-base lg:text-xl text-center lg:text-left">
               lorem lorem lorem lorem
             </h4>

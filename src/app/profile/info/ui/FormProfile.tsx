@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import InputsPerfil from "./InputsPerfil/InputsPerfil";
 import { User } from "@/interfaces";
+import { Button } from "@nextui-org/react";
 
 const storage = getStorage(app);
 
@@ -107,9 +108,14 @@ export const FormProfile = ({ user }: FormProfileProps) => {
   return (
     <div>
       {isLoading ? (
-        <p>Cargando...</p>
+        <Button color="primary" isLoading>
+          Cargando..
+        </Button>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-y-5 items-center md:items-start">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" flex flex-col gap-y-5 items-center md:items-start"
+        >
           <div className="w-full flex md:items-start lg:items-center gap-10 flex-col lg:flex-row ">
             <Image
               src={imageUrl || "/profile_image_default.webp"}
@@ -119,7 +125,9 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               className="rounded-full border mx-auto md:m-0"
             />
             <div className=" flex flex-col gap-y-3">
-              <h1 className=" text-4xl font-bold uppercase">Mi perfil | Masconeta</h1>
+              <h1 className=" text-4xl font-bold uppercase">
+                Mi perfil | Masconeta
+              </h1>
               <input type="file" onChange={upImage} className="hidden" />
               <button
                 type="button"
