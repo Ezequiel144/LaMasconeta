@@ -122,7 +122,8 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               alt="Imagen de perfil"
               width={210}
               height={210}
-              className="rounded-full border mx-auto md:m-0"
+              objectFit="cover"
+              className="rounded-full border mx-auto md:m-0 w-[210px] h-[210px]"
             />
             <div className=" flex flex-col gap-y-3">
               <h1 className=" text-4xl font-bold uppercase">
@@ -138,12 +139,13 @@ export const FormProfile = ({ user }: FormProfileProps) => {
                     ) as HTMLInputElement
                   )?.click()
                 }
-                disabled={buttonText !== "Subir imagen"}
+                /* disabled={buttonText !== "Subir imagen"} */
                 className={clsx(
-                  "px-4 py-2 rounded-md text-white transition-colors duration-300",
+                  "w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white",
                   {
-                    "bg-blue-500": buttonText === "Subir imagen",
-                    "bg-green-500": buttonText === "Imagen subida",
+                    "bg-white": buttonText === "Subir imagen",
+                    "bg-violetGrow-700 text-white":
+                      buttonText === "Imagen subida",
                   }
                 )}
               >
@@ -275,7 +277,8 @@ export const FormProfile = ({ user }: FormProfileProps) => {
           inputChange.lastName ||
           inputChange.gender ||
           inputChange.email ||
-          inputChange.phone ? (
+          inputChange.phone ||
+          imageUrl ? (
             <button
               type="submit"
               className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
@@ -291,12 +294,6 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               Guardar
             </button>
           )}
-          {/* <button
-            type="submit"
-            className=" w-full max-w-[620px] sm:w-fit text-violetGrow-700 text-xl font-semibold uppercase px-[15px] py-[10px] rounded-lg border-2 border-violetGrow-700 hover:transition-all hover:duration-300 hover:bg-violetGrow-700 hover:text-white"
-          >
-            Guardar
-          </button> */}
         </form>
       )}
     </div>
