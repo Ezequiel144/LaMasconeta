@@ -8,8 +8,6 @@ export default async function PetsUsersPage() {
   const userId = session!.user.id;
 
   const pets = await getAllPetsUser(userId);
-
-  // console.log(pets);
   
   return (
     <div>
