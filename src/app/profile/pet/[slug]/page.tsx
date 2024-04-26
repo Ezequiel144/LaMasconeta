@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { PetForm } from "./ui/PetForm";
 import { auth } from "@/auth";
 
+
 interface Props {
   params: {
     slug: string;
@@ -33,6 +34,10 @@ export default async function Profile({ params }: Props) {
   const userIdAuth = session?.user.id;
 
   if (!pet && slug !== "new") {
+    redirect("/profile/pets");
+  }
+
+  if (pet && pet.userId !== userIdAuth) {
     redirect("/profile/pets");
   }
 

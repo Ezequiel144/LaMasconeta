@@ -1,10 +1,11 @@
 "use server";
 
+import { PetData } from "@/interfaces/petData";
 import { prisma } from "@/lib/prisma";
 
-export const getPetBySlug = async (slug: string) => {
+export const getPetBySlug = async (slug: string): Promise<PetData | null> => {
   try {
-    const petId = await prisma.post.findFirst({
+    const pet = await prisma.post.findFirst({
       where: {
         slug,
       },
@@ -16,10 +17,10 @@ export const getPetBySlug = async (slug: string) => {
             lastName: true,
             email: true,
             image: true,
-            posts: { 
-              select: { 
+            posts: {
+              select: {
                 id: true,
-              } 
+              },
             },
           },
         },
@@ -42,8 +43,10 @@ export const getPetBySlug = async (slug: string) => {
         },
       },
     });
-    return petId;
+
+    return pet;
   } catch (error) {
-    return [];
+    console.error("Error fetching pet:", error);
+    return null;
   }
 };
