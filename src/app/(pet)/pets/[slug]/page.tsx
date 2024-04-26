@@ -1,6 +1,7 @@
 import { getPetBySlug } from "@/actions";
 import ContainAllDetails from "./ui/ContainAllDetails/ContainAllDetails";
 import RelatedCarousel from "./ui/RelatedCarousel/RelatedCarousel";
+import { notFound } from "next/navigation";
 
 interface Props {
   params: {
@@ -15,15 +16,13 @@ export default async function PetNamePage({ params }: Props) {
 
   /* console.log(namePetResponse) */
 
-  if(!namePetResponse){
-    return(
-      <div>El id buscado no existe</div> /* Ponerlo con page error */
-    )
+  if (!namePetResponse) {
+    notFound();
   }
 
   return (
     <main className=" w-full min-h-screen px-3 ">
-      <ContainAllDetails namePetResponse={namePetResponse}/>
+      <ContainAllDetails namePetResponse={namePetResponse} />
       <RelatedCarousel />
     </main>
   );
