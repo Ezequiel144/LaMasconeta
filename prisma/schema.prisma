@@ -75,7 +75,7 @@ model User {
   role          Role      @default(user)
   image         String?
   phone         String?
-  gender        Gender?
+  gender        Gender?   @default(other)
   posts         Post[]
   enabled       Boolean   @default(true)
   complaints    Float     @default(0)
