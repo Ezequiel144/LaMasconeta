@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
+  
   try {
     const body = await req.json();
     const { to, subject, text, html } = body;
@@ -15,13 +16,13 @@ export async function POST(req: NextRequest) {
         pass: "nqmepexgvfepyfgr",
       },
     });
-
+    const papaaa = "mauri@mauri.com"
     const info = await transporter.sendMail({
-      from: '"Maddison Foo Koch 👻" <mongar.dev@gmail.com>',
-      to: to,
-      subject: subject,
-      text: text,
-      html: html,
+      from: `Maddison Foo Koch 👻 ${papaaa} `,/* quien lo envia */
+      to: to,/* a quien lo recive (creo la publicaicon)*/
+      subject: subject,/* asunto (Esta interesado en adoptar) */
+      text: text, /* mensaje */
+      html: html, /* estructura html */
     });
 
     console.log("Correo electrónico enviado:", info.messageId);
