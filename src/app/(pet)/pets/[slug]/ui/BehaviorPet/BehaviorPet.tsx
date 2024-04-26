@@ -26,7 +26,7 @@ export default function BehaviorPet({ postToEnumBehavior }: Props) {
           return (
             <div
               key={index}
-              className=" text-white text-base font-medium w-fit h-fit px-2 py-1 bg-violetGrow-300 border-l-2 border-r-2 rounded-se-lg rounded-bl-lg border-violetGrow-700"
+              className=" text-white text-base font-medium w-fit h-fit px-2 py-1 bg-violetGrow-300 border-l-2 border-r-2 rounded-se-lg rounded-bl-lg border-violetGrow-700 capitalize"
             >
               {item.name}
             </div>
