@@ -8,8 +8,11 @@ export const getAllPetsUser = async (id: string) => {
       where: {
         userId: id,
       },
+      include: {
+        province: true,
+        species: true,
+      },
     });
-    console.log(allPets);
 
     return allPets;
   } catch (error) {

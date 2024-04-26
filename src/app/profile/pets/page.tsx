@@ -1,5 +1,7 @@
 import { getAllPetsUser } from "@/actions";
 import { auth } from "@/auth";
+import { Title } from "@/components";
+import { ContainerPetsProfile } from "./ui/ContainerPetsProfile";
 
 export default async function PetsUsersPage() {
   const session = await auth();
@@ -7,9 +9,12 @@ export default async function PetsUsersPage() {
 
   const pets = await getAllPetsUser(userId);
 
+  // console.log(pets);
+  
   return (
     <div>
-      <pre>{JSON.stringify(pets, null, 2)}</pre>
+      <Title title="Mis publicaciones" />
+      <ContainerPetsProfile pets={pets} />
     </div>
   );
 }
