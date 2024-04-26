@@ -11,6 +11,7 @@ import {
 } from "@prisma/client";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
@@ -33,6 +34,8 @@ export const PetForm = ({
   howDelivered,
   diseases,
 }: Props) => {
+  const router = useRouter();
+
   const {
     handleSubmit,
     register,
@@ -43,14 +46,18 @@ export const PetForm = ({
   } = useForm<FormInputs>({
     defaultValues: {
       ...pet,
-      behaviors: [],
-      howDelivered: [],
-      diseases: [],
+
+      behaviors:
+        pet.postToEnumBehavior?.map((item: any) => item.enumBehavior.id) ?? [],
+      howDelivered:
+        pet.postToHowDelivered?.map((item: any) => item.howDelivered.id) ?? [],
+      diseases:
+        pet.postToDiseases?.map((item: any) => item.enumDiseases.id) ?? [],
+      images: pet.photos ?? [],
     },
   });
   const [loading, setLoading] = useState(false);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
-
+  const [imageUrls, setImageUrls] = useState<string[]>(pet.photos);
   const fileHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = Array.from(e.target.files || []);
     setLoading(true);
@@ -75,7 +82,10 @@ export const PetForm = ({
         setLoading(false);
       });
   };
-  watch(["behaviors", "howDelivered", "diseases"]);
+
+  console.log(pet);
+
+  watch(["behaviors", "howDelivered", "diseases", "images"]);
 
   const onBehaviorChanged = (behaviorId: string) => {
     const selectedBehaviors = new Set(getValues("behaviors"));
@@ -107,9 +117,16 @@ export const PetForm = ({
     setValue("diseases", Array.from(selectedDiseases));
   };
 
+  console.log(pet);
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
 
+    if (pet.id) {
+      formData.append("id", pet.id ?? "");
+    }
+    if (pet.user.id) {
+      formData.append("userId", pet.user.id ?? "");
+    }
     formData.append("name", data.name);
     formData.append("slug", data.slug);
     formData.append("gender", data.gender);
@@ -123,6 +140,12 @@ export const PetForm = ({
     formData.append("size", data.size.toString());
     formData.append("provinceId", data.provinceId);
     formData.append("speciesId", data.speciesId);
+
+    if (data.images) {
+      for (let i = 0; i < data.images.length; i++) {
+        formData.append("images", data.images[i]);
+      }
+    }
 
     // Verificar que behaviors no sea undefined
     if (data.behaviors) {
@@ -145,7 +168,7 @@ export const PetForm = ({
       });
     }
 
-    const { ok } = await createPost(
+    const { ok, postPet } = await createPost(
       formData,
       data.behaviors,
       data.howDelivered,
@@ -157,6 +180,7 @@ export const PetForm = ({
       alert("Producto no se pudo crear");
       return;
     }
+    router.replace(`/profile/pet/${postPet?.slug}`);
   };
 
   return (
@@ -247,7 +271,7 @@ export const PetForm = ({
         <div className="mb-2 flex flex-col">
           <span>Comportamientos</span>
           <div className="flex flex-wrap">
-            {behaviors.map((behavior) => (
+            {behaviors.map((behavior: Behavior) => (
               <div
                 key={behavior.id}
                 onClick={() => onBehaviorChanged(behavior.id)}
@@ -272,8 +296,8 @@ export const PetForm = ({
                 onClick={() => onHowDeliveredChanged(delivered.id)}
                 className={`mb-2 mr-2 w-40 cursor-pointer rounded-md border p-2 text-center transition-all capitalize ${
                   getValues("howDelivered").includes(delivered.id)
-                    ? "bg-blue-500 text-white" // Aquí asignamos la clase CSS si el valor está seleccionado
-                    : "bg-gray-200" // Aquí asignamos la clase CSS si el valor no está seleccionado
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
                 }`}
               >
                 <span>{delivered.name}</span>
@@ -351,7 +375,7 @@ export const PetForm = ({
           )}
         </div>
 
-        <button>Crear Mascota</button>
+        <button>Guardar</button>
       </form>
     </div>
   );

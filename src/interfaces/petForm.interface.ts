@@ -1,4 +1,6 @@
 export interface FormInputs {
+  id: string;
+  userId: string;
   name: string;
   slug: string;
   gender: "male" | "female" | "other";
@@ -16,4 +18,5 @@ export interface FormInputs {
   behaviors: string[];
   howDelivered: string[];
   diseases: string[];
+  images?: string[];
 }

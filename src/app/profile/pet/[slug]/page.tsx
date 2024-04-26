@@ -28,11 +28,11 @@ export default async function Profile({ params }: Props) {
       getDiseases(),
     ]);
 
-    
   if (!pet && slug !== "new") {
     redirect("/profile/pets");
   }
 
+  
   const title = slug === "new" ? "Nueva publicación" : "Editar publicación";
 
   return (
