@@ -26,13 +26,13 @@ export default function CardPetsProfile({
   species,
 }: PetData) {
   return (
-    <div className=" h-60  w-[240px] rounded-xl relative">
+    <div className=" h-[320px]  w-[240px] rounded-xl relative">
       <Image
         src={photos[0]}
         width={240}
         height={200}
         alt={name}
-        className="w-full h-full rounded-lg"
+        className="w-[240px] h-[200px] rounded-lg"
       />
       <div className=" w-full py-3 px-3 flex flex-col justify-between relative bottom-5 bg-white rounded-lg shadow-shadowCardPets gap-y-2">
         <h2 className=" text-sm font-semibold uppercase">{name}</h2>
