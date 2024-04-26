@@ -9,6 +9,7 @@ import {
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import { PetForm } from "./ui/PetForm";
+import { auth } from "@/auth";
 
 interface Props {
   params: {
@@ -28,11 +29,13 @@ export default async function Profile({ params }: Props) {
       getDiseases(),
     ]);
 
+  const session = await auth();
+  const userIdAuth = session?.user.id;
+
   if (!pet && slug !== "new") {
     redirect("/profile/pets");
   }
 
-  
   const title = slug === "new" ? "Nueva publicación" : "Editar publicación";
 
   return (
@@ -41,6 +44,7 @@ export default async function Profile({ params }: Props) {
 
       <PetForm
         pet={pet ?? {}}
+        userIdAuth={userIdAuth ?? ""}
         provinces={provinces}
         behaviors={behaviors}
         species={species}

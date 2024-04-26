@@ -19,6 +19,7 @@ const storage = getStorage(app);
 
 export interface Props {
   pet: any;
+  userIdAuth: string;
   provinces: Province[];
   behaviors: Behavior[];
   species: Species[];
@@ -28,6 +29,7 @@ export interface Props {
 
 export const PetForm = ({
   pet,
+  userIdAuth,
   provinces,
   behaviors,
   species,
@@ -46,7 +48,6 @@ export const PetForm = ({
   } = useForm<FormInputs>({
     defaultValues: {
       ...pet,
-
       behaviors:
         pet.postToEnumBehavior?.map((item: any) => item.enumBehavior.id) ?? [],
       howDelivered:
@@ -83,8 +84,6 @@ export const PetForm = ({
       });
   };
 
-  console.log(pet);
-
   watch(["behaviors", "howDelivered", "diseases", "images"]);
 
   const onBehaviorChanged = (behaviorId: string) => {
@@ -117,18 +116,23 @@ export const PetForm = ({
     setValue("diseases", Array.from(selectedDiseases));
   };
 
-  console.log(pet);
+  // console.log(userIdAuth);
+
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
+    const slug = data.name.toLowerCase().replace(/ /g, "-").trim();
 
-    if (pet.id) {
+    if (pet?.id) {
       formData.append("id", pet.id ?? "");
     }
-    if (pet.user.id) {
-      formData.append("userId", pet.user.id ?? "");
+    if (pet?.user?.id) {
+      formData.append("userId", pet.user.id);
+    } else {
+      formData.append("userId", userIdAuth);
     }
+
     formData.append("name", data.name);
-    formData.append("slug", data.slug);
+    formData.append("slug", slug);
     formData.append("gender", data.gender);
     formData.append("statusAdoption", data.statusAdoption);
     formData.append("activity", data.activity);
@@ -176,7 +180,6 @@ export const PetForm = ({
       data.photos
     );
 
-    
     if (!ok) {
       alert("Producto no se pudo crear");
       return;
@@ -187,20 +190,19 @@ export const PetForm = ({
 
   return (
     <div>
-      <h1>Crear nueva mascota</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Nombre:</label>
           <input type="text" {...register("name", { required: true })} />
         </div>
-        <div className="mb-2 flex flex-col">
+        {/* <div className="mb-2 flex flex-col">
           <span>Slug</span>
           <input
             type="text"
             className="rounded-md border bg-gray-200 p-2"
             {...register("slug", { required: true })}
           />
-        </div>
+        </div> */}
         <div>
           <label>
             Género:
@@ -357,7 +359,7 @@ export const PetForm = ({
               </div>
             )}
           </div>
-          {imageUrls.length > 0 && (
+          {imageUrls?.length > 0 && (
             <div>
               <p className="text-sm">Imágenes subidas:</p>
               <ul className="grid grid-cols-6">
