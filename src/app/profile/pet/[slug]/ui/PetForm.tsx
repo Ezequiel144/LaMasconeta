@@ -176,10 +176,12 @@ export const PetForm = ({
       data.photos
     );
 
+    
     if (!ok) {
       alert("Producto no se pudo crear");
       return;
     }
+
     router.replace(`/profile/pet/${postPet?.slug}`);
   };
 
