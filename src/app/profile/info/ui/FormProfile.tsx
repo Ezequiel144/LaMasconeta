@@ -7,17 +7,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
-const storage = getStorage(app);
+import InputsPerfil from "./InputsPerfil/InputsPerfil";
+import { User } from "@/interfaces";
 
-interface User {
-  id: string;
-  name: string;
-  lastName: string;
-  email: string;
-  image?: string | undefined;
-  phone: string;
-  gender: string;
-}
+
+const storage = getStorage(app);
 
 interface FormProfileProps {
   user: User | undefined;
@@ -99,12 +93,12 @@ export const FormProfile = ({ user }: FormProfileProps) => {
             <Image
               src={imageUrl || "/profile_image_default.webp"}
               alt="Imagen de perfil"
-              width={150}
-              height={150}
+              width={210}
+              height={210}
               className="rounded-full border"
             />
-            <div>
-              <h1>Mi perfil | Masconeta</h1>
+            <div className=" flex flex-col gap-y-3">
+              <h1 className=" text-4xl font-bold">Mi perfil | Masconeta</h1>
               <input type="file" onChange={upImage} className="hidden" />
               <button
                 type="button"
@@ -128,68 +122,115 @@ export const FormProfile = ({ user }: FormProfileProps) => {
               </button>
             </div>
           </div>
-
-          <div>
-            <label>Nombre:</label>
-            <input
-              type="text"
-              {...register("name", {
-                maxLength: {
-                  value: 20,
-                  message: "El nombre debe tener menos de 20 caracteres",
-                },
-              })}
+          <section className="  flex flex-wrap gap-5 max-w-[770px]">
+            <div className="  flex flex-col max-w-[200px]">
+              <label>Nombre:</label>
+              <input
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                type="text"
+                {...register("name", {
+                  maxLength: {
+                    value: 20,
+                    message: "El nombre debe tener menos de 20 caracteres",
+                  },
+                })}
+              />
+              {errors.name && <p>{errors.name.message}</p>}
+            </div>
+            {/* <InputsPerfil
+              type={"text"}
+              name={"name"}
+              sms={"El nombre debe tener menos de 20 caracteres"}
+              errors={errors?.name}
+              errorsMessage={errors?.name?.message}
+              value={20}
+              register={register}
+              title={"Nombre"}
+            /> */}
+            <div className="  flex flex-col max-w-[200px]">
+              <label>Apellido:</label>
+              <input
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                type="text"
+                {...register("lastName", {
+                  maxLength: {
+                    value: 20,
+                    message: "El apellido debe tener menos de 20 caracteres",
+                  },
+                })}
+              />
+              {errors.lastName && <p>{errors.lastName.message}</p>}
+            </div>
+           {/*  <InputsPerfil
+              type={"text"}
+              name={"lastName"}
+              sms={"El apellido debe tener menos de 20 caracteres"}
+              errors={errors?.lastName}
+              errorsMessage={errors?.lastName?.message}
+              value={20}
+              register={register}
+              title={"Apellido"}
+            /> */}
+            <div className="  flex flex-col max-w-[200px]">
+              <label>Género:</label>
+              <select
+                {...register("gender")}
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+              >
+                <option value="male">Masculino</option>
+                <option value="female">Femenino</option>
+                <option value="other">Otro</option>
+              </select>
+              {errors.gender && <p>{errors.gender.message}</p>}
+            </div>
+            <div className="  flex flex-col max-w-[200px]">
+              <label htmlFor="email">Email:</label>
+              <input
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                type="email"
+                {...register("email", {
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Por favor ingrese un correo electrónico válido",
+                  },
+                })}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
+            </div>
+            {/* <InputsPerfil
+              type={"email"}
+              name={"email"}
+              sms={"Por favor ingrese un correo electrónico válido"}
+              errors={errors?.email}
+              errorsMessage={errors?.email?.message}
+              value={/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i}
+              register={register}
+              title={"Email"}
+            /> */}
+            <div className="  flex flex-col max-w-[200px]">
+              <label>Telefono:</label>
+              <input
+                className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
+                type="text"
+                {...register("phone", {
+                  maxLength: {
+                    value: 20,
+                    message: "El telefono debe tener menos de 20 digitos",
+                  },
+                })}
+              />
+              {errors.phone && <p>{errors.phone.message}</p>}
+            </div>
+            <InputsPerfil
+              type={"text"}
+              name={"phone"}
+              sms={"El telefono debe tener menos de 20 digitos"}
+              errors={errors?.phone}
+              errorsMessage={errors?.phone?.message}
+              value={20}
+              title={"Telefono"}
             />
-            {errors.name && <p>{errors.name.message}</p>}
-          </div>
-          <div>
-            <label>Apellido:</label>
-            <input
-              type="text"
-              {...register("lastName", {
-                maxLength: {
-                  value: 20,
-                  message: "El apellido debe tener menos de 20 caracteres",
-                },
-              })}
-            />
-            {errors.lastName && <p>{errors.lastName.message}</p>}
-          </div>
-          <div>
-            <label>Género:</label>
-            <select {...register("gender")}>
-              <option value="male">Masculino</option>
-              <option value="female">Femenino</option>
-              <option value="other">Otro</option>
-            </select>
-            {errors.gender && <p>{errors.gender.message}</p>}
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              {...register("email", {
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Por favor ingrese un correo electrónico válido",
-                },
-              })}
-            />
-            {errors.email && <p>{errors.email.message}</p>}
-          </div>
-          <div>
-            <label>Telefono:</label>
-            <input
-              type="text"
-              {...register("phone", {
-                maxLength: {
-                  value: 20,
-                  message: "El telefono debe tener menos de 20 digitos",
-                },
-              })}
-            />
-            {errors.phone && <p>{errors.phone.message}</p>}
-          </div>
+          </section>
 
           <button type="submit">Guardar</button>
         </form>

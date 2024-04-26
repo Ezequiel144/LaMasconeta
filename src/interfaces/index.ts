@@ -11,3 +11,5 @@ export * from "./petForm.interface";
 export * from "./filterParams.interface";
 
 export * from "./userProfile.interface"
+
+export * from "./user.interface"
