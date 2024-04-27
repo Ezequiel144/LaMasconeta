@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
@@ -69,11 +69,10 @@ export default function RelatedCarousel() {
           <SwiperSlide key={index}>
             <article className=" flex items-center justify-around h-fit">
               <CardsPets
+                image={image}
                 name={name}
                 province={province}
-                location={location}
                 typeOfAnimal={typeOfAnimal}
-                image={image}
               />
             </article>
           </SwiperSlide>

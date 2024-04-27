@@ -1,7 +1,6 @@
-'use client'
+"use client";
 import { User } from "@/interfaces";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-
 
 type Props = {
   type: string;
@@ -30,15 +29,12 @@ export default function InputsPerfil({
       <input
         className="mb-5 rounded-xl border bg-white px-3 py-2 border-violetGrow-700 shadow-shadowInput outline-none"
         type={type}
-        {...register(
-          {name},
-          {
-            maxLength: {
-              value: { value },
-              message: { sms },
-            },
-          }
-        )}
+        {...register("name", {
+          maxLength: {
+            value: value,
+            message: sms,
+          },
+        })}
       />
       {errors && <p>{errorsMessage}</p>}
     </div>
