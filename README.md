@@ -1,20 +1,5 @@
-# Descripción
+# La Masconeta
 
-
-## Correr en dev
-
-1. Instalar las dependencias ```npm install```.
-2. Levantar la base de datos ```docker compose up -d```.
-3. Cambiar el nombre del archivo .env.example a .env
-4. Comentar la URL_BASE de supabase del .env y descomentar la de local
-5. Correr las migraciones de Prisma ```npx prisma migrate dev -n [nombre que quiera]```
-6. Generar prima ```npx prisma generate```
-7. Limpiar el localStorage del navegador/Cookies.
-8. Correr el proyecto ```npm run dev```.
-
-## Correr en prod
-1. Instalar las dependencias ```npm install```.
-2. Generar prima ```npx prisma generate```
-3. Limpiar el localStorage del navegador/Cookies.
-4. Correr el proyecto ```npm run dev```.
-
+- Figma: https://www.figma.com/file/R6bWmZQSOJtKZ4ukDlkntf/Adopcion-de-mascotas?type=design&node-id=24%3A870&mode=design&t=1zlorYCgf5bEYOBO-1
+- Figjam: https://www.figma.com/file/f1T5rtZGJ1vdDL5S5tHlbr/Ideas-para-el-proyecto-del-RInconDelDev?type=whiteboard&node-id=37%3A2000&t=EFzw1gDTTlIdfeCt-1
+- Notion: https://www.notion.so/cc105ad9131440ba81a81202a9a2917e?v=bf174aa36e304f95a5082b9ef19a331c&pvs=4
