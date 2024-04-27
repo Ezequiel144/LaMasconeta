@@ -15,10 +15,6 @@ const listMenu: ListMenu[] = [
     name: "Idea del proyecto",
     href: "/",
   },
-  {
-    name: "FAC",
-    href: "/",
-  },
 ];
 
 const listFooterSession: ListMenu[] = [
@@ -64,7 +60,9 @@ export default function Footer() {
           </div>
         </article>
         <article className=" text-white flex md:flex-col gap-3 flex-row flex-wrap justify-center md:justify-start">
-          <h3 className=" uppercase text-lg font-medium hidden md:block">Menu</h3>
+          <h3 className=" uppercase text-lg font-medium hidden md:block">
+            Menu
+          </h3>
           {listMenu.map((item) => (
             <Link
               key={item.name}
@@ -76,7 +74,9 @@ export default function Footer() {
           ))}
         </article>
         <article className=" text-white flex md:flex-col gap-3 flex-row flex-wrap">
-          <h3 className=" uppercase text-lg font-medium hidden md:block">Ingresar</h3>
+          <h3 className=" uppercase text-lg font-medium hidden md:block">
+            Ingresar
+          </h3>
           {listFooterSession.map((item) => (
             <Link
               key={item.name}
@@ -91,17 +91,27 @@ export default function Footer() {
       </section>
       <div className="w-full border border-white"></div>
       <section className=" flex items-center justify-between text-white md:flex-row flex-col gap-y-4">
-        <article className="text-center md:text-left">
-          Creado por{" "}
-          <Link href="#" className="text-base font-semibold">
+        <article className="text-center md:text-left flex gap-x-2">
+          Creado por:
+          <Link
+            href="https://www.linkedin.com/in/ezequiel-ulises-garcia-b23585266/"
+            className="text-base font-semibold"
+            target="_blank"
+          >
             EZEQUIEL GARCIA
-          </Link>{" "}
-          -{" "}
-          <Link href="#" className="text-base font-semibold">
+          </Link>
+          <span> - </span>
+          <Link
+            href="https://www.linkedin.com/in/mauricio-monzon/"
+            className="text-base font-semibold"
+            target="_blank"
+          >
             MAURICIO MONZON
           </Link>
         </article>
-        <article className="text-center md:text-left">capyright 2024 LaMasconeta</article>
+        <article className="text-center md:text-left">
+          ©2024 - LaMasconeta
+        </article>
       </section>
     </footer>
   );
