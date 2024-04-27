@@ -59,9 +59,8 @@ export default function ModalDetails({
     smsReport: "",
   });
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    sendEmail()
   };
 
   const handleSubmitReport = (e: { preventDefault: () => void }) => {
