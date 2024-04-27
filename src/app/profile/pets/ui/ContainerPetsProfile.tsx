@@ -27,7 +27,7 @@ export const ContainerPetsProfile = ({ pets }: ContainerPetsProfileProps) => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-6">
+    <div className="flex flex-wrap gap-6">
       {pets.map((pet: PetData) => (
         <CardPetsProfile
           key={pet.slug}

@@ -195,8 +195,8 @@ export default function FilterContain({
         />
       </section>
       <section className=" flex flex-col md:flex-row gap-5 items-center justify-center w-full px-3 md:px-0">
-        <ButtonFilter functionQuery={queryFilter()}>Buscar</ButtonFilter>
-        <ButtonFilter href="/pets">Limpiar</ButtonFilter>
+        <ButtonFilter functionQuery={queryFilter()} setValueOption={() => setValueOption}>Buscar</ButtonFilter>
+        <ButtonFilter href="/pets" setValueOption={() => setValueOption}>Limpiar</ButtonFilter>
       </section>
     </form>
   );

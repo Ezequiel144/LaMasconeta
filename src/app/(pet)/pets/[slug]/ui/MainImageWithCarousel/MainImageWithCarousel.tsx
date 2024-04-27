@@ -6,8 +6,8 @@ import { useState } from "react";
 import { objectImageCarousel } from "@/interfaces";
 
 type Props = {
-  photos: string[]
-}
+  photos: string[];
+};
 
 const listImageCarousel: objectImageCarousel[] = [
   {
@@ -41,7 +41,7 @@ export default function MainImageWithCarousel({ photos }: Props) {
   const [indexCarousel, setIndexCarousel] = useState<number>(0);
   return (
     <section className=" flex flex-col w-full gap-y-3">
-      {photos?.map((item, index) => {
+      {/* {photos?.map((item, index) => {
         return (
           <div key={index}>
             {index === indexCarousel && (
@@ -56,7 +56,14 @@ export default function MainImageWithCarousel({ photos }: Props) {
             )}
           </div>
         );
-      })}
+      })} */}
+      <Image
+        src={photos[indexCarousel]}
+        width={490}
+        height={490}
+        className={`mx-auto rounded-3xl border w-[490px] h-[490px] object-cover`}
+        alt={`imagen  ${indexCarousel + 1}`}
+      />
 
       {/* carrusel */}
 
@@ -80,7 +87,7 @@ export default function MainImageWithCarousel({ photos }: Props) {
                 src={item}
                 width={70}
                 height={70}
-                className="mx-auto border rounded-2xl"
+                className="mx-auto border rounded-2xl w-[70px] h-[70px] object-cover cursor-pointer"
                 alt={`imagen carrusel numero ${index + 1}`}
                 onClick={() => setIndexCarousel(index)}
               />
