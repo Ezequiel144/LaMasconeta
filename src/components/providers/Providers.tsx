@@ -1,6 +1,5 @@
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
-import { useEffect, useState } from "react";
 
 interface Props {
   children: React.ReactNode;
