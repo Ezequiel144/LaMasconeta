@@ -36,7 +36,6 @@ export default function ContainAllDetails({ namePetResponse }: Props) {
     birthdate,
     postToHowDelivered,statusAdoption,activity
   } = namePetResponse;
-  console.log(namePetResponse);
 
   return (
     <div className="flex flex-col md:flex-row gap-x-8">
