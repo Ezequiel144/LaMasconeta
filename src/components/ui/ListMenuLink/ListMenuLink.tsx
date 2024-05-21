@@ -12,10 +12,7 @@ const listMenu: ListMenu[] = [
     name: "Mascotas",
     href: "/pets",
   },
-/*   {
-    name: "Idea del proyecto",
-    href: "/idea",
-  }, */
+
 ];
 
 export default function ListMenuLink() {

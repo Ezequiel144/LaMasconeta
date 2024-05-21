@@ -1,8 +1,8 @@
 import { Providers } from "@/components";
-import { titleFont } from "@/config/fonts";
-import Header from "@/components/ui/Header/Header";
-import "./globals.css";
 import Footer from "@/components/ui/Footer/Footer";
+import Header from "@/components/ui/Header/Header";
+import { titleFont } from "./config/fonts";
+import "./globals.css";
 
 export const metadata = {
   title: {
